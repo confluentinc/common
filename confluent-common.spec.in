@@ -45,7 +45,7 @@ exit 0
 
 %files
 %defattr(-,root,root)
-/usr/share/confluent-common
+/usr/share/java/confluent-common
 /usr/share/doc/confluent-common
 
 %clean
