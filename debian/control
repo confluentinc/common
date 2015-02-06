@@ -9,7 +9,5 @@ Homepage: http://confluent.io
 
 Package: confluent-common
 Architecture: all
-Depends: java6-runtime, ${java:Depends}, ${misc:Depends}
-Recommends: ${java:Recommends}
 Description: Confluent utilites for Java
  Confluent Common is a set of utilities for writing Java services
