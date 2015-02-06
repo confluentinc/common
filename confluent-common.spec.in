@@ -11,8 +11,6 @@ Vendor: Confluent, Inc.
 Packager: Ewen Cheslack-Postava <ewen@confluent.io>
 BuildArch: noarch
 
-Requires: java >= 1.6
-
 %description
 
 Confluent Common provides shared utilities for Java projects.
