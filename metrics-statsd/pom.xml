@@ -28,7 +28,7 @@
 
     <artifactId>metrics-statsd</artifactId>
     <packaging>jar</packaging>
-    <name>metrics</name>
+    <name>metrics-statsd</name>
 
     <dependencies>
         <dependency>
