@@ -28,6 +28,7 @@
             <directory>${project.parent.basedir}</directory>
             <outputDirectory>share/doc/confluent-common/</outputDirectory>
             <includes>
+                <include>version.txt</include>
                 <include>README*</include>
                 <include>LICENSE*</include>
                 <include>NOTICE*</include>
