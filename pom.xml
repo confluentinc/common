@@ -44,7 +44,7 @@
 
     <properties>
         <slf4j.version>1.7.21</slf4j.version>
-        <zkclient.version>0.5</zkclient.version>
+        <zkclient.version>0.9</zkclient.version>
         <junit.version>4.11</junit.version>
         <easymock.version>3.0</easymock.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
