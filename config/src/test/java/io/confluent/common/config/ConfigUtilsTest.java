@@ -21,6 +21,8 @@ import org.junit.Test;
 import java.util.Properties;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 public class ConfigUtilsTest {
   @Test
@@ -35,9 +37,9 @@ public class ConfigUtilsTest {
     props.setProperty("blah", "blah");
     props.put("unexpected.non.string.object", new Integer(42));
     Properties newProps = ConfigUtils.translateDeprecated(props, new String[][]{
-        { "foo.bar", "foo.bar.deprecated" },
-        { "chicken", "rooster", "hen" },
-        { "cow", "beef", "heifer", "steer" }
+        {"foo.bar", "foo.bar.deprecated"},
+        {"chicken", "rooster", "hen"},
+        {"cow", "beef", "heifer", "steer"}
     });
     assertEquals("baz", newProps.getProperty("foo.bar"));
     assertEquals(null, newProps.getProperty("foo.bar.deprecated"));
@@ -61,5 +63,49 @@ public class ConfigUtilsTest {
     assertEquals(new Integer(42), newProps.get("unexpected.non.string.object"));
     assertEquals(null, props.getProperty("unexpected.non.string.object"));
     assertEquals(new Integer(42), props.get("unexpected.non.string.object"));
+
+  }
+
+  @Test
+  public void testAllowsNewKey() throws Exception {
+    Properties props = new Properties();
+    props.setProperty("foo.bar", "baz");
+    Properties newProps = ConfigUtils.translateDeprecated(props, new String[][]{
+        {"foo.bar", "foo.bar.deprecated"},
+        {"chicken", "rooster", "hen"},
+        {"cow", "beef", "heifer", "steer"}
+    });
+    assertNotNull(newProps);
+    assertEquals("baz", newProps.getProperty("foo.bar"));
+    assertNull(newProps.getProperty("foo.bar.deprecated"));
+  }
+
+  @Test
+  public void testDuplicateSynonyms() throws Exception {
+    Properties props = new Properties();
+    props.setProperty("foo.bar", "baz");
+    props.setProperty("foo.bar.deprecated", "derp");
+    Properties newProps = ConfigUtils.translateDeprecated(props, new String[][]{
+        {"foo.bar", "foo.bar.deprecated"},
+        {"chicken", "foo.bar.deprecated"}
+    });
+    assertNotNull(newProps);
+    assertEquals("baz", newProps.getProperty("foo.bar"));
+    assertEquals("derp", newProps.getProperty("chicken"));
+    assertNull(newProps.getProperty("foo.bar.deprecated"));
+  }
+
+  @Test
+  public void testMultipleDeprecations() throws Exception {
+    Properties props = new Properties();
+    props.setProperty("foo.bar.deprecated", "derp");
+    props.setProperty("foo.bar.even.more.deprecated", "very old configuration");
+    Properties newProps = ConfigUtils.translateDeprecated(props, new String[][]{
+        {"foo.bar", "foo.bar.deprecated", "foo.bar.even.more.deprecated"}
+    });
+    assertNotNull(newProps);
+    assertEquals("derp", newProps.getProperty("foo.bar"));
+    assertNull(newProps.getProperty("foo.bar.deprecated"));
+    assertNull(newProps.getProperty("foo.bar.even.more.deprecated"));
   }
 }
