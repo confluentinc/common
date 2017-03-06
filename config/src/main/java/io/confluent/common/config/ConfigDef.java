@@ -66,7 +66,7 @@ import java.util.Set;
  */
 public class ConfigDef {
 
-  private static final Object NO_DEFAULT_VALUE = new String("");
+  private static final Object NO_DEFAULT_VALUE = "";
 
   private final Map<String, ConfigKey> configKeys = new HashMap<String, ConfigKey>();
 
@@ -97,7 +97,7 @@ public class ConfigDef {
       throw new ConfigException("Configuration " + name + " is defined twice.");
     }
     Object parsedDefault =
-        defaultValue == NO_DEFAULT_VALUE ? NO_DEFAULT_VALUE : parseType(name, defaultValue, type);
+        NO_DEFAULT_VALUE.equals(defaultValue) ? NO_DEFAULT_VALUE : parseType(name, defaultValue, type);
     configKeys
         .put(name, new ConfigKey(name, type, parsedDefault, validator, importance, documentation));
     return this;
@@ -237,7 +237,7 @@ public class ConfigDef {
       Object value;
       if (props.containsKey(key.name)) {
         value = parseType(key.name, props.get(key.name), key.type);
-      } else if (key.defaultValue == NO_DEFAULT_VALUE) {
+      } else if (NO_DEFAULT_VALUE.equals(key.defaultValue)) {
         throw new ConfigException(
             "Missing required configuration \"" + key.name + "\" which has no default value.");
       } else {
