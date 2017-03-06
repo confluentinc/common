@@ -76,9 +76,10 @@ public class ConfigUtils {
         // No deprecated key(s) found.
         continue;
       }
-      String synonymString = deprecated.get(0);
+      StringBuilder synonymString = new StringBuilder(deprecated.get(0));
       for (int i = 1; i < deprecated.size(); i++) {
-        synonymString += ", " + deprecated.get(i);
+        synonymString.append(", ");
+        synonymString.append(deprecated.get(i));
       }
       if (props.containsKey(target)) {
         // Ignore the deprecated key(s) because the actual key was set.
