@@ -233,8 +233,7 @@ public class AbstractConfig {
     if (propsFile == null) {
       return props;
     }
-    try {
-      FileInputStream propStream = new FileInputStream(propsFile);
+    try (FileInputStream propStream = new FileInputStream(propsFile)) {
       props.load(propStream);
     } catch (IOException e) {
       throw new ConfigException("Couldn't load properties from " + propsFile, e);
