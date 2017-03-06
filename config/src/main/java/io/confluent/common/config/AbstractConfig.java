@@ -38,6 +38,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Properties;
 import java.util.Set;
 
@@ -67,9 +68,9 @@ public class AbstractConfig {
   @SuppressWarnings("unchecked")
   public AbstractConfig(ConfigDef definition, Map<?, ?> originals) {
         /* check that all the keys are really strings */
-    for (Object key : originals.keySet()) {
-      if (!(key instanceof String)) {
-        throw new ConfigException(key.toString(), originals.get(key), "Key must be a string.");
+    for (Entry<?, ?> entry : originals.entrySet()) {
+      if (!(entry.getKey() instanceof String)) {
+        throw new ConfigException(entry.getKey().toString(), entry.getValue(), "Key must be a string.");
       }
     }
     this.originals = (Map<String, ?>) originals;
