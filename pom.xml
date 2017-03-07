@@ -43,6 +43,7 @@
     </licenses>
 
     <properties>
+        <!--jacoco prepare-agent needs argLine defined to set this variable. if we don't have a default set then maven gets angry.-->
         <argLine></argLine>
         <slf4j.version>1.7.21</slf4j.version>
         <junit.version>4.11</junit.version>
