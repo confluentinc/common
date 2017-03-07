@@ -45,15 +45,15 @@
     <properties>
         <!--jacoco prepare-agent needs argLine defined to set this variable. if we don't have a default set then maven gets angry.-->
         <argLine></argLine>
-        <slf4j.version>1.7.21</slf4j.version>
-        <junit.version>4.11</junit.version>
         <easymock.version>3.4</easymock.version>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <findbugs-maven-plugin.version>3.0.1</findbugs-maven-plugin.version>
+        <jacoco-maven-plugin.version>0.7.9</jacoco-maven-plugin.version>
+        <junit.version>4.11</junit.version>
         <maven-compiler-plugin.version>2.5.1</maven-compiler-plugin.version>
         <maven-surefire-plugin.version>2.18.1</maven-surefire-plugin.version>
         <maven-jar-plugin.version>2.6</maven-jar-plugin.version>
-        <jacoco-maven-plugin.version>0.7.9</jacoco-maven-plugin.version>
-        <findbugs-maven-plugin.version>3.0.1</findbugs-maven-plugin.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <slf4j.version>1.7.21</slf4j.version>
         <zkclient.version>0.10</zkclient.version>
         <zookeeper.version>3.4.8</zookeeper.version>
     </properties>
