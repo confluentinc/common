@@ -30,8 +30,6 @@
     <properties>
     </properties>
 
-    <version>3.2.1-SNAPSHOT</version>
-    <groupId>io.confluent</groupId>
     <artifactId>common-utils</artifactId>
     <packaging>jar</packaging>
     <name>utils</name>
@@ -40,7 +38,6 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-            <version>${slf4j.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.zookeeper</groupId>
