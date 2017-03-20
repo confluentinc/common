@@ -65,7 +65,7 @@ public abstract class AbstractPerformanceTest {
   /**
    * Run the performance test, trying to achieve the target rate returned by
    * {@link #getTargetIterationRate(int, float)}.
-   * @throws InterruptedException
+   * @throws InterruptedException if interrupted
    */
   protected void run() throws InterruptedException {
     long sleepDeficitNs = 0;
@@ -118,7 +118,7 @@ public abstract class AbstractPerformanceTest {
    * Run the performance test and try to hit a fixed target rate. If you use this method, you
    * should not override the {@link #getTargetIterationRate(int, float)} method.
    * @param iterationsPerSec target number of iterations per second
-   * @throws InterruptedException
+   * @throws InterruptedException if interrupted
    */
   protected void run(long iterationsPerSec) throws InterruptedException {
     targetIterationRate = iterationsPerSec;

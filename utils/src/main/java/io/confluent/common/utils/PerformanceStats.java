@@ -67,7 +67,8 @@ public class PerformanceStats {
       this.latencies[index] = latency;
       this.index++;
     }
-            /* maybe report the recent perf */
+
+    /* maybe report the recent perf */
     if (time - windowStart >= reportingInterval) {
       printWindow();
       newWindow();
@@ -85,7 +86,8 @@ public class PerformanceStats {
     double recsPerSec = 1000.0 * windowCount / (double) elapsed;
     double mbPerSec = 1000.0 * this.windowBytes / (double) elapsed / (1024.0 * 1024.0);
     System.out.printf(
-        "%d records processed, %.1f records/sec (%.2f MB/sec), %.1f ms avg latency, %.1f max latency.\n",
+        "%d records processed, %.1f records/sec (%.2f MB/sec), "
+        + "%.1f ms avg latency, %.1f max latency.\n",
         windowCount,
         recsPerSec,
         mbPerSec,
@@ -107,7 +109,8 @@ public class PerformanceStats {
     double mbPerSec = 1000.0 * this.bytes / (double) elapsed / (1024.0 * 1024.0);
     int[] percs = percentiles(this.latencies, index, 0.5, 0.95, 0.99, 0.999);
     System.out.printf(
-        "%d records processed, %f records/sec (%.2f MB/sec), %.2f ms avg latency, %.2f ms max latency, %d ms 50th, %d ms 95th, %d ms 99th, %d ms 99.9th.\n",
+        "%d records processed, %f records/sec (%.2f MB/sec), %.2f ms avg latency, "
+        + "%.2f ms max latency, %d ms 50th, %d ms 95th, %d ms 99th, %d ms 99.9th.\n",
         count,
         recsPerSec,
         mbPerSec,
