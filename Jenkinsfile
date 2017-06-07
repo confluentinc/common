@@ -37,9 +37,9 @@ node('docker-openjdk7-wily') {
 
     if ($env.BRANCH_NAME.contains('/pull/')) {
       if (currentBuild.currentResult == 'SUCCESS') {
-        githubNotify description: 'tests passed',  status: currentBuild.currentResult
+        githubNotify description: 'tests passed :)',  status: currentBuild.currentResult
       } else {
-        githubNotify description: 'tests failed',  status: currentBuild.currentResult
+        githubNotify description: 'tests failed :(',  status: currentBuild.currentResult
       }
     }
 
