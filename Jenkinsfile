@@ -1,5 +1,9 @@
 #!/usr/bin/env groovy
 
+properties([
+    pipelineTriggers([cron('@daily'), pollSCM('*/5 * * * *')]),
+])
+
 node('docker-openjdk7-wily') {
   stage('Preparation') {
     checkout scm
@@ -35,7 +39,7 @@ node('docker-openjdk7-wily') {
         break;
     }
 
-    if ($env.BRANCH_NAME.contains('/pull/')) {
+    if (env.BRANCH_NAME.contains('/pull/')) {
       if (currentBuild.currentResult == 'SUCCESS') {
         githubNotify description: 'tests passed :)',  status: currentBuild.currentResult
       } else {
