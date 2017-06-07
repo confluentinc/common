@@ -1,3 +1,5 @@
+#!/usr/bin/env groovy
+
 node('docker-openjdk7-wily') {
   stage('Preparation') {
     checkout scm
@@ -18,7 +20,7 @@ node('docker-openjdk7-wily') {
     step([$class: 'hudson.plugins.findbugs.FindBugsPublisher', pattern: '**/findbugsXml.xml'])
     archive 'target/*.jar'
 
-    switch(currentBuild.currentResult) {
+    switch (currentBuild.currentResult) {
       case 'SUCCESS':
         if (currentBuild.previousBuild != null && currentBuild.previousBuild.currentResult != 'SUCCESS') {
           slackSend(channel: '#clients-eng', color: 'good', message: "${env.JOB_NAME} - #[${env.BUILD_NUMBER}] Success <${env.BUILD_URL}|(Open)>", teamDomain: 'confluent')
@@ -28,8 +30,18 @@ node('docker-openjdk7-wily') {
         slackSend(channel: '#clients-eng', color: 'YELLOW', message: "${env.JOB_NAME} - #[${env.BUILD_NUMBER}] Unstable <${env.BUILD_URL}|(Open)>", teamDomain: 'confluent')
         break;
       case 'FAILURE':
+      default:
         slackSend(channel: '#clients-eng', color: 'bad', message: "${env.JOB_NAME} - #[${env.BUILD_NUMBER}] Failure <${env.BUILD_URL}|(Open)>", teamDomain: 'confluent')
         break;
     }
+
+    if ($env.BRANCH_NAME.contains('/pull/')) {
+      if (currentBuild.currentResult == 'SUCCESS') {
+        githubNotify description: 'tests passed',  status: currentBuild.currentResult
+      } else {
+        githubNotify description: 'tests failed',  status: currentBuild.currentResult
+      }
+    }
+
   }
 }
