@@ -1,7 +1,22 @@
 #!/usr/bin/env groovy
 
 properties([
-    pipelineTriggers([cron('@daily'), pollSCM('*/5 * * * *')]),
+    pipelineTriggers(
+      [
+        cron('@daily'),
+        pollSCM('H/5 * * * *'),
+        githubPullRequest {
+          admins(['aayars', 'ewencp', 'norwood'])
+          userWhitelist(['aayars', 'ewencp', 'norwood'])
+          orgWhitelist('confluentinc')
+          cron('H/5 * * * *')
+          triggerPhrase('OK to test')
+          onlyTriggerPhrase()
+          useGitHubHooks()
+          allowMembersOfWhitelistedOrgsAsAdmin()
+        }
+      ]
+    ),
 ])
 
 node('docker-openjdk7-wily') {
