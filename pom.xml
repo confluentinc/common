@@ -333,7 +333,7 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${maven-surefire-plugin.version}</version>
                 <configuration>
-                    <argLine>@{argLine} -Djava.awt.headless=true</argLine>
+                    <argLine>@{argLine} -Djava.awt.headless=true -Dtests.security.manager=false</argLine>
                 </configuration>
                 <executions>
                     <execution>
