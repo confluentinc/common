@@ -376,10 +376,15 @@
                     <!-- by default failsafe only includes class names that start or end in IT,
                          we use regular test class names with @Category and the group above -->
                     <includes>
+                        <!-- defaults copied from maven-surefire-plugin -->
                         <include>**/Test*.java</include>
                         <include>**/*Test.java</include>
                         <include>**/*Tests.java</include>
                         <include>**/*TestCase.java</include>
+                        <!-- maven-failsafe-plugin defaults -->
+                        <include>**/IT*.java</include>
+                        <include>**/*IT.java</include>
+                        <include>**/*ITCase.java</include>
                     </includes>
                 </configuration>
                 <executions>
