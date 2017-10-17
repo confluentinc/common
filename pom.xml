@@ -546,7 +546,7 @@
                             <sourceDirectory>${project.build.sourceDirectory}</sourceDirectory>
                             <encoding>UTF-8</encoding>
                             <consoleOutput>true</consoleOutput>
-                            <failsOnError>true</failsOnError>
+                            <failsOnError>false</failsOnError>
                             <failOnViolation>true</failOnViolation>
                             <includeResources>false</includeResources>
                             <includeTestResources>false</includeTestResources>
