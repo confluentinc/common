@@ -91,6 +91,9 @@ public class HistogramTest {
     for (int i = 0; i < 10; i++) {
       assertEquals(scheme.fromBin(i + 1), hist.value(i / 10.0 + EPS), EPS);
     }
+    assertEquals("{-Infinity:0,-5.0000000000:1,-4.0000000000:1,-3.0000000000:1,-2.0000000000:1," +
+        "-1.0000000000:1,0.0000000000:1,1.0000000000:1,2.0000000000:1,3.0000000000:1" +
+        ",4.0000000000:1,Infinity:0.0}", hist.toString());
   }
 
   @Test
