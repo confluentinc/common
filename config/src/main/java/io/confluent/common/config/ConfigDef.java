@@ -340,12 +340,12 @@ public class ConfigDef {
           if (value instanceof Map) {
             return value;
           } else if (value instanceof String) {
-            if(trimmed.isEmpty()) {
+            if (trimmed.isEmpty()) {
               return Collections.emptyMap();
             } else {
               Map<String, String> map = new HashMap<>();
               List<String> entries = Arrays.asList(trimmed.split("\\s*,\\s*", -1));
-              for ( String entry : entries) {
+              for (String entry : entries) {
                 String[] keyValue = entry.split("\\s*:\\s*", -1);
                 if (keyValue.length != 2) {
                   throw new ConfigException("Map entry should be of form <key>:<value");

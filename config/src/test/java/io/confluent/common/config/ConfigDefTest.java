@@ -67,7 +67,8 @@ public class ConfigDefTest {
         .define("h", Type.BOOLEAN, ConfigDef.Importance.HIGH, "docs")
         .define("i", Type.BOOLEAN, ConfigDef.Importance.HIGH, "docs")
         .define("j", Type.PASSWORD, ConfigDef.Importance.HIGH, "docs")
-        .define("k", Type.MAP, ConfigDef.Importance.HIGH, "docs");
+        .define("k", Type.MAP, ConfigDef.Importance.HIGH, "docs")
+        .define("l", Type.MAP, ConfigDef.Importance.HIGH, "docs");
 
     Properties props = new Properties();
     props.put("a", "1   ");
@@ -80,6 +81,7 @@ public class ConfigDefTest {
     props.put("i", "TRUE");
     props.put("j", "password");
     props.put("k", "k1:v1,k2:v2");
+    props.put("l", "k1:v1");
 
     Map<String, Object> vals = def.parse(props);
     assertEquals(1, vals.get("a"));
@@ -99,6 +101,12 @@ public class ConfigDefTest {
       }
     };
     assertEquals(expectedMap, vals.get("k"));
+    expectedMap = new HashMap(){
+      {
+        put("k1","v1");
+      }
+    };
+    assertEquals(expectedMap, vals.get("l"));
   }
 
   @Test
