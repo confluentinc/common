@@ -117,6 +117,10 @@ public class AbstractConfig {
     return (Password) get(key);
   }
 
+  public Map<String, String> getMap(String key) {
+    return (Map<String, String>) get(key);
+  }
+
   public Class<?> getClass(String key) {
     return (Class<?>) get(key);
   }

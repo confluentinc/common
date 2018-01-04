@@ -336,6 +336,27 @@ public class ConfigDef {
           } else {
             throw new ConfigException(name, value, "Expected a comma separated list.");
           }
+        case MAP:
+          if (value instanceof Map) {
+            return value;
+          } else if (value instanceof String) {
+            if(trimmed.isEmpty()) {
+              return Collections.emptyMap();
+            } else {
+              Map<String, String> map = new HashMap<>();
+              List<String> entries = Arrays.asList(trimmed.split("\\s*,\\s*", -1));
+              for ( String entry : entries) {
+                String[] keyValue = entry.split("\\s*:\\s*", -1);
+                if (keyValue.length != 2) {
+                  throw new ConfigException("Map entry should be of form <key>:<value");
+                }
+                map.put(keyValue[0], keyValue[1]);
+              }
+              return map;
+            }
+          } else {
+            throw new ConfigException(name, value, "Expected a comma separated Map entries.");
+          }
         case CLASS:
           if (value instanceof Class) {
             return (Class<?>) value;
@@ -358,7 +379,7 @@ public class ConfigDef {
    * The config types
    */
   public enum Type {
-    BOOLEAN, STRING, INT, LONG, DOUBLE, LIST, CLASS, PASSWORD
+    BOOLEAN, STRING, INT, LONG, DOUBLE, LIST, CLASS, PASSWORD, MAP
   }
 
   public enum Importance {
