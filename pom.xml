@@ -105,12 +105,12 @@
     </scm>
 
     <modules>
+        <module>assembly-plugin-boilerplate</module>
         <module>build-tools</module>
         <module>metrics</module>
         <module>config</module>
         <module>utils</module>
         <module>package</module>
-        <module>assembly-plugin-boilerplate</module>
         <module>utility-belt</module>
         <module>base</module>
         <module>parent</module>
