@@ -8,5 +8,5 @@ docker_oraclejdk8 {
     dockerRepos = ['confluentinc/cp-base']
     slackChannel = '#clients-eng'
     nodeLabel = 'docker-openjdk7'
-    withPush = true
+    dockerPush = true
 }
