@@ -109,10 +109,10 @@
         <module>config</module>
         <module>utils</module>
         <module>package</module>
-        <module>parent</module>
         <module>assembly-plugin-boilerplate</module>
         <module>utility-belt</module>
         <module>base</module>
+        <module>parent</module>
     </modules>
 
     <repositories>
