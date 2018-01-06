@@ -310,6 +310,14 @@
 
     <dependencies>
         <dependency>
+            <groupId>io.confluent</groupId>
+            <artifactId>assembly-plugin-boilerplate</artifactId>
+            <version>${confluent.version}</version>
+            <classifier>resources</classifier>
+            <type>zip</type>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-log4j12</artifactId>
             <scope>test</scope>
