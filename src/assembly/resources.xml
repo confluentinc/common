@@ -9,7 +9,7 @@
             <directory>../src/assembly</directory>
             <outputDirectory></outputDirectory>
             <includes>
-                <include>package.xml</include>
+                <include>common-docker-package.xml</include>
             </includes>
         </fileSet>
     </fileSets>
