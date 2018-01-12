@@ -750,6 +750,7 @@
                                     <goal>java</goal>
                                 </goals>
                                 <configuration>
+                                    <skip>${docker.skip-build}</skip>
                                     <mainClass>io.confluent.licenses.LicenseFinder</mainClass>
                                     <arguments>
                                         <!-- Note use of development instead of package so we pick up all dependencies.
