@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2015 Confluent Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,7 +14,7 @@
  * limitations under the License.
  **/
 
-/**
+/*
  * Original license:
  *
  * Licensed to the Apache Software Foundation (ASF) under one or more
