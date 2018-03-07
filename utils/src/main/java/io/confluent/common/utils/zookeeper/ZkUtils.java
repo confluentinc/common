@@ -105,28 +105,26 @@ public class ZkUtils {
                                                     ConditionalUpdateCallback customConditionCallback) {
     try {
       Stat stat = client.writeDataReturnStat(path, data, expectedVersion);
-      log.debug(
-          "Conditional update of path %s with value %s and expected version %d succeeded, returning the new version: %d"
-              .format(path, data, expectedVersion, stat.getVersion()));
+      log.debug(String.format("Conditional update of path %s with value %s " +
+              "and expected version %d succeeded, returning the new version: %d",
+          path, data, expectedVersion, stat.getVersion()));
       return stat.getVersion();
     } catch (ZkBadVersionException bve) {
       if (customConditionCallback != null) {
         return customConditionCallback.checker(client, path, data);
       } else {
-        log.warn(("Conditional update of path %s with data %s and expected version %d failed due to " 
-                  + "%s. When there is a ConnectionLossException during the conditional update, " 
-                  + "ZkClient will retry the update and may fail since the previous update may have " 
-                  + "succeeded (but the stored zkVersion no longer matches the expected one). " 
-                  + "In this case, the customConditionCallback is required to further check if the " 
-                  + "previous write did indeed succeed, but was not passed in here.")
-                     .format(path, data,
-                             expectedVersion, bve.getMessage()));
+        log.warn(String.format("Conditional update of path %s with data %s and expected version %d failed due to "
+                + "%s. When there is a ConnectionLossException during the conditional update, "
+                + "ZkClient will retry the update and may fail since the previous update may have "
+                + "succeeded (but the stored zkVersion no longer matches the expected one). "
+                + "In this case, the customConditionCallback is required to further check if the "
+                + "previous write did indeed succeed, but was not passed in here.",
+            path, data, expectedVersion, bve.getMessage()));
         return -1;
       }
     } catch (Exception e) {
-      log.warn("Conditional update of path %s with data %s and expected version %d failed due to %s"
-                   .format(path, data,
-                           expectedVersion, e.getMessage()));
+      log.warn(String.format("Conditional update of path %s with data %s and expected version %d failed due to %s",
+          path, data, expectedVersion, e.getMessage()));
       return -1;
     }
   }
