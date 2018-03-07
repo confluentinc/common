@@ -52,10 +52,9 @@ public class Avg extends SampledStat {
   public double combine(List<Sample> samples, MetricConfig config, long now) {
     double total = 0.0;
     long count = 0;
-    for (int i = 0; i < samples.size(); i++) {
-      Sample s = samples.get(i);
-      total += s.value;
-      count += s.eventCount;
+    for (Sample sample : samples) {
+      total += sample.value;
+      count += sample.eventCount;
     }
     return total / count;
   }

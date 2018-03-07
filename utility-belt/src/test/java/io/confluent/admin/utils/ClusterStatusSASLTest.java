@@ -39,7 +39,6 @@ public class ClusterStatusSASLTest {
 
   private static EmbeddedKafkaCluster kafka;
 
-
   @BeforeClass
   public static void setup() throws IOException {
     Configuration.setConfiguration(null);
@@ -48,7 +47,6 @@ public class ClusterStatusSASLTest {
     kafka.start();
   }
 
-
   @AfterClass
   public static void tearDown() {
     kafka.shutdown();
@@ -56,7 +54,7 @@ public class ClusterStatusSASLTest {
 
   @Test(timeout = 120000)
   public void zookeeperReadyWithSASL() throws Exception {
-    assertThat(ClusterStatus.isZookeeperReady(this.kafka.getZookeeperConnectString(), 10000))
+    assertThat(ClusterStatus.isZookeeperReady(kafka.getZookeeperConnectString(), 10000))
         .isTrue();
   }
 
@@ -77,18 +75,17 @@ public class ClusterStatusSASLTest {
     assertThat(ClusterStatus.isKafkaReady(config, 3, 10000)).isTrue();
   }
 
-
   @Test(timeout = 120000)
   public void isKafkaReadyWithSASLAndSSLUsingZK() throws Exception {
     Properties clientSecurityProps = kafka.getClientSecurityConfig();
 
-    boolean zkReady = ClusterStatus.isZookeeperReady(this.kafka.getZookeeperConnectString(), 30000);
+    boolean zkReady = ClusterStatus.isZookeeperReady(kafka.getZookeeperConnectString(), 30000);
     if (!zkReady) {
       throw new RuntimeException(
-          "Could not reach zookeeper " + this.kafka.getZookeeperConnectString());
+          "Could not reach zookeeper " + kafka.getZookeeperConnectString());
     }
     Map<String, String> endpoints = ClusterStatus.getKafkaEndpointFromZookeeper(
-        this.kafka.getZookeeperConnectString(),
+        kafka.getZookeeperConnectString(),
         30000
     );
 
@@ -104,6 +101,5 @@ public class ClusterStatusSASLTest {
 
     assertThat(ClusterStatus.isKafkaReady(config, 3, 10000)).isTrue();
   }
-
 
 }

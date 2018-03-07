@@ -79,7 +79,7 @@ public class Histogram {
 
   @Override
   public String toString() {
-    StringBuilder b = new StringBuilder('{');
+    StringBuilder b = new StringBuilder("{");
     for (int i = 0; i < this.hist.length - 1; i++) {
       b.append(String.format("%.10f", binScheme.fromBin(i)));
       b.append(':');
@@ -119,10 +119,12 @@ public class Histogram {
       this.bucketWidth = (max - min) / (bins - 2);
     }
 
+    @Override
     public int bins() {
       return this.bins;
     }
 
+    @Override
     public double fromBin(int b) {
       if (b == 0) {
         return Double.NEGATIVE_INFINITY;
@@ -133,6 +135,7 @@ public class Histogram {
       }
     }
 
+    @Override
     public int toBin(double x) {
       if (x < min) {
         return 0;
@@ -156,10 +159,12 @@ public class Histogram {
       this.scale = max / (numBins * (numBins - 1) / 2);
     }
 
+    @Override
     public int bins() {
       return this.bins;
     }
 
+    @Override
     public double fromBin(int b) {
       if (b == this.bins - 1) {
         return Float.POSITIVE_INFINITY;
@@ -169,6 +174,7 @@ public class Histogram {
       }
     }
 
+    @Override
     public int toBin(double x) {
       if (x < 0.0d) {
         throw new IllegalArgumentException("Values less than 0.0 not accepted.");

@@ -52,5 +52,4 @@ public class ConfigException extends RuntimeException {
     public ConfigException(String name, Object value, String message) {
         super("Invalid value " + value + " for configuration " + name + (message == null ? "" : ": " + message));
     }
-
 }

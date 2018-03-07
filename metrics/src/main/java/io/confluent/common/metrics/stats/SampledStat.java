@@ -54,7 +54,7 @@ public abstract class SampledStat implements MeasurableStat {
 
   public SampledStat(double initialValue) {
     this.initialValue = initialValue;
-    this.samples = new ArrayList<Sample>(2);
+    this.samples = new ArrayList<>(2);
   }
 
   @Override
@@ -118,8 +118,7 @@ public abstract class SampledStat implements MeasurableStat {
   /* Timeout any windows that have expired in the absence of any events */
   protected void purgeObsoleteSamples(MetricConfig config, long now) {
     long expireAge = config.samples() * config.timeWindowMs();
-    for (int i = 0; i < samples.size(); i++) {
-      Sample sample = this.samples.get(i);
+    for (Sample sample : samples) {
       if (now - sample.lastWindowMs >= expireAge) {
         sample.reset(now);
       }

@@ -16,6 +16,7 @@
 
 package io.confluent.admin.utils.cli;
 
+import io.confluent.kafkaensure.cli.TopicEnsureCommand;
 import net.sourceforge.argparse4j.ArgumentParsers;
 import net.sourceforge.argparse4j.inf.ArgumentParser;
 import net.sourceforge.argparse4j.inf.ArgumentParserException;
@@ -76,13 +77,7 @@ public class ZookeeperReadyCommand {
       );
 
     } catch (ArgumentParserException e) {
-      if (args.length == 0) {
-        parser.printHelp();
-        success = true;
-      } else {
-        parser.handleError(e);
-        success = false;
-      }
+      success = TopicEnsureCommand.isSuccess(args, parser, e);
     } catch (Exception e) {
       log.error("Error while running zk-ready {}.", e);
       success = false;

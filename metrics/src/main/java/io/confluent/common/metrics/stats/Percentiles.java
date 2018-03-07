@@ -74,6 +74,7 @@ public class Percentiles extends SampledStat implements CompoundStat {
     for (Percentile percentile : this.percentiles) {
       final double pct = percentile.percentile();
       ms.add(new NamedMeasurable(percentile.name(), new Measurable() {
+        @Override
         public double measure(MetricConfig config, long now) {
           return value(config, now, pct / 100.0);
         }
@@ -94,8 +95,8 @@ public class Percentiles extends SampledStat implements CompoundStat {
     float sum = 0.0f;
     float quant = (float) quantile;
     for (int b = 0; b < buckets; b++) {
-      for (int s = 0; s < this.samples.size(); s++) {
-        HistogramSample sample = (HistogramSample) this.samples.get(s);
+      for (Sample s : this.samples) {
+        HistogramSample sample = (HistogramSample) s;
         float[] hist = sample.histogram.counts();
         sum += hist[b];
         if (sum / count > quant) {
@@ -106,6 +107,7 @@ public class Percentiles extends SampledStat implements CompoundStat {
     return Double.POSITIVE_INFINITY;
   }
 
+  @Override
   public double combine(List<Sample> samples, MetricConfig config, long now) {
     return value(config, now, 0.5);
   }

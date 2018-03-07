@@ -107,14 +107,7 @@ public class ClusterStatus {
       );
       return false;
     } finally {
-      if (zookeeper != null) {
-        try {
-          zookeeper.close();
-        } catch (InterruptedException e) {
-          log.error("Error while shutting down Zookeeper client.", e);
-          Thread.currentThread().interrupt();
-        }
-      }
+      closeZk(zookeeper);
     }
   }
 
@@ -193,9 +186,9 @@ public class ClusterStatus {
     try {
 
       zookeeper = createZookeeperClient(zkConnectString, timeoutMs);
-      boolean isBrokerRegisted = isKafkaRegisteredInZookeeper(zookeeper, timeoutMs);
+      boolean isBrokerRegistered = isKafkaRegisteredInZookeeper(zookeeper, timeoutMs);
 
-      if (!isBrokerRegisted) {
+      if (!isBrokerRegistered) {
         return Collections.emptyList();
       }
       final List<String> brokers = getRawKafkaMetadataFromZK(zookeeper, timeoutMs);
@@ -209,13 +202,17 @@ public class ClusterStatus {
       }
       return brokerMetadata;
     } finally {
-      if (zookeeper != null) {
-        try {
-          zookeeper.close();
-        } catch (InterruptedException e) {
-          log.error("Error while shutting down Zookeeper client.", e);
-          Thread.currentThread().interrupt();
-        }
+      closeZk(zookeeper);
+    }
+  }
+
+  private static void closeZk(ZooKeeper zookeeper) {
+    if (zookeeper != null) {
+      try {
+        zookeeper.close();
+      } catch (InterruptedException e) {
+        log.error("Error while shutting down Zookeeper client.", e);
+        Thread.currentThread().interrupt();
       }
     }
   }
@@ -361,10 +358,10 @@ public class ClusterStatus {
    * Create a Zookeeper Client.
    *
    * @param zkConnectString Zookeeper connect string.
-   * @param timeoutMs timeout in ms.
+   * @param zkSessionTimeoutMs timeout in ms.
    * @return Zookeeper Client.
    */
-  private static ZooKeeper createZookeeperClient(String zkConnectString, int timeoutMs)
+  private static ZooKeeper createZookeeperClient(String zkConnectString, int zkSessionTimeoutMs)
       throws IOException, InterruptedException {
 
     CountDownLatch waitForConnection = new CountDownLatch(1);
@@ -375,14 +372,13 @@ public class ClusterStatus {
     }
     ZookeeperConnectionWatcher connectionWatcher =
         new ZookeeperConnectionWatcher(waitForConnection, isSaslEnabled);
-    int zkSessionTimeoutMs = timeoutMs;
     zookeeper = new ZooKeeper(zkConnectString, zkSessionTimeoutMs, connectionWatcher);
 
-    boolean timedOut = !waitForConnection.await(timeoutMs, TimeUnit.MILLISECONDS);
+    boolean timedOut = !waitForConnection.await(zkSessionTimeoutMs, TimeUnit.MILLISECONDS);
     if (timedOut) {
       String message = String.format(
           "Timed out waiting for connection to Zookeeper. timeout(ms) = %s, Zookeeper connect = %s",
-          timeoutMs,
+          zkSessionTimeoutMs,
           zkConnectString
       );
       throw new TimeoutException(message);
@@ -416,6 +412,7 @@ public class ClusterStatus {
    * @param timeoutMs Timeout in milliseconds
    * @return A map of security-protocol->endpoints
    */
+  @SuppressWarnings("unchecked")
   public static Map<String, String> getKafkaEndpointFromZookeeper(
       String zkConnectString,
       int timeoutMs

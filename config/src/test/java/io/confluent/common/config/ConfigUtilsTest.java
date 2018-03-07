@@ -35,7 +35,7 @@ public class ConfigUtilsTest {
     props.setProperty("hen", "3");
     props.setProperty("heifer", "moo");
     props.setProperty("blah", "blah");
-    props.put("unexpected.non.string.object", new Integer(42));
+    props.put("unexpected.non.string.object", 42);
     Properties newProps = ConfigUtils.translateDeprecated(props, new String[][]{
         {"foo.bar", "foo.bar.deprecated"},
         {"chicken", "rooster", "hen"},
@@ -60,9 +60,9 @@ public class ConfigUtilsTest {
     // returned when Properties#get is invoked.
     // Here, we test that ConfigUtils passes through these objects unchanged.
     assertEquals(null, newProps.getProperty("unexpected.non.string.object"));
-    assertEquals(new Integer(42), newProps.get("unexpected.non.string.object"));
+    assertEquals(42, newProps.get("unexpected.non.string.object"));
     assertEquals(null, props.getProperty("unexpected.non.string.object"));
-    assertEquals(new Integer(42), props.get("unexpected.non.string.object"));
+    assertEquals(42, props.get("unexpected.non.string.object"));
 
   }
 

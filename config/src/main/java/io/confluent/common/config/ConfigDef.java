@@ -241,8 +241,8 @@ public class ConfigDef {
    * value parsed into the appropriate type (int, string, etc)
    */
   public Map<String, Object> parse(Map<?, ?> props) {
-        /* parse all known keys */
-    Map<String, Object> values = new HashMap<String, Object>();
+    /* parse all known keys */
+    Map<String, Object> values = new HashMap<>();
     for (ConfigKey key : configKeys.values()) {
       Object value;
       if (props.containsKey(key.name)) {
@@ -278,9 +278,9 @@ public class ConfigDef {
       switch (type) {
         case BOOLEAN:
           if (value instanceof String) {
-            if (trimmed.equalsIgnoreCase("true")) {
+            if ("true".equalsIgnoreCase(trimmed)) {
               return true;
-            } else if (trimmed.equalsIgnoreCase("false")) {
+            } else if ("false".equalsIgnoreCase(trimmed)) {
               return false;
             } else {
               throw new ConfigException(name, value, "Expected value to be either true or false");
@@ -307,7 +307,7 @@ public class ConfigDef {
             throw new ConfigException(name, value, "Expected value to be a string, but it was a " + value.getClass().getName());
         case INT:
           if (value instanceof Integer) {
-            return (Integer) value;
+            return value;
           } else if (value instanceof String) {
             return Integer.parseInt(trimmed);
           } else {
@@ -318,7 +318,7 @@ public class ConfigDef {
             return ((Integer) value).longValue();
           }
           if (value instanceof Long) {
-            return (Long) value;
+            return value;
           } else if (value instanceof String) {
             return Long.parseLong(trimmed);
           } else {
@@ -334,7 +334,7 @@ public class ConfigDef {
           }
         case LIST:
           if (value instanceof List) {
-            return (List<?>) value;
+            return value;
           } else if (value instanceof String) {
             if (trimmed.isEmpty()) {
               return Collections.emptyList();
@@ -367,7 +367,7 @@ public class ConfigDef {
           }
         case CLASS:
           if (value instanceof Class) {
-            return (Class<?>) value;
+            return value;
           } else if (value instanceof String) {
             if (Thread.currentThread().getContextClassLoader() != null) {
               return Class.forName(trimmed, true, Thread.currentThread().getContextClassLoader());
@@ -435,6 +435,7 @@ public class ConfigDef {
       return new Range(min, max);
     }
 
+    @Override
     public void ensureValid(String name, Object o) {
       Number n = (Number) o;
       if (min != null && n.doubleValue() < min.doubleValue()) {
@@ -445,6 +446,7 @@ public class ConfigDef {
       }
     }
 
+    @Override
     public String toString() {
       if (min == null) {
         return "[...," + max + "]";
@@ -479,6 +481,7 @@ public class ConfigDef {
 
     }
 
+    @Override
     public String toString() {
       return "[" + join(validStrings) + "]";
     }
@@ -608,10 +611,10 @@ public class ConfigDef {
    */
   private List<ConfigDef.ConfigKey> sortedConfigs() {
     // sort first required fields, then by importance, then name
-    List<ConfigDef.ConfigKey>
-        configs =
-        new ArrayList<ConfigDef.ConfigKey>(this.configKeys.values());
+    List<ConfigDef.ConfigKey> configs = new ArrayList<>(this.configKeys.values());
     Collections.sort(configs, new Comparator<ConfigDef.ConfigKey>() {
+
+      @Override
       public int compare(ConfigDef.ConfigKey k1, ConfigDef.ConfigKey k2) {
         // first take anything with no default value
         if (!k1.hasDefault() && k2.hasDefault()) {

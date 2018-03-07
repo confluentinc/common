@@ -71,12 +71,12 @@ public class EmbeddedKafkaCluster {
   private static final boolean ENABLE_SSL = false;
   private static final int SSL_PORT = 0;
   private static final int SASL_SSL_PORT_BASE = 49092;
-  private static Option<Properties> brokerSaslProperties = Option$.MODULE$.<Properties>empty();
   private static MiniKdc kdc;
   private static File trustStoreFile;
   private static Properties saslProperties;
   private final Map<Integer, KafkaServer> brokersById = new ConcurrentHashMap<>();
   private File jaasFilePath = null;
+  private Option<Properties> brokerSaslProperties = Option$.MODULE$.<Properties>empty();
   private Option<File> brokerTrustStoreFile = Option$.MODULE$.<File>empty();
   private boolean enableSASLSSL = false;
   private EmbeddedZookeeperEnsemble zookeeper = null;
@@ -281,13 +281,11 @@ public class EmbeddedKafkaCluster {
 
   public Properties getClientSecurityConfig() {
     if (enableSASLSSL) {
-      Properties clientSecurityProps = TestUtils.producerSecurityConfigs(
+      return TestUtils.producerSecurityConfigs(
           SecurityProtocol.SASL_SSL,
           Option.apply(trustStoreFile),
           Option.apply(saslProperties)
       );
-
-      return clientSecurityProps;
     } else {
       return new Properties();
     }

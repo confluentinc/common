@@ -101,7 +101,7 @@ public final class MetricName {
     if ((keyValue.length % 2) != 0) {
       throw new IllegalArgumentException("keyValue needs to be specified in paris");
     }
-    Map<String, String> tags = new HashMap<String, String>();
+    Map<String, String> tags = new HashMap<>();
 
     for (int i = 0; i < (keyValue.length / 2); i++) {
       tags.put(keyValue[i], keyValue[i + 1]);

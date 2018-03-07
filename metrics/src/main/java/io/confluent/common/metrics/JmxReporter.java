@@ -60,8 +60,8 @@ import io.confluent.common.metrics.exceptions.MetricsException;
 public class JmxReporter implements MetricsReporter {
 
   private static final Logger log = LoggerFactory.getLogger(JmxReporter.class);
-  private static final Object lock = new Object();
-  private final Map<String, KafkaMbean> mbeans = new HashMap<String, KafkaMbean>();
+  private static final Object LOCK = new Object();
+  private final Map<String, KafkaMbean> mbeans = new HashMap<>();
   private String prefix;
 
   public JmxReporter() {
@@ -81,7 +81,7 @@ public class JmxReporter implements MetricsReporter {
 
   @Override
   public void init(List<KafkaMetric> metrics) {
-    synchronized (lock) {
+    synchronized (LOCK) {
       for (KafkaMetric metric : metrics) {
         addAttribute(metric);
       }
@@ -93,7 +93,7 @@ public class JmxReporter implements MetricsReporter {
 
   @Override
   public void metricChange(KafkaMetric metric) {
-    synchronized (lock) {
+    synchronized (LOCK) {
       KafkaMbean mbean = addAttribute(metric);
       reregister(mbean);
     }
@@ -135,8 +135,9 @@ public class JmxReporter implements MetricsReporter {
     return mBeanName.toString();
   }
 
+  @Override
   public void close() {
-    synchronized (lock) {
+    synchronized (LOCK) {
       for (KafkaMbean mbean : this.mbeans.values()) {
         unregister(mbean);
       }
@@ -169,7 +170,7 @@ public class JmxReporter implements MetricsReporter {
     private final Map<String, KafkaMetric> metrics;
 
     public KafkaMbean(String mbeanName) throws MalformedObjectNameException {
-      this.metrics = new HashMap<String, KafkaMetric>();
+      this.metrics = new HashMap<>();
       this.objectName = new ObjectName(mbeanName);
     }
 

@@ -97,13 +97,7 @@ public class TopicEnsureCommand {
         }
       }
     } catch (ArgumentParserException e) {
-      if (args.length == 0) {
-        parser.printHelp();
-        success = true;
-      } else {
-        parser.handleError(e);
-        success = false;
-      }
+      success = isSuccess(args, parser, e);
     } catch (Exception e) {
       log.error("Error while running topic-ensure {}.", e);
       success = false;
@@ -114,5 +108,17 @@ public class TopicEnsureCommand {
     } else {
       System.exit(1);
     }
+  }
+
+  public static boolean isSuccess(String[] args, ArgumentParser parser, ArgumentParserException e) {
+    boolean success;
+    if (args.length == 0) {
+      parser.printHelp();
+      success = true;
+    } else {
+      parser.handleError(e);
+      success = false;
+    }
+    return success;
   }
 }

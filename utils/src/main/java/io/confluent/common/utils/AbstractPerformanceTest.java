@@ -18,7 +18,7 @@ package io.confluent.common.utils;
 
 public abstract class AbstractPerformanceTest {
 
-  private static final long NS_PER_MS = 1000000L;
+  private static final long NS_PER_MS = 1000_000L;
   private static final long NS_PER_SEC = 1000 * NS_PER_MS;
   private static final long MIN_SLEEP_NS = 2 * NS_PER_MS;
   private static final long TARGET_RATE_UPDATE_PERIOD_MS = 100;

@@ -44,7 +44,7 @@ public interface CompoundStat extends Stat {
 
   public List<NamedMeasurable> stats();
 
-  public static class NamedMeasurable {
+  public class NamedMeasurable {
 
     private final MetricName name;
     private final Measurable stat;

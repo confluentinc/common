@@ -36,7 +36,6 @@ public class ClusterStatusTest {
 
   @BeforeClass
   public static void setup() throws IOException {
-
     kafka = new EmbeddedKafkaCluster(numBrokers, numZookeeperPeers);
     kafka.start();
   }
@@ -49,7 +48,7 @@ public class ClusterStatusTest {
   @Test(timeout = 120000)
   public void zookeeperReady() throws Exception {
     assertThat(
-        ClusterStatus.isZookeeperReady(this.kafka.getZookeeperConnectString(), 10000))
+        ClusterStatus.isZookeeperReady(kafka.getZookeeperConnectString(), 10000))
         .isTrue();
   }
 

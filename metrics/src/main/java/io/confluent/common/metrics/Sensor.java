@@ -30,11 +30,7 @@
  */
 package io.confluent.common.metrics;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import io.confluent.common.utils.Time;
 import io.confluent.common.utils.Utils;
@@ -60,8 +56,8 @@ public final class Sensor {
     this.registry = registry;
     this.name = Utils.notNull(name);
     this.parents = parents == null ? new Sensor[0] : parents;
-    this.metrics = new ArrayList<KafkaMetric>();
-    this.stats = new ArrayList<Stat>();
+    this.metrics = new ArrayList<>();
+    this.stats = new ArrayList<>();
     this.config = config;
     this.time = time;
     checkForest(new HashSet<Sensor>());
@@ -73,8 +69,8 @@ public final class Sensor {
       throw new IllegalArgumentException(
           "Circular dependency in sensors: " + name() + " is its own parent.");
     }
-    for (int i = 0; i < parents.length; i++) {
-      parents[i].checkForest(sensors);
+    for (Sensor parent : parents) {
+      parent.checkForest(sensors);
     }
   }
 
@@ -116,13 +112,13 @@ public final class Sensor {
   public void record(double value, long timeMs) {
     synchronized (this) {
       // increment all the stats
-      for (int i = 0; i < this.stats.size(); i++) {
-        this.stats.get(i).record(config, value, timeMs);
+      for (Stat stat : this.stats) {
+        stat.record(config, value, timeMs);
       }
       checkQuotas(timeMs);
     }
-    for (int i = 0; i < parents.length; i++) {
-      parents[i].record(value, timeMs);
+    for (Sensor parent : parents) {
+      parent.record(value, timeMs);
     }
   }
 
@@ -130,8 +126,7 @@ public final class Sensor {
    * Check if we have violated our quota for any metric that has a configured quota
    */
   private void checkQuotas(long timeMs) {
-    for (int i = 0; i < this.metrics.size(); i++) {
-      KafkaMetric metric = this.metrics.get(i);
+    for (KafkaMetric metric : this.metrics) {
       MetricConfig config = metric.config();
       if (config != null) {
         Quota quota = config.quota();
@@ -202,4 +197,24 @@ public final class Sensor {
     return Collections.unmodifiableList(this.metrics);
   }
 
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    Sensor sensor = (Sensor) o;
+    return Objects.equals(registry, sensor.registry) &&
+        Objects.equals(name, sensor.name) &&
+        Arrays.equals(parents, sensor.parents) &&
+        Objects.equals(stats, sensor.stats) &&
+        Objects.equals(metrics, sensor.metrics) &&
+        Objects.equals(config, sensor.config) &&
+        Objects.equals(time, sensor.time);
+  }
+
+  @Override
+  public int hashCode() {
+    int result = Objects.hash(registry, name, stats, metrics, config, time);
+    result = 31 * result + Arrays.hashCode(parents);
+    return result;
+  }
 }

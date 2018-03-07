@@ -16,6 +16,7 @@
 
 package io.confluent.admin.utils.cli;
 
+import io.confluent.kafkaensure.cli.TopicEnsureCommand;
 import net.sourceforge.argparse4j.ArgumentParsers;
 import net.sourceforge.argparse4j.inf.ArgumentParser;
 import net.sourceforge.argparse4j.inf.ArgumentParserException;
@@ -105,7 +106,7 @@ public class KafkaReadyCommand {
   public static void main(String[] args) {
 
     ArgumentParser parser = createArgsParser();
-    boolean success = false;
+    boolean success;
     try {
       Namespace res = parser.parseArgs(args);
       log.debug("Arguments {}. ", res);
@@ -113,7 +114,7 @@ public class KafkaReadyCommand {
       Map<String, String> workerProps = new HashMap<>();
 
       if (res.getString("config") == null
-          && !(res.getString("security_protocol").equals("PLAINTEXT"))) {
+          && !("PLAINTEXT".equals(res.getString("security_protocol")))) {
         log.error("config is required for all protocols except PLAINTEXT");
         success = false;
       } else {
@@ -155,13 +156,7 @@ public class KafkaReadyCommand {
       }
 
     } catch (ArgumentParserException e) {
-      if (args.length == 0) {
-        parser.printHelp();
-        success = true;
-      } else {
-        parser.handleError(e);
-        success = false;
-      }
+      success = TopicEnsureCommand.isSuccess(args, parser, e);
     } catch (Exception e) {
       log.error("Error while running kafka-ready.", e);
       success = false;

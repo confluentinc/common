@@ -68,14 +68,14 @@ public class EmbeddedZookeeperEnsemble {
   }
 
   private void initialize() throws IOException {
-    HashMap peers = new HashMap();
+    HashMap<Long, QuorumPeer.QuorumServer> peers = new HashMap<>();
     for (int i = 0; i < numNodes; i++) {
 
       int port = basePort++;
       int portLE = basePort++;
 
-      peers.put(Long.valueOf(i), new QuorumPeer.QuorumServer(
-          Long.valueOf(i).longValue(),
+      peers.put((long) i, new QuorumPeer.QuorumServer(
+          (long) i,
           LOCAL_ADDR,
           port + 1000,
           portLE + 1000,
@@ -147,9 +147,8 @@ public class EmbeddedZookeeperEnsemble {
 
     while (true) {
       try {
-        HostPort e = (HostPort) parseHostPortList(hp).get(0);
-        String result = FourLetterWordMain.send4LetterWord(e.host, e.port, FourLW);
-        return result;
+        HostPort e = parseHostPortList(hp).get(0);
+        return FourLetterWordMain.send4LetterWord(e.host, e.port, FourLW);
       } catch (IOException var7) {
         log.info("server " + hp + " not up " + var7);
       }
@@ -167,7 +166,7 @@ public class EmbeddedZookeeperEnsemble {
   }
 
   private List<HostPort> parseHostPortList(String hplist) {
-    ArrayList<HostPort> alist = new ArrayList<HostPort>();
+    ArrayList<HostPort> alist = new ArrayList<>();
     for (String hp : hplist.split(",")) {
       int idx = hp.lastIndexOf(':');
       String host = hp.substring(0, idx);
@@ -188,10 +187,8 @@ public class EmbeddedZookeeperEnsemble {
     }
 
     String[] hostPorts = this.hostPort.split(",");
-    int numServers = hostPorts.length;
 
-    for (int i = 0; i < numServers; ++i) {
-      String hp = hostPorts[i];
+    for (String hp : hostPorts) {
       Assert.assertTrue("waiting for server down", ClientBase.waitForServerDown(hp, (long)
           ClientBase.CONNECTION_TIMEOUT));
       log.info(hp + " is no longer accepting client connections");

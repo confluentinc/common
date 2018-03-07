@@ -102,8 +102,8 @@ public class Metrics {
    */
   public Metrics(MetricConfig defaultConfig, List<MetricsReporter> reporters, Time time) {
     this.config = defaultConfig;
-    this.sensors = new CopyOnWriteMap<String, Sensor>();
-    this.metrics = new CopyOnWriteMap<MetricName, KafkaMetric>();
+    this.sensors = new CopyOnWriteMap<>();
+    this.metrics = new CopyOnWriteMap<>();
     this.reporters = Utils.notNull(reporters);
     this.time = time;
     for (MetricsReporter reporter : reporters) {
@@ -194,7 +194,7 @@ public class Metrics {
    * Add a MetricReporter
    */
   public synchronized void addReporter(MetricsReporter reporter) {
-    Utils.notNull(reporter).init(new ArrayList<KafkaMetric>(metrics.values()));
+    Utils.notNull(reporter).init(new ArrayList<>(metrics.values()));
     this.reporters.add(reporter);
   }
 
