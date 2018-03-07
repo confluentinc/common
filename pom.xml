@@ -73,6 +73,8 @@
         <zookeeper.version>3.4.10</zookeeper.version>
         <checkstyle.config.location>checkstyle/checkstyle.xml</checkstyle.config.location>
         <checkstyle.suppressions.location>checkstyle/common-suppressions.xml</checkstyle.suppressions.location>
+        <dependency.check.version>3.1.1</dependency.check.version>
+        <dependency.check.suppressions.location>dependency-check/suppressions.xml</dependency.check.suppressions.location>
     </properties>
 
     <scm>
@@ -312,6 +314,32 @@
                     </dependencies>
                 </plugin>
                 <plugin>
+                    <groupId>org.owasp</groupId>
+                    <artifactId>dependency-check-maven</artifactId>
+                    <version>${dependency.check.version}</version>
+                    <dependencies>
+                        <dependency>
+                            <groupId>io.confluent</groupId>
+                            <artifactId>build-tools</artifactId>
+                            <version>${confluent.version}</version>
+                        </dependency>
+                    </dependencies>
+                    <configuration>
+                        <suppressionFiles>
+                            <suppressionFile>${dependency.check.suppressions.location}</suppressionFile>
+                        </suppressionFiles>
+                        <failBuildOnCVSS>8</failBuildOnCVSS>
+                        <format>xml</format>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>check</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+                <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-assembly-plugin</artifactId>
                     <version>${maven-assembly.version}</version>
@@ -415,6 +443,10 @@
                         </configuration>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+              <groupId>org.owasp</groupId>
+              <artifactId>dependency-check-maven</artifactId>
             </plugin>
         </plugins>
     </build>
