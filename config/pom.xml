@@ -23,7 +23,7 @@
     <parent>
         <artifactId>common</artifactId>
         <groupId>io.confluent</groupId>
-        <version>3.2.3-SNAPSHOT</version>
+        <version>3.2.3</version>
     </parent>
 
     <groupId>io.confluent</groupId>
