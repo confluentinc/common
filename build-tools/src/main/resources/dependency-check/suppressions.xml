@@ -48,4 +48,18 @@
         <gav regex="true">^org\.scala-lang:scala-library:.*$</gav>
         <cve>CVE-2017-15288</cve>
     </suppress>
+    <suppress>
+        <notes><![CDATA[
+   file name: airline-0.7.jar
+   ]]></notes>
+        <gav regex="true">^io\.airlift:airline:.*$</gav>
+        <cve>CVE-2015-7082</cve>
+    </suppress>
+    <suppress>
+        <notes><![CDATA[
+   file name: airline-0.7.jar
+   ]]></notes>
+        <gav regex="true">^io\.airlift:airline:.*$</gav>
+        <cve>CVE-2017-14867</cve>
+    </suppress>
 </suppressions>
