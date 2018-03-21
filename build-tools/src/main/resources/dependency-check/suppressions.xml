@@ -48,6 +48,8 @@
         <gav regex="true">^org\.scala-lang:scala-library:.*$</gav>
         <cve>CVE-2017-15288</cve>
     </suppress>
+    <!-- False positives for a git vulnerability that the tool concludes is associated with
+         airline -->
     <suppress>
         <notes><![CDATA[
    file name: airline-0.7.jar
