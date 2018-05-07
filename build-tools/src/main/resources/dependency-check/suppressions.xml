@@ -64,4 +64,19 @@
         <gav regex="true">^io\.airlift:airline:.*$</gav>
         <cve>CVE-2017-14867</cve>
     </suppress>
+    <!-- This CVE is for a Thrift Go client library issue which isn't an issue in Java-land -->
+    <suppress>
+        <notes><![CDATA[
+   file name: libthrift-0.9.2.jar
+   ]]></notes>
+        <gav regex="true">^org\.apache\.thrift:libthrift:.*$</gav>
+        <cve>CVE-2016-5397</cve>
+    </suppress>
+    <suppress>
+        <notes><![CDATA[
+   file name: libfb303-0.9.2.jar
+   ]]></notes>
+        <gav regex="true">^org\.apache\.thrift:libfb303:.*$</gav>
+        <cve>CVE-2016-5397</cve>
+    </suppress>
 </suppressions>
