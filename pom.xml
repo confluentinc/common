@@ -64,7 +64,6 @@
         <maven-enforcer-plugin.version>3.0.0-M1</maven-enforcer-plugin.version>
         <maven-jar-plugin.version>3.0.2</maven-jar-plugin.version>
         <maven-surefire-plugin.version>2.21.0</maven-surefire-plugin.version>
-        <maven-surefire-plugin.vmopts>-XX:MaxPermSize=128m</maven-surefire-plugin.vmopts>
         <mockito-all.version>1.10.19</mockito-all.version>
         <os-maven-plugin.version>1.5.0.Final</os-maven-plugin.version>
         <slf4j-api.version>${slf4j.version}</slf4j-api.version>
@@ -457,7 +456,7 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
-                    <argLine>@{argLine} -Djava.awt.headless=true ${maven-surefire-plugin.vmopts}</argLine>
+                    <argLine>@{argLine} -Djava.awt.headless=true -XX:MaxPermSize=128m</argLine>
                     <excludedGroups>io.confluent.common.utils.IntegrationTest</excludedGroups>
                 </configuration>
                 <executions>
