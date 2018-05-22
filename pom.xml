@@ -464,8 +464,8 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <inherited>true</inherited>
                 <configuration>
-                    <source>7</source>
-                    <target>7</target>
+                    <source>8</source>
+                    <target>8</target>
                 </configuration>
             </plugin>
             <plugin>
@@ -691,7 +691,7 @@
                         <artifactId>maven-compiler-plugin</artifactId>
                         <inherited>true</inherited>
                         <configuration>
-                            <release>7</release>
+                            <release>8</release>
                         </configuration>
                     </plugin>
                 </plugins>
