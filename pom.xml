@@ -52,6 +52,7 @@
         <exec-maven-plugin.version>1.5.0</exec-maven-plugin.version>
         <findbugs-maven-plugin.version>3.0.5</findbugs-maven-plugin.version>
         <findbugs-annotations.version>3.0.1</findbugs-annotations.version>
+        <java.version>8</java.version>
         <jackson.version>2.9.5</jackson.version>
         <jacoco-maven-plugin.version>0.8.1</jacoco-maven-plugin.version>
         <junit.version>4.12</junit.version>
@@ -464,15 +465,15 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <inherited>true</inherited>
                 <configuration>
-                    <source>8</source>
-                    <target>8</target>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
                 </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
-                    <argLine>@{argLine} -Djava.awt.headless=true -XX:MaxPermSize=128m</argLine>
+                    <argLine>@{argLine} -Djava.awt.headless=true</argLine>
                     <excludedGroups>io.confluent.common.utils.IntegrationTest</excludedGroups>
                 </configuration>
                 <executions>
@@ -691,7 +692,7 @@
                         <artifactId>maven-compiler-plugin</artifactId>
                         <inherited>true</inherited>
                         <configuration>
-                            <release>8</release>
+                            <release>${java.version}</release>
                         </configuration>
                     </plugin>
                 </plugins>
