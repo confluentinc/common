@@ -30,6 +30,9 @@
  */
 package io.confluent.common.config;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -67,6 +70,8 @@ import io.confluent.common.config.types.Password;
  * some additional functionality for accessing configs.
  */
 public class ConfigDef {
+
+  private static final Logger log = LoggerFactory.getLogger(ConfigDef.class);
 
   private static final Object NO_DEFAULT_VALUE = new Object();
 
@@ -361,10 +366,14 @@ public class ConfigDef {
           if (value instanceof Class) {
             return (Class<?>) value;
           } else if (value instanceof String) {
-            if (Thread.currentThread().getContextClassLoader() != null) {
-              return Class.forName(trimmed, true, Thread.currentThread().getContextClassLoader());
-            } else {
+            try {
               return Class.forName(trimmed);
+            } catch (ClassNotFoundException e) {
+              log.error("Could not find class " + trimmed, e);
+              if (Thread.currentThread().getContextClassLoader() != null) {
+                log.error("Reattempting with context class loader " + trimmed, e);
+                return Class.forName(trimmed, true, Thread.currentThread().getContextClassLoader());
+              }
             }
           } else {
             throw new ConfigException(name, value, "Expected a Class instance or class name.");
