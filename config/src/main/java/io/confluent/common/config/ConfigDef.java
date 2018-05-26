@@ -371,7 +371,7 @@ public class ConfigDef {
             } catch (ClassNotFoundException e) {
               log.error("Could not find class " + trimmed, e);
               if (Thread.currentThread().getContextClassLoader() != null) {
-                log.error("Reattempting with context class loader " + trimmed, e);
+                log.info("Reattempting with context class loader " + trimmed, e);
                 return Class.forName(trimmed, true, Thread.currentThread().getContextClassLoader());
               }
             }
