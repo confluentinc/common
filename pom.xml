@@ -45,7 +45,8 @@
     <properties>
         <!--jacoco prepare-agent needs argLine defined to set this variable. if we don't have a default set then maven gets angry.-->
         <argLine></argLine>
-        <avro.version>1.8.2</avro.version>
+        <!-- AVRO-2122 is a regression in 1.8.2 so we can't upgrade until 1.8.3 is released -->
+        <avro.version>1.8.1</avro.version>
         <required.maven.version>3.2</required.maven.version>
         <confluent.version>5.0.0-SNAPSHOT</confluent.version>
         <easymock.version>3.5</easymock.version>
