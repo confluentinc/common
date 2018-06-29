@@ -22,4 +22,18 @@
     <artifactId>build-tools</artifactId>
     <version>5.0.0-SNAPSHOT</version>
     <name>Build Tools</name>
+
+    <build>
+        <!-- build-tools does not inherit from common
+        so we need to define plugin versions again -->
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-site-plugin</artifactId>
+                    <version>3.7.1</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
 </project>

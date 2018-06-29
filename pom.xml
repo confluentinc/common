@@ -81,7 +81,7 @@
         <maven-clean-plugin.version>3.0.0</maven-clean-plugin.version>
         <maven-install-plugin.version>2.5.2</maven-install-plugin.version>
         <maven-resources-plugin.version>3.0.2</maven-resources-plugin.version>
-        <maven-site-plugin.version>3.6</maven-site-plugin.version>
+        <maven-site-plugin.version>3.7.1</maven-site-plugin.version>
         <maven-project-info-reports-plugin.version>2.9</maven-project-info-reports-plugin.version>
         <checkstyle.config.location>checkstyle/checkstyle.xml</checkstyle.config.location>
         <checkstyle.suppressions.location>checkstyle/common-suppressions.xml</checkstyle.suppressions.location>
@@ -564,27 +564,6 @@
             </plugin>
         </plugins>
     </build>
-    <reporting>
-        <!--https://maven.apache.org/plugins/maven-site-plugin/maven-3.html#Classic_configuration_Maven_2__3-->
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-project-info-reports-plugin</artifactId>
-                <configuration>
-                    <dependencyDetailsEnabled>false</dependencyDetailsEnabled>
-                    <dependencyLocationsEnabled>false</dependencyLocationsEnabled>
-                </configuration>
-                <reportSets>
-                    <reportSet>
-                        <reports>
-                            <report>dependencies</report>
-                            <report>scm</report>
-                        </reports>
-                    </reportSet>
-                </reportSets>
-            </plugin>
-        </plugins>
-    </reporting>
     <profiles>
         <profile>
             <id>jenkins</id>
