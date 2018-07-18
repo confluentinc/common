@@ -225,6 +225,20 @@
             <property name="severity"
                       value="${checkstyle.finalclass.severity}"
                       default="ignore"/>
-        </module>
+
+        <module name="HideUtilityClassConstructor">
+            <property name="severity"
+                      value="${checkstyle.hideutilityclassconstructor.severity}"
+                      default="ignore"/>
+
+        <module name="RedundantModifier">
+            <property name="severity"
+                      value="${checkstyle.redundantmodifier.severity}"
+                      default="ignore"/>
+      
+        <module name="RedundantImport">
+            <property name="severity"
+                      value="${checkstyle.redundantimport.severity}"
+                      default="error"/>
     </module>
 </module>
