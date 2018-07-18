@@ -220,5 +220,10 @@
         <module name="CyclomaticComplexity"/>
         <module name="JavaNCSS" />
         <module name="NPathComplexity"/>
+        <module name="RedundantImport">
+            <property name="severity"
+                      value="${checkstyle.redundantimport.severity}"
+                      default="error"/>
+        </module>
     </module>
 </module>
