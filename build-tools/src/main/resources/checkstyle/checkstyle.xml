@@ -220,5 +220,11 @@
         <module name="CyclomaticComplexity"/>
         <module name="JavaNCSS" />
         <module name="NPathComplexity"/>
+
+        <module name="FinalLocalVariable">
+            <property name="severity"
+                      value="${checkstyle.finallocalvariable.severity}"
+                      default="ignore"/>
+        </module>
     </module>
 </module>
