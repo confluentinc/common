@@ -175,6 +175,19 @@
         </module>
         <module name="OverloadMethodsDeclarationOrder"/>
         <module name="VariableDeclarationUsageDistance"/>
+        <module name="CustomImportOrder">
+            <property name="sortImportsInGroupAlphabetically" value="true"/>
+            <property name="separateLineBetweenGroups" value="true"/>
+            <property name="specialImportsRegExp"
+                      value="${checkstyle.customimportorder.specialimportsregexp}"
+                      default="^(com.google|android|antenna|antlr|ar|asposewobfuscated|asquare|atg|au|beaver|bibtex|bmsi|bsh|ccl|cern|ChartDirector|checkers|com|COM|common|contribs|corejava|cryptix|cybervillains|dalvik|danbikel|de|EDU|eg|eu|examples|fat|fit|fitlibrary|fmpp|freemarker|gnu|groovy|groovyjarjarantlr|groovyjarjarasm|hak|hep|ie|imageinfo|info|it|jal|Jama|japa|japacheckers|jas|jasmin|javancss|javanet|javassist|javazoom|java_cup|jcifs|jetty|JFlex|jj2000|jline|jp|JSci|jsr166y|junit|jxl|jxxload_help|kawa|kea|libcore|libsvm|lti|memetic|mt|mx4j|net|netscape|nl|nu|oauth|ognl|opennlp|oracle|org|penn2dg|pennconverter|pl|prefuse|proguard|repackage|scm|se|serp|simple|soot|sqlj|src|ssa|sun|sunlabs|tcl|testdata|testshell|testsuite|twitter4j|uk|ViolinStrings|weka|wet|winstone|woolfel|wowza)\."/>
+            <property name="customImportOrderRules"
+                      value="${checkstyle.customimportorder.customimportorderrules}"
+                      default="SPECIAL_IMPORTS###STANDARD_JAVA_PACKAGE###THIRD_PARTY_PACKAGE###STATIC"/>
+            <property name="severity"
+                      value="${checkstyle.customimportorder.severity}"
+                      default="ignore"/>
+        </module>
         <module name="MethodParamPad"/>
         <module name="ParenPad"/>
         <module name="OperatorWrap">
