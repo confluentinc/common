@@ -221,9 +221,9 @@
         <module name="JavaNCSS" />
         <module name="NPathComplexity"/>
 
-        <module name="FinalParametersCheck">
+        <module name="FinalParameters">
             <property name="severity"
-                      value="${checkstyle.finalparameter.severity}"
+                      value="${checkstyle.finalparameters.severity}"
                       default="ignore"/>
         </module>
     </module>
