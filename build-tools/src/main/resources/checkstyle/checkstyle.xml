@@ -267,7 +267,13 @@
         <module name="RedundantImport">
             <property name="severity"
                       value="${checkstyle.redundantimport.severity}"
-                      default="error"/>
+                      default="ignore"/>
+        </module>
+
+        <module name="RedundantThrows">
+            <property name="severity"
+                      value="${checkstyle.redundantthrows.severity}"
+                      default="ignore"/>
         </module>
     </module>
 </module>
