@@ -113,8 +113,6 @@
         <module>config</module>
         <module>utils</module>
         <module>package</module>
-        <module>utility-belt</module>
-        <module>base</module>
         <module>parent</module>
     </modules>
 
