@@ -41,19 +41,6 @@
     </module>
 
     <module name="TreeWalker">
-        <!-- Generic 'turn all checkstyle off' comment filter -->
-        <module name="SuppressionCommentFilter">
-            <property name="offCommentFormat" value="CHECKSTYLE:OFF"/>
-            <property name="onCommentFormat" value="CHECKSTYLE:ON"/>
-        </module>
-
-        <!-- Specific 'turn list of checkstyle rules off' comment filter -->
-        <module name="SuppressionCommentFilter">
-            <property name="offCommentFormat" value="CHECKSTYLE_RULES.OFF:\s+([\w\|]+)"/>
-            <property name="onCommentFormat" value="CHECKSTYLE_RULES.ON:\s+([\w\|]+)"/>
-            <property name="checkFormat" value="$1"/>
-        </module>
-
         <module name="OuterTypeFilename"/>
         <module name="IllegalTokenText">
             <property name="tokens" value="STRING_LITERAL, CHAR_LITERAL"/>
