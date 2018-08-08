@@ -68,7 +68,7 @@
         <maven-jar-plugin.version>3.0.2</maven-jar-plugin.version>
         <maven-surefire-plugin.version>2.21.0</maven-surefire-plugin.version>
         <maven-site-plugin.version>3.7.1</maven-site-plugin.version>
-        <maven-project-info-reports-plugin.version>2.9</maven-project-info-reports-plugin.version>
+        <maven-project-info-reports-plugin.version>3.0.0</maven-project-info-reports-plugin.version>
         <mockito-all.version>1.10.19</mockito-all.version>
         <os-maven-plugin.version>1.5.0.Final</os-maven-plugin.version>
         <slf4j-api.version>${slf4j.version}</slf4j-api.version>

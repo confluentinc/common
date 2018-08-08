@@ -10,6 +10,11 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
     <version>5.0.1-SNAPSHOT</version>
     <name>${project.artifactId}</name>
     <description>Maven Assembly Plugin boilerplate for Dockerized projects</description>
+    <url>https://github.com/confluentinc/common</url>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
 
     <build>
         <!-- assembly-plugin-boilerplate does not inherit from common
@@ -25,6 +30,11 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-site-plugin</artifactId>
                     <version>3.7.1</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-project-info-reports-plugin</artifactId>
+                    <version>3.0.0</version>
                 </plugin>
             </plugins>
         </pluginManagement>

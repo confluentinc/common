@@ -22,6 +22,12 @@
     <artifactId>build-tools</artifactId>
     <version>5.0.1-SNAPSHOT</version>
     <name>Build Tools</name>
+    <url>https://github.com/confluentinc/common</url>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
     <build>
         <!-- build-tools does not inherit from common
         so we need to define plugin versions again -->
@@ -31,6 +37,11 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-site-plugin</artifactId>
                     <version>3.7.1</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-project-info-reports-plugin</artifactId>
+                    <version>3.0.0</version>
                 </plugin>
             </plugins>
         </pluginManagement>
