@@ -38,7 +38,6 @@
         <apacheda.version>1.0.0-M33</apacheda.version>
         <apacheds.version>2.0.0-M21</apacheds.version>
         <argparse4j.version>0.7.0</argparse4j.version>
-        <bcpkix.version>1.54</bcpkix.version>
         <gson.version>2.7</gson.version>
     </properties>
 
@@ -90,7 +89,6 @@
         <dependency>
             <groupId>org.bouncycastle</groupId>
             <artifactId>bcpkix-jdk15on</artifactId>
-            <version>${bcpkix.version}</version>
             <scope>test</scope>
         </dependency>
 
