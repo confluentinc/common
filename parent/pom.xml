@@ -22,7 +22,7 @@
     <parent>
         <artifactId>common-parent</artifactId>
         <groupId>io.confluent</groupId>
-        <version>5.0.1-SNAPSHOT</version>
+        <version>5.0.1-beta180905054336</version>
     </parent>
 
     <artifactId>common</artifactId>
