@@ -35,6 +35,8 @@
         <property name="eachLine" value="true"/>
     </module>
 
+    <module name="NewlineAtEndOfFile" />
+
     <!-- header -->
     <module name="RegexpHeader">
         <property name="header" value="/\*\nCopyright .* Confluent Inc."/>
