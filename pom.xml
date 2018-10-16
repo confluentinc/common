@@ -55,7 +55,7 @@
         <spotbugs.maven.plugin.version>3.1.6</spotbugs.maven.plugin.version>
         <java.version>8</java.version>
         <jackson.version>2.9.6</jackson.version>
-        <jacoco-maven-plugin.version>0.8.1</jacoco-maven-plugin.version>
+        <jacoco-maven-plugin.version>0.8.2</jacoco-maven-plugin.version>
         <junit.version>4.12</junit.version>
         <kafka.version>2.2.0-SNAPSHOT</kafka.version>
         <kafka.scala.version>2.11</kafka.scala.version>
