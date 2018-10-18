@@ -100,7 +100,7 @@
         <docker.upstream-tag>${docker.tag}</docker.upstream-tag>  <!-- Tag for base images -->
         <docker.test-registry>${docker.upstream-registry}</docker.test-registry>  <!-- Registry for integration test dependencies -->
         <docker.test-tag>${docker.upstream-tag}</docker.test-tag>  <!-- Tag for integration test dependencies -->
-        <dockerfile-maven-plugin.version>1.4.0</dockerfile-maven-plugin.version>
+        <dockerfile-maven-plugin.version>1.4.7</dockerfile-maven-plugin.version>
     </properties>
 
     <scm>
@@ -831,21 +831,6 @@
                                 </configuration>
                             </execution>
                         </executions>
-                        <dependencies>
-                            <!-- required to run the plugin with JDK 10 -->
-                            <dependency>
-                                <groupId>javax.activation</groupId>
-                                <artifactId>activation</artifactId>
-                                <version>1.1.1</version>
-                            </dependency>
-                            <!-- use latest client version to work with aws ecr get-login -->
-                            <dependency>
-                                <groupId>com.spotify</groupId>
-                                <artifactId>docker-client</artifactId>
-                                <classifier>shaded</classifier>
-                                <version>8.11.2</version>
-                            </dependency>
-                        </dependencies>
                     </plugin>
                 </plugins>
             </build>
