@@ -49,11 +49,10 @@
         <avro.version>1.8.1</avro.version>
         <required.maven.version>3.2</required.maven.version>
         <confluent.version>5.2.0-SNAPSHOT</confluent.version>
-        <easymock.version>3.6</easymock.version>
+        <easymock.version>4.0.1</easymock.version>
         <exec-maven-plugin.version>1.5.0</exec-maven-plugin.version>
-        <!-- 3.1.6 has a regression that breaks when processing Kafka code, seems to be https://github.com/spotbugs/spotbugs/pull/688, verify that Muckrake works if bumping this -->
-        <spotbugs.version>3.1.5</spotbugs.version>
-        <spotbugs.maven.plugin.version>3.1.5</spotbugs.maven.plugin.version>
+        <spotbugs.version>3.1.8</spotbugs.version>
+        <spotbugs.maven.plugin.version>3.1.8</spotbugs.maven.plugin.version>
         <java.version>8</java.version>
         <jackson.version>2.9.6</jackson.version>
         <jacoco-maven-plugin.version>0.8.2</jacoco-maven-plugin.version>
@@ -74,8 +73,8 @@
         <os-maven-plugin.version>1.5.0.Final</os-maven-plugin.version>
         <slf4j-api.version>${slf4j.version}</slf4j-api.version>
         <jaxb.version>2.3.0</jaxb.version>
-        <!-- Using beta for Java 9 support -->
-        <powermock.version>2.0.0-beta.5</powermock.version>
+        <!-- Using rc for Java 11 support -->
+        <powermock.version>2.0.0-RC.3</powermock.version>
         <slf4j.version>1.7.25</slf4j.version>
         <zkclient.version>0.10</zkclient.version>
         <zookeeper.version>3.4.13</zookeeper.version>
