@@ -55,6 +55,7 @@
         <spotbugs.maven.plugin.version>3.1.8</spotbugs.maven.plugin.version>
         <java.version>8</java.version>
         <jackson.version>2.9.6</jackson.version>
+        <gson.version>2.8.5</gson.version>
         <jacoco-maven-plugin.version>0.8.2</jacoco-maven-plugin.version>
         <junit.version>4.12</junit.version>
         <kafka.version>2.2.0-SNAPSHOT</kafka.version>
@@ -69,10 +70,12 @@
         <maven-surefire-plugin.version>2.21.0</maven-surefire-plugin.version>
         <maven-site-plugin.version>3.7.1</maven-site-plugin.version>
         <maven-project-info-reports-plugin.version>3.0.0</maven-project-info-reports-plugin.version>
+        <mockito.version>2.23.0</mockito.version>
         <mockito-all.version>1.10.19</mockito-all.version>
         <os-maven-plugin.version>1.5.0.Final</os-maven-plugin.version>
         <slf4j-api.version>${slf4j.version}</slf4j-api.version>
         <jaxb.version>2.3.0</jaxb.version>
+        <hamcrest.version>1.3</hamcrest.version>
         <!-- Using rc for Java 11 support -->
         <powermock.version>2.0.0-RC.3</powermock.version>
         <slf4j.version>1.7.25</slf4j.version>
@@ -176,6 +179,11 @@
                 <groupId>org.bouncycastle</groupId>
                 <artifactId>bcpkix-jdk15on</artifactId>
                 <version>${bouncycastle.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.google.code.gson</groupId>
+                <artifactId>gson</artifactId>
+                <version>${gson.version}</version>
             </dependency>
 
             <!-- Kafka Deps -->
@@ -288,8 +296,20 @@
             </dependency>
             <dependency>
                 <groupId>org.mockito</groupId>
+                <artifactId>mockito-core</artifactId>
+                <version>${mockito.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.mockito</groupId>
                 <artifactId>mockito-all</artifactId>
                 <version>${mockito-all.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.hamcrest</groupId>
+                <artifactId>hamcrest-all</artifactId>
+                <version>${hamcrest.version}</version>
                 <scope>test</scope>
             </dependency>
             <!-- Kafka's SSL utilities are used in tests. -->
