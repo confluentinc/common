@@ -14,59 +14,52 @@
  * limitations under the License.
  */
 
-package io.confluent.common.logging.log4j2;
+package io.confluent.common.logging;
 
 import org.apache.kafka.connect.data.Schema;
 import org.apache.kafka.connect.data.SchemaAndValue;
-import org.apache.kafka.connect.data.SchemaBuilder;
 import org.apache.kafka.connect.data.Struct;
 
-final class LogRecordStructBuilder {
-  static final String FIELD_LOGGER = "logger";
-  static final String FIELD_LEVEL = "level";
-  static final String FIELD_TIME = "time";
-  static final String FIELD_MESSAGE = "message";
-
-  private static final String NAMESPACE = "io.confluent.common.logging";
-
-  private Integer level = null;
+public final class LogRecordStructBuilder implements LogRecordBuilder<Struct> {
+  private String level = null;
   private Long timeMs = null;
   private String loggerName = null;
   private SchemaAndValue messageWithSchema = null;
 
-  LogRecordStructBuilder() {
+  public LogRecordStructBuilder() {
   }
 
-  final LogRecordStructBuilder withLevel(final int level) {
+  @Override
+  public LogRecordStructBuilder withLevel(final String level) {
     this.level = level;
     return this;
   }
 
-  final LogRecordStructBuilder withTimeMs(final long timeMs) {
+  @Override
+  public LogRecordStructBuilder withTimeMs(final long timeMs) {
     this.timeMs = timeMs;
     return this;
   }
 
-  final LogRecordStructBuilder withLoggerName(final String loggerName) {
+  @Override
+  public LogRecordStructBuilder withLoggerName(final String loggerName) {
     this.loggerName = loggerName;
     return this;
   }
 
-  final LogRecordStructBuilder withMessageWithSchema(final SchemaAndValue messageWithSchema) {
+  @Override
+  public LogRecordStructBuilder withMessageSchemaAndValue(final SchemaAndValue messageWithSchema) {
     this.messageWithSchema = messageWithSchema;
     return this;
   }
 
-  private SchemaBuilder buildBaseSchemaBuilder() {
-    return SchemaBuilder.struct()
-        .name(NAMESPACE + "StructuredLogRecord")
-        .field(FIELD_LOGGER, Schema.OPTIONAL_STRING_SCHEMA)
-        .field(FIELD_LEVEL, Schema.OPTIONAL_INT32_SCHEMA)
-        .field(FIELD_TIME, Schema.OPTIONAL_INT64_SCHEMA);
+  @Override
+  public LogRecordBuilder<Struct> withMessageJson(String message) {
+    throw new RuntimeException("not implemented");
   }
 
-  final Struct build() {
-    final Schema logRecordSchema = buildBaseSchemaBuilder()
+  public Struct build() {
+    final Schema logRecordSchema = LogRecordBuilder.baseSchemaBuilder()
         .field(FIELD_MESSAGE, messageWithSchema.schema())
         .build();
     final Struct logRecord = new Struct(logRecordSchema);

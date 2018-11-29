@@ -16,10 +16,11 @@
 
 package io.confluent.common.logging.log4j2;
 
+import io.confluent.common.logging.LogRecordBuilder;
+import io.confluent.common.logging.LogRecordStructBuilder;
 import io.confluent.common.logging.StructuredLogMessage;
 import org.apache.kafka.connect.data.Schema;
 import org.apache.kafka.connect.data.SchemaAndValue;
-import org.apache.kafka.connect.data.SchemaBuilder;
 import org.apache.kafka.connect.data.Struct;
 import org.apache.kafka.connect.storage.Converter;
 import org.apache.logging.log4j.Level;
@@ -29,26 +30,32 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-import org.mockito.ArgumentCaptor;
+import org.mockito.InOrder;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
+
+import java.util.function.Consumer;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 public class StructuredLayoutTest {
-  private final String TOPIC = "topic";
-  private final Level LOG_LEVEL = Level.INFO;
-  private final String LOGGER_NAME = "foo.bar";
-  private final long LOG_TIME_MS = 123456L;
-  private final byte[] SERIALIZED_MSG = "serialized".getBytes();
+  private static final String TOPIC = "topic";
+  private static final Level LOG_LEVEL = Level.INFO;
+  private static final String LOGGER_NAME = "foo.bar";
+  private static final long LOG_TIME_MS = 123456L;
+  private static final byte[] SERIALIZED_MSG = "serialized".getBytes();
 
   @Mock
   private Converter converter;
@@ -57,11 +64,14 @@ public class StructuredLayoutTest {
   @Mock
   private Message log4jMessage;
   @Mock
+  private LogRecordBuilder<Struct> builder;
+  @Mock
   private StructuredLogMessage logMessage;
-  private final Schema schema = SchemaBuilder.struct()
-      .field("field", Schema.STRING_SCHEMA)
-      .build();
-  private final Struct msgStruct = new Struct(schema).put("field", "val");
+  @Mock
+  private Schema schema;
+  @Mock
+  private Struct struct;
+  private SchemaAndValue schemaAndValue;
 
   private StructuredLayout layout;
 
@@ -71,39 +81,54 @@ public class StructuredLayoutTest {
   public ExpectedException exceptionRule = ExpectedException.none();
 
   @Before
-  public void setUp() {
-    layout = new StructuredLayout(TOPIC, converter);
+  public void setup() {
+    layout = new StructuredLayout(TOPIC, converter, () -> builder);
     when(logEvent.getMessage()).thenReturn(log4jMessage);
     when(logEvent.getLevel()).thenReturn(LOG_LEVEL);
     when(logEvent.getLoggerName()).thenReturn(LOGGER_NAME);
     when(logEvent.getTimeMillis()).thenReturn(LOG_TIME_MS);
     when(converter.fromConnectData(any(String.class), any(Schema.class), any(Struct.class)))
         .thenReturn(SERIALIZED_MSG);
-    when(logMessage.getMessage()).thenReturn(new SchemaAndValue(schema, msgStruct));
+    schemaAndValue = new SchemaAndValue(schema, struct);
+    when(logMessage.getMessage()).thenReturn(schemaAndValue);
+    when(builder.withLevel(anyString())).thenReturn(builder);
+    when(builder.withLoggerName(anyString())).thenReturn(builder);
+    when(builder.withMessageSchemaAndValue(any(SchemaAndValue.class)))
+        .thenReturn(builder);
+    when(builder.withTimeMs(anyLong())).thenReturn(builder);
+    when(struct.schema()).thenReturn(schema);
+  }
+
+  private void verifyBeforeBuild(
+      final LogRecordBuilder<Struct> builder,
+      final Consumer<InOrder> action) {
+    final InOrder inOrder = Mockito.inOrder(builder);
+    action.accept(inOrder);
+    inOrder.verify(builder).build();
   }
 
   @Test
   public void shouldSerializeMessageCorrectly() {
     // Given:
     when(log4jMessage.getParameters()).thenReturn(new Object[]{logMessage});
+    final Schema logSchema = mock(Schema.class);
+    final Struct logRecord = mock(Struct.class);
+    when(logRecord.schema()).thenReturn(logSchema);
+    when(builder.build()).thenReturn(logRecord);
 
     // When:
     final byte[] serialized = layout.toByteArray(logEvent);
 
     // Then:
+    verifyBeforeBuild(builder, io -> io.verify(builder).withLoggerName(LOGGER_NAME));
+    verifyBeforeBuild(builder, io -> io.verify(builder).withTimeMs(LOG_TIME_MS));
+    verifyBeforeBuild(builder, io -> io.verify(builder).withLevel(LOG_LEVEL.name()));
+    verifyBeforeBuild(
+        builder,
+        io -> io.verify(builder).withMessageSchemaAndValue(schemaAndValue));
+    verify(converter, times(1))
+        .fromConnectData(TOPIC, logSchema, logRecord);
     assertThat(serialized, equalTo(SERIALIZED_MSG));
-    final ArgumentCaptor<Schema> schemaCaptor = ArgumentCaptor.forClass(Schema.class);
-    final ArgumentCaptor<Struct> structCaptor = ArgumentCaptor.forClass(Struct.class);
-    verify(converter, times(1)).fromConnectData(
-        eq(TOPIC),
-        schemaCaptor.capture(),
-        structCaptor.capture());
-    final Struct struct = structCaptor.getValue();
-    assertThat(struct.schema(), equalTo(schemaCaptor.getValue()));
-    assertThat(struct.get(LogRecordStructBuilder.FIELD_LEVEL), equalTo(LOG_LEVEL.intLevel()));
-    assertThat(struct.get(LogRecordStructBuilder.FIELD_LOGGER), equalTo(LOGGER_NAME));
-    assertThat(struct.get(LogRecordStructBuilder.FIELD_TIME), equalTo(LOG_TIME_MS));
-    assertThat(struct.get(LogRecordStructBuilder.FIELD_MESSAGE), is(msgStruct));
   }
 
   @Test

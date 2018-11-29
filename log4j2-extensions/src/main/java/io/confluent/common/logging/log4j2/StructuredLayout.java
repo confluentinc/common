@@ -16,6 +16,8 @@
 
 package io.confluent.common.logging.log4j2;
 
+import io.confluent.common.logging.LogRecordBuilder;
+import io.confluent.common.logging.LogRecordStructBuilder;
 import org.apache.kafka.connect.data.Struct;
 import org.apache.kafka.connect.storage.Converter;
 import org.apache.logging.log4j.core.LogEvent;
@@ -23,11 +25,14 @@ import org.apache.logging.log4j.core.layout.AbstractLayout;
 
 import io.confluent.common.logging.StructuredLogMessage;
 
+import java.util.function.Supplier;
+
 final class StructuredLayout extends AbstractLayout<byte[]> {
   private static final byte[] EMPTY_BYTES = new byte[0];
 
   private final String topic;
   private final Converter converter;
+  private final Supplier<LogRecordBuilder<Struct>> logRecordStructBuilderFactory;
 
   public byte[] toByteArray(final LogEvent event) {
     if (event.getMessage().getParameters().length != 1
@@ -37,11 +42,11 @@ final class StructuredLayout extends AbstractLayout<byte[]> {
     }
     final StructuredLogMessage schemaAndValue
         = (StructuredLogMessage) event.getMessage().getParameters()[0];
-    final Struct logRecord = new LogRecordStructBuilder()
+    final Struct logRecord = logRecordStructBuilderFactory.get()
         .withLoggerName(event.getLoggerName())
-        .withLevel(event.getLevel().intLevel())
+        .withLevel(event.getLevel().name())
         .withTimeMs(event.getTimeMillis())
-        .withMessageWithSchema(schemaAndValue.getMessage())
+        .withMessageSchemaAndValue(schemaAndValue.getMessage())
         .build();
     return converter.fromConnectData(topic, logRecord.schema(), logRecord);
   }
@@ -54,9 +59,19 @@ final class StructuredLayout extends AbstractLayout<byte[]> {
     return toByteArray(event);
   }
 
-  StructuredLayout(final String topic, final Converter converter) {
+  StructuredLayout(
+      final String topic,
+      final Converter converter) {
+    this(topic, converter, LogRecordStructBuilder::new);
+  }
+
+  StructuredLayout(
+      final String topic,
+      final Converter converter,
+      final Supplier<LogRecordBuilder<Struct>> logRecordBuilderFactory) {
     super(null, EMPTY_BYTES, EMPTY_BYTES);
     this.topic = topic;
     this.converter = converter;
+    this.logRecordStructBuilderFactory = logRecordBuilderFactory;
   }
 }

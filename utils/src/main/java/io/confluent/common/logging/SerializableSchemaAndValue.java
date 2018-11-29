@@ -16,20 +16,17 @@
 
 package io.confluent.common.logging;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.common.base.Charsets;
 import com.google.common.collect.ImmutableMap;
 import org.apache.kafka.connect.data.SchemaAndValue;
 import org.apache.kafka.connect.json.JsonConverter;
 import org.apache.kafka.connect.json.JsonConverterConfig;
-
-import java.io.IOException;
 
 // Wrapper around SchemaAndValue that implements toString by serializing to json
 // so that string-based loggers (e.g. log4j1) can log useful messages for structured
 // events.
 final class SerializableSchemaAndValue implements StructuredLogMessage {
   private static final JsonConverter converter = new JsonConverter();
-  private static final ObjectMapper objectMapper = new ObjectMapper();
 
   static {
     converter.configure(
@@ -52,14 +49,12 @@ final class SerializableSchemaAndValue implements StructuredLogMessage {
   }
 
   private String serializeToString() {
-    final byte[] bytes =
-        converter.fromConnectData("", schemaAndValue.schema(), schemaAndValue.value());
-    try {
-      return objectMapper.writeValueAsString(
-          objectMapper.readValue(bytes, Object.class));
-    } catch (final IOException e) {
-      throw new RuntimeException(e);
-    }
+    final byte[] bytes = converter.fromConnectData(
+        "",
+        schemaAndValue.schema(),
+        schemaAndValue.value());
+    // converter encodes as utf-8
+    return new String(bytes, Charsets.UTF_8);
   }
 
   @Override
