@@ -51,9 +51,6 @@ public final class LogRecordStringBuilder implements LogRecordBuilder<String> {
     }
   }
 
-  public LogRecordStringBuilder() {
-  }
-
   @Override
   public LogRecordStringBuilder withLevel(final String level) {
     this.level = level;

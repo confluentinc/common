@@ -17,7 +17,6 @@
 package io.confluent.common.logging.log4j2;
 
 import io.confluent.common.logging.LogRecordBuilder;
-import io.confluent.common.logging.LogRecordStructBuilder;
 import io.confluent.common.logging.StructuredLogMessage;
 import org.apache.kafka.connect.data.Schema;
 import org.apache.kafka.connect.data.SchemaAndValue;
@@ -39,12 +38,10 @@ import org.mockito.junit.MockitoRule;
 import java.util.function.Consumer;
 
 import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;

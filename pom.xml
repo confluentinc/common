@@ -120,6 +120,7 @@
         <module>metrics</module>
         <module>config</module>
         <module>utils</module>
+        <module>logging</module>
         <module>log4j-extensions</module>
         <module>log4j2-extensions</module>
         <module>package</module>

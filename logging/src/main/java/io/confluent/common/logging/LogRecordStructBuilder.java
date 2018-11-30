@@ -26,9 +26,6 @@ public final class LogRecordStructBuilder implements LogRecordBuilder<Struct> {
   private String loggerName = null;
   private SchemaAndValue messageWithSchema = null;
 
-  public LogRecordStructBuilder() {
-  }
-
   @Override
   public LogRecordStructBuilder withLevel(final String level) {
     this.level = level;
