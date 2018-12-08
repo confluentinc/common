@@ -26,6 +26,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public final class StructuredLoggerFactory {
+  private static final String DELIMITER = ".";
+
   private final String prefix;
   private final Map<String, StructuredLoggerImpl> loggers = new ConcurrentHashMap<>();
   private final Function<String, Logger> inner;
@@ -44,7 +46,7 @@ public final class StructuredLoggerFactory {
   }
 
   public StructuredLogger getLogger(final String name) {
-    final String loggerName = prefix + name;
+    final String loggerName = String.join(DELIMITER, prefix, name);
     return loggers.computeIfAbsent(
         loggerName,
         key -> new StructuredLoggerImpl(inner.apply(key))

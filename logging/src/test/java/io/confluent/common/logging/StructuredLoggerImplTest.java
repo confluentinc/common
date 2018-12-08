@@ -26,6 +26,7 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
@@ -38,7 +39,6 @@ import java.util.function.Supplier;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.instanceOf;
 import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.Matchers.contains;
 import static org.junit.Assert.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
@@ -56,6 +56,8 @@ public class StructuredLoggerImplTest {
   private SchemaAndValue msg;
   @Mock
   private Supplier<SchemaAndValue> msgSupplier;
+  @Captor
+  private ArgumentCaptor<SerializableSchemaAndValue> captor;
 
   private StructuredLoggerImpl logger;
 
@@ -74,7 +76,6 @@ public class StructuredLoggerImplTest {
     logger.error(msg);
 
     // Then:
-    final ArgumentCaptor<SerializableSchemaAndValue> captor = createMsgCaptor();
     verify(innerLogger, times(1)).error(eq(LOG_MSG), captor.capture());
     assertThat(captor.getValue().getMessage(), is(msg));
   }
@@ -88,7 +89,6 @@ public class StructuredLoggerImplTest {
     logger.error(msgSupplier);
 
     // Then:
-    final ArgumentCaptor<SerializableSchemaAndValue> captor = createMsgCaptor();
     verify(msgSupplier, times(1)).get();
     verify(innerLogger, times(1)).error(eq(LOG_MSG), captor.capture());
     assertThat(captor.getValue().getMessage(), is(msg));
@@ -113,7 +113,6 @@ public class StructuredLoggerImplTest {
     logger.info(msg);
 
     // Then:
-    final ArgumentCaptor<SerializableSchemaAndValue> captor = createMsgCaptor();
     verify(innerLogger, times(1)).info(eq(LOG_MSG), captor.capture());
     assertThat(captor.getValue().getMessage(), is(msg));
   }
@@ -127,7 +126,6 @@ public class StructuredLoggerImplTest {
     logger.info(msgSupplier);
 
     // Then:
-    final ArgumentCaptor<SerializableSchemaAndValue> captor = createMsgCaptor();
     verify(msgSupplier, times(1)).get();
     verify(innerLogger, times(1)).info(eq(LOG_MSG), captor.capture());
     assertThat(captor.getValue().getMessage(), is(msg));
@@ -152,7 +150,6 @@ public class StructuredLoggerImplTest {
     logger.debug(msg);
 
     // Then:
-    final ArgumentCaptor<SerializableSchemaAndValue> captor = createMsgCaptor();
     verify(innerLogger, times(1)).debug(eq(LOG_MSG), captor.capture());
     assertThat(captor.getValue().getMessage(), is(msg));
   }
@@ -166,7 +163,6 @@ public class StructuredLoggerImplTest {
     logger.debug(msgSupplier);
 
     // Then:
-    final ArgumentCaptor<SerializableSchemaAndValue> captor = createMsgCaptor();
     verify(msgSupplier, times(1)).get();
     verify(innerLogger, times(1)).debug(eq(LOG_MSG), captor.capture());
     assertThat(captor.getValue().getMessage(), is(msg));
@@ -201,7 +197,6 @@ public class StructuredLoggerImplTest {
     logger.info(schemaAndValue);
 
     // Then:
-    final ArgumentCaptor<SerializableSchemaAndValue> captor = createMsgCaptor();
     verify(innerLogger).info(any(), captor.capture());
     final String asString = captor.getValue().toString();
     final Object deserialized = new ObjectMapper().readValue(asString, Object.class);
@@ -212,9 +207,5 @@ public class StructuredLoggerImplTest {
             ImmutableMap.of(
                 "field1", "foobar",
                 "field2", 123)));
-  }
-
-  private ArgumentCaptor<SerializableSchemaAndValue> createMsgCaptor() {
-    return ArgumentCaptor.forClass(SerializableSchemaAndValue.class);
   }
 }

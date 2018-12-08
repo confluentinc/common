@@ -34,6 +34,7 @@ public class LogRecordStringBuilderTest {
 
   @Test
   public void shouldSerializeRecordCorrectly() throws IOException {
+    // When:
     final String record = builder
         .withLevel("INFO")
         .withLoggerName("foo.bar")
@@ -41,6 +42,7 @@ public class LogRecordStringBuilderTest {
         .withMessageJson("{\"field1\": 456, \"field2\": \"bizbaz\"}")
         .build();
 
+    // Then:
     final Object deserialized = objectMapper.readValue(record, Object.class);
     assertThat(deserialized, instanceOf(Map.class));
     final Map asMap = (Map) deserialized;

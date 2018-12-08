@@ -19,7 +19,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 public class StructuredLoggerFactoryTest {
-  private final static String PREFIX = "prefix.";
+  private final static String PREFIX = "prefix";
 
   @Mock
   private Function<String, Logger> innerFactory;
