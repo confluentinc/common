@@ -36,6 +36,7 @@ import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.MockitoRule;
 
 import java.util.function.Consumer;
+import java.util.function.Function;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertThat;
@@ -55,7 +56,7 @@ public class StructuredLayoutTest {
   private static final byte[] SERIALIZED_MSG = "serialized".getBytes();
 
   @Mock
-  private Converter converter;
+  private Function<Struct, byte[]> converter;
   @Mock
   private LogEvent logEvent;
   @Mock
@@ -79,12 +80,12 @@ public class StructuredLayoutTest {
 
   @Before
   public void setup() {
-    layout = new StructuredLayout(TOPIC, converter, () -> builder);
+    layout = new StructuredLayout(converter, () -> builder);
     when(logEvent.getMessage()).thenReturn(log4jMessage);
     when(logEvent.getLevel()).thenReturn(LOG_LEVEL);
     when(logEvent.getLoggerName()).thenReturn(LOGGER_NAME);
     when(logEvent.getTimeMillis()).thenReturn(LOG_TIME_MS);
-    when(converter.fromConnectData(any(String.class), any(Schema.class), any(Struct.class)))
+    when(converter.apply(any(Struct.class)))
         .thenReturn(SERIALIZED_MSG);
     schemaAndValue = new SchemaAndValue(schema, struct);
     when(logMessage.getMessage()).thenReturn(schemaAndValue);
@@ -124,7 +125,7 @@ public class StructuredLayoutTest {
         builder,
         io -> io.verify(builder).withMessageSchemaAndValue(schemaAndValue));
     verify(converter, times(1))
-        .fromConnectData(TOPIC, logSchema, logRecord);
+        .apply(logRecord);
     assertThat(serialized, equalTo(SERIALIZED_MSG));
   }
 

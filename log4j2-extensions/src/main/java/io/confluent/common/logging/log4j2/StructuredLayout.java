@@ -19,19 +19,18 @@ package io.confluent.common.logging.log4j2;
 import io.confluent.common.logging.LogRecordBuilder;
 import io.confluent.common.logging.LogRecordStructBuilder;
 import org.apache.kafka.connect.data.Struct;
-import org.apache.kafka.connect.storage.Converter;
 import org.apache.logging.log4j.core.LogEvent;
 import org.apache.logging.log4j.core.layout.AbstractLayout;
 
 import io.confluent.common.logging.StructuredLogMessage;
 
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 final class StructuredLayout extends AbstractLayout<byte[]> {
   private static final byte[] EMPTY_BYTES = new byte[0];
 
-  private final String topic;
-  private final Converter converter;
+  private final Function<Struct, byte[]> serializer;
   private final Supplier<LogRecordBuilder<Struct>> logRecordStructBuilderFactory;
 
   public byte[] toByteArray(final LogEvent event) {
@@ -48,7 +47,7 @@ final class StructuredLayout extends AbstractLayout<byte[]> {
         .withTimeMs(event.getTimeMillis())
         .withMessageSchemaAndValue(schemaAndValue.getMessage())
         .build();
-    return converter.fromConnectData(topic, logRecord.schema(), logRecord);
+    return serializer.apply(logRecord);
   }
 
   public String getContentType() {
@@ -59,19 +58,15 @@ final class StructuredLayout extends AbstractLayout<byte[]> {
     return toByteArray(event);
   }
 
-  StructuredLayout(
-      final String topic,
-      final Converter converter) {
-    this(topic, converter, LogRecordStructBuilder::new);
+  StructuredLayout(final Function<Struct, byte[]> serializer) {
+    this(serializer, LogRecordStructBuilder::new);
   }
 
   StructuredLayout(
-      final String topic,
-      final Converter converter,
+      final Function<Struct, byte[]> serializer,
       final Supplier<LogRecordBuilder<Struct>> logRecordBuilderFactory) {
     super(null, EMPTY_BYTES, EMPTY_BYTES);
-    this.topic = topic;
-    this.converter = converter;
+    this.serializer = serializer;
     this.logRecordStructBuilderFactory = logRecordBuilderFactory;
   }
 }

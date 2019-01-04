@@ -38,13 +38,14 @@ public final class StructuredAvroLayoutPlugin {
   public static StructuredLayout createLayout(
       @PluginAttribute("topic") final String topic,
       @PluginElement("Properties") final Property[] properties) {
-    final AvroConverter avroConverter = new AvroConverter();
-    avroConverter.configure(
+    final AvroConverter converter = new AvroConverter();
+    converter.configure(
         Arrays.stream(properties).collect(
             Collectors.toMap(Property::getName, Property::getValue)
         ),
         false
     );
-    return new StructuredLayout(topic, avroConverter);
+    return new StructuredLayout(
+        struct -> converter.fromConnectData(topic, struct.schema(), struct));
   }
 }

@@ -36,13 +36,13 @@ public final class StructuredJsonLayoutPlugin {
   @PluginFactory
   public static StructuredLayout createLayout(
       @PluginElement("Properties") final Property[] properties) {
-    final JsonConverter jsonConverter = new JsonConverter();
-    jsonConverter.configure(
+    final JsonConverter converter = new JsonConverter();
+    converter.configure(
         Arrays.stream(properties).collect(
             Collectors.toMap(Property::getName, Property::getValue)
         ),
         false
     );
-    return new StructuredLayout("", jsonConverter);
+    return new StructuredLayout(struct -> converter.fromConnectData("", struct.schema(), struct));
   }
 }
