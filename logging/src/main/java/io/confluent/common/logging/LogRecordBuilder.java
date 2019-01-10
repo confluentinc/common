@@ -26,7 +26,7 @@ public interface LogRecordBuilder<T> {
   String FIELD_TIME = "time";
   String FIELD_MESSAGE = "message";
 
-  String NAMESPACE = "io.confluent.common.logging";
+  String NAMESPACE = "io.confluent.common.logging.";
 
   static SchemaBuilder baseSchemaBuilder() {
     return SchemaBuilder.struct()
