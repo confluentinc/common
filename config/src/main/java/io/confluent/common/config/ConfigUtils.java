@@ -20,8 +20,10 @@ import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 public class ConfigUtils {
@@ -104,5 +106,21 @@ public class ConfigUtils {
       }
     }
     return newProps;
+  }
+
+  /**
+   * Gets all values with the given prefix, stripping the prefix before adding it to the output.
+   *
+   * @param prefix the prefix to use as a filter
+   * @return a Map containing the settings with the prefix
+   */
+  public static Map<String, Object> withPrefix(String prefix, Map<String, ?> map) {
+    Map<String, Object> result = new HashMap<>();
+    for (String key : map.keySet()) {
+      if (key.startsWith(prefix) && key.length() > prefix.length()) {
+        result.put(key.substring(prefix.length()), map.get(key));
+      }
+    }
+    return result;
   }
 }

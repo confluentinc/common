@@ -53,6 +53,7 @@ import io.confluent.common.utils.Utils;
  * A convenient base class for configurations to extend. <p> This class holds both the original
  * configuration that was provided as well as the parsed
  */
+@Deprecated
 public class AbstractConfig {
 
   private final Logger log = LoggerFactory.getLogger(getClass());
