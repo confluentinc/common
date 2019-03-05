@@ -24,6 +24,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Properties;
 
+@Deprecated
 public class ConfigUtils {
   private final static Logger log = LoggerFactory.getLogger(ConfigUtils.class);
 
