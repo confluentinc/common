@@ -66,7 +66,6 @@ import io.confluent.common.config.types.Password;
  * This class can be used stand-alone or in combination with {@link AbstractConfig} which provides
  * some additional functionality for accessing configs.
  */
-@Deprecated
 public class ConfigDef {
 
   protected static final Object NO_DEFAULT_VALUE = new Object();

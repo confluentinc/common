@@ -37,7 +37,6 @@ package io.confluent.common.config;
 /**
  * Thrown if the user supplies an invalid configuration
  */
-@Deprecated
 public class ConfigException extends RuntimeException {
 
     private static final long serialVersionUID = 1L;

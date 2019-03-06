@@ -33,7 +33,6 @@ package io.confluent.common.config.types;
 /**
  * A wrapper class for passwords to hide them while logging a config
  */
-@Deprecated
 public class Password {
 
     public static final String HIDDEN = "[hidden]";
