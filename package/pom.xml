@@ -68,19 +68,6 @@
                             </descriptors>
                         </configuration>
                     </execution>
-                    <execution>
-                        <id>package-archive-assembly</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>single</goal>
-                        </goals>
-                        <configuration>
-                            <descriptors>
-                                <descriptor>${basedir}/src/assembly/archive.xml</descriptor>
-                            </descriptors>
-                            <appendAssemblyId>false</appendAssemblyId>
-                        </configuration>
-                    </execution>
                 </executions>
             </plugin>
         </plugins>
