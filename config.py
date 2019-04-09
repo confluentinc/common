@@ -1,6 +1,3 @@
-# loaded config
-
-
 class Config:
     project_name = ""
     version = ""
