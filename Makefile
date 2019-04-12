@@ -17,28 +17,10 @@ export PACKAGE_NAME=$(PACKAGE_TITLE)-$(VERSION)
 # Defaults that are likely to vary by platform. These are cleanly separated so
 # it should be easy to maintain altered values on platform-specific branches
 # when the values aren't overridden by the script invoking the Makefile
-DEFAULT_APPLY_PATCHES=yes
-DEFAULT_DESTDIR=$(CURDIR)/BUILD/
-DEFAULT_PREFIX=$(PACKAGE_NAME)
-DEFAULT_SYSCONFDIR=PREFIX/etc/$(PACKAGE_TITLE)
-DEFAULT_SKIP_TESTS=no
-
-
-# Whether we should apply patches. This only makes sense for alternate packaging
-# systems that know how to apply patches themselves, e.g. Debian.
-ifndef APPLY_PATCHES
-APPLY_PATCHES=$(DEFAULT_APPLY_PATCHES)
-endif
-
-# Whether we should run tests during the build.
-ifndef SKIP_TESTS
-SKIP_TESTS=$(DEFAULT_SKIP_TESTS)
-endif
 
 # Install directories
-ifndef DESTDIR
-DESTDIR=$(DEFAULT_DESTDIR)
-endif
+DESTDIR=$(CURDIR)/BUILD/
+
 # For platform-specific packaging you'll want to override this to a normal
 # PREFIX like /usr or /usr/local. Using the PACKAGE_NAME here makes the default
 # zip/tgz files use a format like:
@@ -46,36 +28,37 @@ endif
 #     bin/
 #     etc/
 #     share/kafka/
-ifndef PREFIX
-PREFIX=$(DEFAULT_PREFIX)
-endif
+PREFIX=$(PACKAGE_NAME)
 
-ifndef SYSCONFDIR
-SYSCONFDIR:=$(DEFAULT_SYSCONFDIR)
-endif
+# Whether we should run tests during the build.
+SKIP_TESTS=no
+
+SYSCONFDIR=PREFIX/etc/$(PACKAGE_TITLE)
+
+# Whether we pull artifacts from nexus/artifactory
+PULL_ARTIFACTS=no
+
 SYSCONFDIR:=$(subst PREFIX,$(PREFIX),$(SYSCONFDIR))
 
-export APPLY_PATCHES
 export VERSION
 export DESTDIR
 export PREFIX
 export SYSCONFDIR
 export SKIP_TESTS
+export PULL_ARTIFACTS
 
 all: install
 
-
 archive: install
+ifeq ($(PULL_ARTIFACTS),no)
 	rm -f $(CURDIR)/$(PACKAGE_NAME).tar.gz && cd $(DESTDIR) && tar -czf $(CURDIR)/$(PACKAGE_NAME).tar.gz $(PREFIX)
 	rm -f $(CURDIR)/$(PACKAGE_NAME).zip && cd $(DESTDIR) && zip -r $(CURDIR)/$(PACKAGE_NAME).zip $(PREFIX)
-
-apply-patches: $(wildcard patches/*)
-ifeq ($(APPLY_PATCHES),yes)
-	git reset --hard HEAD
-	cat patches/series | xargs -iPATCH bash -c 'patch -p1 < patches/PATCH'
 endif
 
-build: apply-patches
+build:
+ifeq ($(PULL_ARTIFACTS),no)
+	python3 ./download_artifacts/download_artifacts.py
+endif
 ifeq ($(SKIP_TESTS),yes)
 	mvn -DskipTests=true install
 else
