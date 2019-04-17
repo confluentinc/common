@@ -19,8 +19,9 @@ export PACKAGE_NAME=$(PACKAGE_TITLE)-$(VERSION)
 # when the values aren't overridden by the script invoking the Makefile
 
 # Install directories
+ifndef DESTDIR
 DESTDIR=$(CURDIR)/BUILD/
-
+endif
 # For platform-specific packaging you'll want to override this to a normal
 # PREFIX like /usr or /usr/local. Using the PACKAGE_NAME here makes the default
 # zip/tgz files use a format like:
@@ -28,15 +29,23 @@ DESTDIR=$(CURDIR)/BUILD/
 #     bin/
 #     etc/
 #     share/kafka/
+ifndef PREFIX
 PREFIX=$(PACKAGE_NAME)
+endif
 
 # Whether we should run tests during the build.
+ifndef SKIP_TESTS
 SKIP_TESTS=no
+endif
 
+ifndef SYSCONFDIR
 SYSCONFDIR=PREFIX/etc/$(PACKAGE_TITLE)
+endif
 
 # Whether we pull artifacts from nexus/artifactory
+ifndef PULL_ARTIFACTS
 PULL_ARTIFACTS=no
+endif
 
 SYSCONFDIR:=$(subst PREFIX,$(PREFIX),$(SYSCONFDIR))
 
@@ -51,28 +60,29 @@ all: install
 
 archive: install
 ifeq ($(PULL_ARTIFACTS),no)
-	rm -f $(CURDIR)/$(PACKAGE_NAME).tar.gz && cd $(DESTDIR) && tar -czf $(CURDIR)/$(PACKAGE_NAME).tar.gz $(PREFIX)
-	rm -f $(CURDIR)/$(PACKAGE_NAME).zip && cd $(DESTDIR) && zip -r $(CURDIR)/$(PACKAGE_NAME).zip $(PREFIX)
+        rm -f $(CURDIR)/$(PACKAGE_NAME).tar.gz && cd $(DESTDIR) && tar -czf $(CURDIR)/$(PACKAGE_NAME).tar.gz $(PREFIX)
+        rm -f $(CURDIR)/$(PACKAGE_NAME).zip && cd $(DESTDIR) && zip -r $(CURDIR)/$(PACKAGE_NAME).zip $(PREFIX)
 endif
 
 build:
-ifeq ($(PULL_ARTIFACTS),no)
-	python3 ./download_artifacts/download_artifacts.py
+ifeq ($(PULL_ARTIFACTS),yes)
+        python3 ./py/confluent/build/download_artifacts.py
 endif
+
 ifeq ($(SKIP_TESTS),yes)
-	mvn -DskipTests=true install
+      mvn -DskipTests=true install
 else
-	mvn install
+      mvn install
 endif
 
 install: build
-	./create_archive.sh
+        ./create_archive.sh
 
 clean:
-	rm -rf $(DESTDIR)
-	rm -rf $(CURDIR)/$(PACKAGE_NAME)*
-	rm -rf $(PACKAGE_TITLE)-$(RPM_VERSION)*rpm
-	rm -rf RPM_BUILDING
+        rm -rf $(DESTDIR)
+        rm -rf $(CURDIR)/$(PACKAGE_NAME)*
+        rm -rf $(PACKAGE_TITLE)-$(RPM_VERSION)*rpm
+        rm -rf RPM_BUILDING
 
 distclean: clean
 
