@@ -5,6 +5,7 @@ import requests
 
 from constants import BASE_URL, M2, PACKAGE_LITERAL, ARTIFACTID, USERNAME_REGEX, PASSWORD_REGEX, FILENAME_REGEX
 
+
 class NexusURL:
     def __init__(self, cg):
         self.cg = cg
@@ -27,9 +28,10 @@ class NexusURL:
         '''get latest artifact url'''
         latest = 0
         url = BASE_URL + self.cg.project_name + PACKAGE_LITERAL + "-" + self.cg.version + ARTIFACTID + self.cg.project_name + PACKAGE_LITERAL
-        print(url)
         try:
-            r = requests.get(url, auth=(self.cg.username, self.cg.password))
+            session = requests.Session()
+            session.trust_env = False
+            r = session.get(url, auth=(self.cg.username, self.cg.password))
         except requests.exceptions.RequestException as e:
             print(e)
         artifacts = r.json().get('items')

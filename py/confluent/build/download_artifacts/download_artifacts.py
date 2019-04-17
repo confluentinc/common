@@ -6,6 +6,8 @@ import requests
 from global_config import DownloadArtifactsConfig
 from nexusURL import NexusURL
 from constants import VERSION_REGEX, NAME_REGEX, SNAPSHOT_LITERAL, CONFLUENT_LITERAL, POM
+import time
+
 
 class DownloadArtifacts:
     def __init__(self):
@@ -48,11 +50,11 @@ class DownloadArtifacts:
             except IOError as e:
                 print(e)
         return
-    
+
     def get_maven_settings(self):
         self.nurl.get_maven_settings()
         return
-    
+
     def get_artifact_uri(self):
         self.nurl.get_artifact_uri()
         return
@@ -64,9 +66,12 @@ class DownloadArtifacts:
         self.download_artifact()
         return
 
+
 def main():
+    start_time = time.time()
     da = DownloadArtifacts()
     da.download()
+    print("--- %s seconds ---" % (time.time() - start_time))
 
 if __name__ == "__main__":
     main()
