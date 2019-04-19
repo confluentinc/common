@@ -13,13 +13,13 @@
  <servers>
    <server>
      <id>confluent-nexus-central</id>
-     <username>xiang username</username>
-     <password>xiang password</password>
+     <username>nexus username</username>
+     <password>nexus password</password>
    </server>
    <server>
      <id>confluent-maven-remote</id>
-     <username>xiang username</username>
-     <password>xiang password</password>
+     <username>nexus username</username>
+     <password>nexus password</password>
    </server>
  </servers>
   
