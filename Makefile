@@ -60,30 +60,30 @@ all: install
 
 archive: install
 ifeq ($(PULL_ARTIFACTS),no)
-        rm -f $(CURDIR)/$(PACKAGE_NAME).tar.gz && cd $(DESTDIR) && tar -czf $(CURDIR)/$(PACKAGE_NAME).tar.gz $(PREFIX)
-        rm -f $(CURDIR)/$(PACKAGE_NAME).zip && cd $(DESTDIR) && zip -r $(CURDIR)/$(PACKAGE_NAME).zip $(PREFIX)
+		rm -f $(CURDIR)/$(PACKAGE_NAME).tar.gz && cd $(DESTDIR) && tar -czf $(CURDIR)/$(PACKAGE_NAME).tar.gz $(PREFIX)
+		rm -f $(CURDIR)/$(PACKAGE_NAME).zip && cd $(DESTDIR) && zip -r $(CURDIR)/$(PACKAGE_NAME).zip $(PREFIX)
 endif
 
 build:
 ifeq ($(PULL_ARTIFACTS),yes)
 		pip3 install requests
-    	python3 ./py/confluent/build/download_artifacts/download_artifacts.py
+		python3 ./py/confluent/build/download_artifacts/download_artifacts.py
 endif
 
 ifeq ($(SKIP_TESTS),yes)
-      mvn -DskipTests=true install
+		mvn -DskipTests=true install
 else
-      mvn install
+		mvn install
 endif
 
 install: build
-        ./create_archive.sh
+		./create_archive.sh
 
 clean:
-        rm -rf $(DESTDIR)
-        rm -rf $(CURDIR)/$(PACKAGE_NAME)*
-        rm -rf $(PACKAGE_TITLE)-$(RPM_VERSION)*rpm
-        rm -rf RPM_BUILDING
+		rm -rf $(DESTDIR)
+		rm -rf $(CURDIR)/$(PACKAGE_NAME)*
+		rm -rf $(PACKAGE_TITLE)-$(RPM_VERSION)*rpm
+		rm -rf RPM_BUILDING
 
 distclean: clean
 
