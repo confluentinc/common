@@ -7,9 +7,7 @@ from unittest.mock import patch, mock_open
 
 from requests import Session
 
-path = os.path.dirname(os.path.abspath(__file__))
-sys.path.append(path+'/../confluent/build/download_artifacts')
-from download_artifacts import DownloadArtifacts
+from py.confluent.build.download_artifacts import DownloadArtifacts
 
 test_pom = []
 with open(path+'/data/pom.xml') as pom:

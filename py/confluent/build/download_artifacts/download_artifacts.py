@@ -45,8 +45,9 @@ class DownloadArtifacts:
                 r = session.get(
                         artifact.get('file_url'), auth=(
                             self.config.username, self.config.password))
-                package_name = DAC.CONFLUENT_LITERAL.value + self.config.project_name + "-" +\
-                    self.config.version + DAC.SNAPSHOT_LITERAL.value + artifact.get('file_ext')
+                package_name = DAC.CONFLUENT_LITERAL.value +\
+                    self.config.project_name + "-" + self.config.version +\
+                    DAC.SNAPSHOT_LITERAL.value + artifact.get('file_ext')
                 package = open(package_name, 'wb')
                 package.write(r.content)
                 package.close()
@@ -78,7 +79,8 @@ def main():
     start_time = time.time()
     dawnload_artifacts = DownloadArtifacts()
     dawnload_artifacts.download()
-    print("--- used %s seconds to download artifacts! ---" % (time.time() - start_time))
+    print("--- used %s seconds to download artifacts! ---"
+          % (time.time() - start_time))
 
 
 if __name__ == "__main__":
