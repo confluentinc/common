@@ -2,12 +2,15 @@ import json
 import gzip
 import os
 import sys
+path = os.path.dirname(os.path.abspath(__file__))
+sys.path.append(path+'/../confluent/build/download_artifacts')
+
 import unittest.mock as mock
 from unittest.mock import patch, mock_open
 
 from requests import Session
 
-from py.confluent.build.download_artifacts import DownloadArtifacts
+from download_artifacts import DownloadArtifacts
 
 test_pom = []
 with open(path+'/data/pom.xml') as pom:
