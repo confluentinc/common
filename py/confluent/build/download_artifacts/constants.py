@@ -4,7 +4,7 @@ from enum import Enum
 class NexusConstants(Enum):
     # url for nexus restful api
     BASE_URL = "https://nexus.confluent.io/service/rest/v1/search/assets?q="
-    MVN_SETTINGS = "/tmp/m2.settings.xml"
+    MVN_SETTINGS = "/root/.m2/settings.xml"
     PACKAGE_LITERAL = "-package"
     ARTIFACTID = "&maven.artifactId="
     USERNAME_REGEX = r"<username>(.*)</username>"
