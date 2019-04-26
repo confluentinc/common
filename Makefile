@@ -66,8 +66,7 @@ endif
 
 build:
 ifeq ($(PULL_ARTIFACTS),yes)
-	pip3 install requests
-	python3 ./py/confluent/build/download_artifacts/download_artifacts.py
+	python3 -u ./py/confluent/build/download_artifacts/download_artifacts.py
 endif
 
 ifeq ($(SKIP_TESTS),yes)
