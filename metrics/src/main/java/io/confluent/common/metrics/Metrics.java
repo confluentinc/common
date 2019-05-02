@@ -210,6 +210,12 @@ public class Metrics {
     }
   }
 
+  void publishMetric(KafkaMetric metric) {
+    for (MetricsReporter reporter : reporters) {
+      reporter.metricChange(metric);
+    }
+  }
+
   /**
    * Get all the metrics currently maintained indexed by metricName
    */
