@@ -86,6 +86,7 @@ newbuild:
 	rm -rf ./download-artifacts
 
 install: $(BUILD_METHOD)
+	./create_archive.sh
 
 clean:
 	rm -rf $(DESTDIR)
