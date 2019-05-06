@@ -65,18 +65,23 @@ ifeq ($(PULL_ARTIFACTS),no)
 endif
 
 build:
-ifeq ($(PULL_ARTIFACTS),yes)
-	python3 -u ./py/confluent/build/download_artifacts/download_artifacts.py
-endif
-
 ifeq ($(SKIP_TESTS),yes)
 	mvn -DskipTests=true install
 else
 	mvn install
 endif
 
-install: build
+newbuild:
+	git clone git@github.com:confluentinc/download-artifacts.git
+	python3 -u ./download-artifacts/py/confluent/build/download_artifacts/download_artifacts.py
+	rm -rf ./download-artifacts
+install:
+ifeq ($(PULL_ARTIFACTS),yes)
+	newbuild
+else
+	build
 	./create_archive.sh
+endif
 
 clean:
 	rm -rf $(DESTDIR)
