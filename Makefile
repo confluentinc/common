@@ -76,10 +76,10 @@ newbuild:
 	python3 -u ./download-artifacts/py/confluent/build/download_artifacts/download_artifacts.py
 	rm -rf ./download-artifacts
 install:
-ifeq ($(PULL_ARTIFACTS),yes)
-	newbuild
-else
-	build
+ifeq ($(PULL_ARTIFACTS),yes) 
+	make newbuild
+else 
+	make build
 	./create_archive.sh
 endif
 
