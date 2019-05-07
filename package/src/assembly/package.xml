@@ -22,7 +22,7 @@
     <formats>
         <format>dir</format>
         <format>zip</format>
-        <formate>tar.gz</format>
+        <formate>tar.gz</formate>
     </formats>
     <includeBaseDirectory>false</includeBaseDirectory>
     <fileSets>
