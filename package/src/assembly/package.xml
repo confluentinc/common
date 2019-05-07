@@ -19,10 +19,10 @@
           xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2
           http://maven.apache.org/xsd/assembly-1.1.2.xsd">
     <id>package</id>
-    <id>zip</id>
-    <id>tar.gz</id>
     <formats>
         <format>dir</format>
+        <format>zip</format>
+        <formate>tar.gz</format>
     </formats>
     <includeBaseDirectory>false</includeBaseDirectory>
     <fileSets>
