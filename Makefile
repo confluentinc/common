@@ -47,6 +47,11 @@ ifndef PULL_ARTIFACTS
 PULL_ARTIFACTS=no
 endif
 
+# Choose old or new way to build
+ifndef BUILD_METHOD
+BUILD_METHOD=build
+endif
+
 SYSCONFDIR:=$(subst PREFIX,$(PREFIX),$(SYSCONFDIR))
 
 export VERSION
@@ -55,6 +60,10 @@ export PREFIX
 export SYSCONFDIR
 export SKIP_TESTS
 export PULL_ARTIFACTS
+
+ifeq ($(PULL_ARTIFACTS),yes)
+	BUILD_METHOD = newbuild
+endif
 
 all: install
 
@@ -65,17 +74,18 @@ ifeq ($(PULL_ARTIFACTS),no)
 endif
 
 build:
-ifeq ($(PULL_ARTIFACTS),yes)
-	python3 -u ./py/confluent/build/download_artifacts/download_artifacts.py
-endif
-
 ifeq ($(SKIP_TESTS),yes)
 	mvn -DskipTests=true install
 else
 	mvn install
 endif
 
-install: build
+newbuild:
+	git clone git@github.com:confluentinc/download-artifacts.git
+	python3 -u ./download-artifacts/py/confluent/build/download_artifacts/download_artifacts.py
+	rm -rf ./download-artifacts
+
+install: $(BUILD_METHOD)
 	./create_archive.sh
 
 clean:
