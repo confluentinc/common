@@ -81,7 +81,7 @@ else
 endif
 
 newbuild:
-	git clone git@github.com:confluentinc/download-artifacts.git
+	git clone /vagrant/repos/download-artifacts.git
 	python3 -u ./download-artifacts/py/confluent/build/download_artifacts/download_artifacts.py
 	rm -rf ./download-artifacts
 
