@@ -79,7 +79,7 @@ ifeq ($(SKIP_TESTS),yes)
 else
 	mvn install
 endif
-./create_archive.sh
+	./create_archive.sh
 
 newbuild:
 	git clone /vagrant/repos/download-artifacts.git
