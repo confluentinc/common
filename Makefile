@@ -79,6 +79,7 @@ ifeq ($(SKIP_TESTS),yes)
 else
 	mvn install
 endif
+./create_archive.sh
 
 newbuild:
 	git clone /vagrant/repos/download-artifacts.git
@@ -86,7 +87,6 @@ newbuild:
 	rm -rf ./download-artifacts
 
 install: $(BUILD_METHOD)
-	./create_archive.sh
 
 clean:
 	rm -rf $(DESTDIR)
