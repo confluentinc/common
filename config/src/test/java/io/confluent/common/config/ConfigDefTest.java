@@ -52,7 +52,9 @@ import static io.confluent.common.config.ConfigDef.Type.LONG;
 import static io.confluent.common.config.ConfigDef.Type.STRING;
 import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.fail;
+import org.hamcrest.CoreMatchers;
 
 public class ConfigDefTest {
 
@@ -244,6 +246,64 @@ public class ConfigDefTest {
       } catch (ConfigException e) {
         // this is good
       }
+    }
+  }
+
+  @Test
+  public void testAlternativesRejectMultipleDefaultsDefinition() {
+    try {
+      new ConfigDef()
+        .defineAlternative("group", "a", INT, 5, null, ConfigDef.Importance.HIGH, "docs")
+        .defineAlternative("group", "b", BOOLEAN, false, null, ConfigDef.Importance.HIGH, "docs")
+        .defineAlternative("group", "c", BOOLEAN, null, ConfigDef.Importance.HIGH, "docs");
+      fail();
+    } catch (final ConfigException e) {
+      assertThat(e.getMessage(), CoreMatchers.containsString("[a, b]"));
+    }
+  }
+
+  @Test
+  public void testAlternativesRejectMultipleSpecificationOnParse() {
+    final ConfigDef configDef = new ConfigDef()
+      .defineAlternative("group", "a", INT, 5, null, ConfigDef.Importance.HIGH, "docs")
+      .defineAlternative("group", "b", BOOLEAN, null, ConfigDef.Importance.HIGH, "docs")
+      .defineAlternative("group", "c", STRING, null, ConfigDef.Importance.HIGH, "docs");
+
+    final Properties properties = new Properties();
+    properties.put("a", "3");
+    properties.put("b", "false");
+
+    try {
+      final Map<String, Object> parsed = configDef.parse(properties);
+      fail();
+    } catch (final ConfigException e) {
+      assertThat(e.getMessage(), CoreMatchers.containsString("[a, b]"));
+    }
+  }
+
+  @Test
+  public void testAlternatives() {
+    final ConfigDef configDef = new ConfigDef()
+      .defineAlternative("group", "a", INT, 5, null, ConfigDef.Importance.HIGH, "docs")
+      .defineAlternative("group", "b", BOOLEAN, null, ConfigDef.Importance.HIGH, "docs");
+
+    {
+      final Properties properties = new Properties();
+      properties.put("a", "3");
+      final Map<String, Object> parsed = configDef.parse(properties);
+      assertEquals(3, parsed.get("a"));
+    }
+
+    {
+      final Properties properties = new Properties();
+      properties.put("b", "true");
+      final Map<String, Object> parsed = configDef.parse(properties);
+      assertEquals(true, parsed.get("b"));
+    }
+
+    {
+      final Map<String, Object> parsed = configDef.parse(new Properties());
+      assertEquals(5, parsed.get("a"));
     }
   }
 }

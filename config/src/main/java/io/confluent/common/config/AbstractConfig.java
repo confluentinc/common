@@ -80,6 +80,10 @@ public class AbstractConfig {
     logAll();
   }
 
+  protected boolean contains(String key) {
+    return values.containsKey(key);
+  }
+
   protected Object get(String key) {
     if (!values.containsKey(key)) {
       throw new ConfigException(String.format("Unknown configuration '%s'", key));

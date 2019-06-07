@@ -35,6 +35,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -70,7 +72,22 @@ public class ConfigDef {
 
   private static final Object NO_DEFAULT_VALUE = new Object();
 
-  private final Map<String, ConfigKey> configKeys = new HashMap<String, ConfigKey>();
+  private final Map<String, ConfigKey> configKeys;
+
+  private final Map<String, Map<String, ConfigKey>> alternativesGroups;
+
+  public ConfigDef() {
+    configKeys = new HashMap<>();
+    alternativesGroups = new HashMap<>();
+  }
+
+  public ConfigDef(ConfigDef configDef) {
+    configKeys = new HashMap<>(configDef.configKeys);
+    alternativesGroups = new HashMap<>();
+    for (final Map.Entry<String, Map<String, ConfigKey>> entry : configDef.alternativesGroups.entrySet()) {
+      alternativesGroups.put(entry.getKey(), new HashMap<>(entry.getValue()));
+    }
+  }
 
   /**
    * Returns unmodifiable set of properties names defined in this {@linkplain ConfigDef}
@@ -79,6 +96,49 @@ public class ConfigDef {
    */
   public Set<String> names() {
     return Collections.unmodifiableSet(configKeys.keySet());
+  }
+
+  public ConfigDef defineAlternative(String alternativeGroupName,
+                                     String name,
+                                     Type type,
+                                     Validator validator,
+                                     Importance importance,
+                                     String documentation) {
+    return defineAlternative(alternativeGroupName, name, type, NO_DEFAULT_VALUE, validator, importance, documentation);
+  }
+
+  public ConfigDef defineAlternative(String alternativeGroupName,
+                                     String name,
+                                     Type type,
+                                     Object defaultValue,
+                                     Validator validator,
+                                     Importance importance,
+                                     String documentation) {
+    if (configKeys.containsKey(name) || someGroupAlreadyHasThisKey(name)) {
+      throw new ConfigException("Configuration " + name + " is defined twice.");
+    }
+    Object parsedDefault =
+      NO_DEFAULT_VALUE.equals(defaultValue) ? NO_DEFAULT_VALUE : parseType(name, defaultValue, type);
+    if (!alternativesGroups.containsKey(alternativeGroupName)) {
+      alternativesGroups.put(alternativeGroupName, new HashMap<String, ConfigKey>());
+    }
+
+    final Map<String, ConfigKey> group = alternativesGroups.get(alternativeGroupName);
+
+    group.put(name, new ConfigKey(name, type, parsedDefault, validator, importance, documentation));
+
+    // ensure multiple defaults are not defined
+    findKeyWithDefaultValueOrNull(group);
+    return this;
+  }
+
+  private boolean someGroupAlreadyHasThisKey(final String name) {
+    for (final Map<String, ConfigKey> group : alternativesGroups.values()) {
+      if (group.containsKey(name)) {
+        return true;
+      }
+    }
+    return false;
   }
 
   /**
@@ -235,6 +295,12 @@ public class ConfigDef {
   public Map<String, Object> parse(Map<?, ?> props) {
         /* parse all known keys */
     Map<String, Object> values = new HashMap<String, Object>();
+    parseSingleConfigs(props, values);
+    parseConfigsWithAlternatives(props, values);
+    return values;
+  }
+
+  private void parseSingleConfigs(final Map<?, ?> props, final Map<String, Object> values) {
     for (ConfigKey key : configKeys.values()) {
       Object value;
       if (props.containsKey(key.name)) {
@@ -250,7 +316,78 @@ public class ConfigDef {
       }
       values.put(key.name, value);
     }
-    return values;
+  }
+
+  private void parseConfigsWithAlternatives(final Map<?, ?> props, final Map<String, Object> values) {
+    for (final Map<String, ConfigKey> alternativeGroup : alternativesGroups.values()) {
+      final ConfigKey key = findZeroOrOneMatchingKey(alternativeGroup, props);
+      if (key != null) {
+        final Object value = parseType(key.name, props.get(key.name), key.type);
+        if (key.validator != null) {
+          key.validator.ensureValid(key.name, value);
+        }
+        values.put(key.name, value);
+      } else {
+        final ConfigKey keyWithDefaultValue = findKeyWithDefaultValueOrNull(alternativeGroup);
+        if (keyWithDefaultValue == null) {
+          throw new ConfigException(
+            "Missing required configuration with no default value. " +
+              "One of (" + alternativeGroup.keySet() + ") must be defined."
+          );
+        } else {
+          values.put(keyWithDefaultValue.name, keyWithDefaultValue.defaultValue);
+        }
+      }
+    }
+  }
+
+  private static ConfigKey findKeyWithDefaultValueOrNull(final Map<String, ConfigKey> alternativeGroup) {
+    final List<ConfigKey> withDefaultValues = new ArrayList<>();
+    for (final ConfigKey configKey : alternativeGroup.values()) {
+      if (!NO_DEFAULT_VALUE.equals(configKey.defaultValue)) {
+        withDefaultValues.add(configKey);
+      }
+    }
+
+    if (withDefaultValues.isEmpty()) {
+      return null;
+    } else if (withDefaultValues.size() > 1) {
+      final StringBuilder keysWithDefaults = new StringBuilder();
+      for (int i = 0; i < withDefaultValues.size(); i++) {
+        final ConfigKey k = withDefaultValues.get(i);
+        keysWithDefaults.append(k.name);
+        if (i != withDefaultValues.size() -1) {
+          keysWithDefaults.append(", ");
+        }
+      }
+      throw new ConfigException(
+        "Only one of " + alternativeGroup.keySet() + " may be have default values, " +
+          "but [" + keysWithDefaults + "] all do."
+      );
+    } else {
+      return withDefaultValues.get(0);
+    }
+  }
+
+  private static ConfigKey findZeroOrOneMatchingKey(final Map<String, ConfigKey> alternativeGroup,
+                                                    final Map<?, ?> props) {
+    final Set<String> matchingKeys = new HashSet<>(alternativeGroup.keySet());
+    final Iterator<String> keys = matchingKeys.iterator();
+    while (keys.hasNext()) {
+        if (!props.containsKey(keys.next())) {
+            keys.remove();
+        }
+    }
+    if (matchingKeys.isEmpty()) {
+      return null;
+    } else if (matchingKeys.size() > 1) {
+      throw new ConfigException(
+        "No more than one of " + alternativeGroup.keySet() + " may be defined. " +
+          "Got " + matchingKeys + "."
+      );
+    } else {
+      return alternativeGroup.get(matchingKeys.iterator().next());
+    }
   }
 
   /**
