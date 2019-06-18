@@ -49,7 +49,7 @@
         <confluent.version>3.3.4-SNAPSHOT</confluent.version>
         <easymock.version>3.4</easymock.version>
         <findbugs-maven-plugin.version>3.0.1</findbugs-maven-plugin.version>
-        <jackson.version>2.9.8</jackson.version>
+        <jackson.version>2.9.9</jackson.version>
         <jacoco-maven-plugin.version>0.7.9</jacoco-maven-plugin.version>
         <junit.version>4.12</junit.version>
         <kafka.version>0.11.0.4-SNAPSHOT</kafka.version>
