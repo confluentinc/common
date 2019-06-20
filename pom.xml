@@ -478,7 +478,7 @@
                     <configuration>
                         <archive>
                             <manifestEntries>
-                                <Commit-ID>${buildNumber}</Commit-ID>
+                                <Commit-ID>${gitCommitID}</Commit-ID>
                             </manifestEntries>
                         </archive>
                     </configuration>
@@ -552,6 +552,7 @@
                     <configuration>
                         <doCheck>false</doCheck>
                         <doUpdate>false</doUpdate>
+                        <buildNumberPropertyName>gitCommitID</buildNumberPropertyName>
                     </configuration>
                 </plugin>
             </plugins>
