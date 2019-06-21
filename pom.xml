@@ -72,6 +72,7 @@
         <maven-surefire-plugin.version>2.21.0</maven-surefire-plugin.version>
         <maven-site-plugin.version>3.7.1</maven-site-plugin.version>
         <maven-project-info-reports-plugin.version>3.0.0</maven-project-info-reports-plugin.version>
+        <buildnumber-plugin.version>1.4</buildnumber-plugin.version>
         <mockito.version>2.23.0</mockito.version>
         <mockito-all.version>1.10.19</mockito-all.version>
         <os-maven-plugin.version>1.5.0.Final</os-maven-plugin.version>
@@ -540,7 +541,7 @@
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>buildnumber-maven-plugin</artifactId>
-                    <version>1.4</version>
+                    <version>${buildnumber-plugin.version}</version>
                     <executions>
                         <execution>
                             <phase>validate</phase>
