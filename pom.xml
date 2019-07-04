@@ -23,7 +23,7 @@
     <groupId>io.confluent</groupId>
     <artifactId>common-parent</artifactId>
     <packaging>pom</packaging>
-    <version>5.3.0-SNAPSHOT</version>
+    <version>5.3.0-beta190704193225</version>
     <name>common</name>
     <organization>
         <name>Confluent, Inc.</name>
@@ -48,7 +48,7 @@
         <!-- AVRO-2122 is a regression in 1.8.2 so we can't upgrade until 1.8.3 is released -->
         <avro.version>1.8.1</avro.version>
         <required.maven.version>3.2</required.maven.version>
-        <confluent.version>5.3.0-SNAPSHOT</confluent.version>
+        <confluent.version>5.3.0-beta190704193225</confluent.version>
         <kafka.version>5.3.0-ccs-SNAPSHOT</kafka.version>
         <ce.kafka.version>5.3.0-ce-SNAPSHOT</ce.kafka.version>
         <easymock.version>4.0.1</easymock.version>
