@@ -62,7 +62,7 @@
         <jacoco-maven-plugin.version>0.8.2</jacoco-maven-plugin.version>
         <junit.version>4.12</junit.version>
         <kafka.scala.version>2.12</kafka.scala.version>
-        <licenses.version>${project.version}</licenses.version>
+        <licenses.version>${confluent.version}</licenses.version>
         <maven-assembly.version>3.0.0</maven-assembly.version>
         <maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
         <maven-dependency-plugin.version>3.0.2</maven-dependency-plugin.version>
@@ -822,7 +822,7 @@
                                 <configuration>
                                     <skipAssembly>${docker.skip-build}</skipAssembly>
                                     <descriptors>
-                                        <descriptor>target/dependency/assembly-plugin-boilerplate-${project.version}/common-docker-package.xml</descriptor>
+                                        <descriptor>target/dependency/assembly-plugin-boilerplate-${confluent.version}/common-docker-package.xml</descriptor>
                                     </descriptors>
                                     <archive>
                                         <manifest>
@@ -856,7 +856,7 @@
                                         <argument>-h ${project.build.directory}/${project.build.finalName}-package/share/doc/${project.artifactId}/licenses.html</argument>
                                         <argument>-l ${project.build.directory}/${project.build.finalName}-package/share/doc/${project.artifactId}/licenses</argument>
                                         <argument>-n ${project.build.directory}/${project.build.finalName}-package/share/doc/${project.artifactId}/notices</argument>
-                                        <argument>-x licenses-${project.version}.jar</argument>
+                                        <argument>-x licenses-${licenses.version}.jar</argument>
                                     </arguments>
                                 </configuration>
                             </execution>
