@@ -49,7 +49,16 @@
         <confluent.version>3.3.4-SNAPSHOT</confluent.version>
         <easymock.version>3.4</easymock.version>
         <findbugs-maven-plugin.version>3.0.1</findbugs-maven-plugin.version>
+        <!--
+         jackson artifacts have both an overall version, and potentially individual versions for artifacts that
+         rev hotfix versions independent of the overall version
+         -->
         <jackson.version>2.9.9</jackson.version>
+        <!-- The following property should default to jackson.version unless there's an independent hotfix version.
+        If so, then once the next version of jackson is released, it should get reset to the default -->
+        <!-- <jackson-databind.version>${jackson.version}</jackson-databind.version> -->
+        <jackson-databind.version>2.9.9.1</jackson-databind.version>
+
         <jacoco-maven-plugin.version>0.7.9</jacoco-maven-plugin.version>
         <junit.version>4.12</junit.version>
         <kafka.version>0.11.0.4-SNAPSHOT</kafka.version>
@@ -120,6 +129,13 @@
                         <groupId>log4j</groupId>
                     </exclusion>
                 </exclusions>
+            </dependency>
+
+            <!-- Jackson artifacts with individual versioning as necessary -->
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-databind</artifactId>
+                <version>${jackson-databind.version}</version>
             </dependency>
 
             <!-- Kafka Deps -->
