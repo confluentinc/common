@@ -64,6 +64,12 @@
         <!-- <jackson-databind.version>${jackson.version}</jackson-databind.version> -->
         <jackson-databind.version>2.9.9.2</jackson-databind.version>
 
+        <!-- The following property defines whether integration tests should be skipped.
+        This is set to false so they are executed by default, but since Jenkins currently
+        doesn't support builds using Docker containers, some projects that use Docker for their
+        integration tests may need to set this to false in their Jenkins profile. -->
+        <skipIntegrationTests>false</skipIntegrationTests>
+
         <jacoco-maven-plugin.version>0.8.1</jacoco-maven-plugin.version>
         <junit.version>4.12</junit.version>
         <kafka.version>2.0.2-SNAPSHOT</kafka.version>
@@ -558,6 +564,7 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>
                 <configuration>
+                    <skip>${skipIntegrationTests}</skip>
                     <argLine>@{argLine} -Djava.awt.headless=true</argLine>
                     <groups>io.confluent.common.utils.IntegrationTest</groups>
                     <!-- by default failsafe only includes class names that start or end in IT,
