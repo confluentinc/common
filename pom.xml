@@ -57,7 +57,7 @@
         <!-- The following property should default to jackson.version unless there's an independent hotfix version.
         If so, then once the next version of jackson is released, it should get reset to the default -->
         <!-- <jackson-databind.version>${jackson.version}</jackson-databind.version> -->
-        <jackson-databind.version>2.9.9.2</jackson-databind.version>
+        <jackson-databind.version>2.9.9.3</jackson-databind.version>
 
         <jacoco-maven-plugin.version>0.7.9</jacoco-maven-plugin.version>
         <junit.version>4.12</junit.version>
