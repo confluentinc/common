@@ -23,7 +23,13 @@
     <groupId>io.confluent</groupId>
     <artifactId>common-parent</artifactId>
     <packaging>pom</packaging>
-    <version>5.4.0-SNAPSHOT</version>
+    <!--
+        | HACK
+        | Schroedinger-specific immutable version to avoid circular build order dependencies with ce-kafka
+        | This version should be manually bumped when changes are made to this branch.
+        | https://confluentinc.atlassian.net/browse/METRICS-510 has been created for a proper long term solution.
+    -->
+    <version>5.4.0-schroedinger-1</version>
     <name>common</name>
     <organization>
         <name>Confluent, Inc.</name>
