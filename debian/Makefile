@@ -102,7 +102,6 @@ install: build
 	find . -type f | grep -v README[.]rpm | xargs -I XXX ${INSTALL} -o root -g root XXX ${DESTDIR}${PREFIX}/XXX ; \
 	popd
 
-
 clean:
 	rm -rf $(DESTDIR)
 	rm -rf $(CURDIR)/$(PACKAGE_NAME)*
@@ -114,5 +113,53 @@ distclean: clean
 test:
 
 .PHONY: clean install
+
+export RPM_VERSION=$(shell echo $(VERSION) | sed -e 's/-alpha[0-9]*//' -e 's/-beta[0-9]*//' -e 's/-rc[0-9]*//' -e 's/-SNAPSHOT//' -e 's/-cp[0-9]*//')
+# Get any -alpha, -beta, -rc piece that we need to put into the Release part of
+# the version since RPM versions don't support non-numeric
+# characters. Ultimately, for something like 0.8.2-beta, we want to end up with
+# Version=0.8.2 Release=0.X.beta
+# where X is the RPM release # of 0.8.2-beta (the prefix 0. forces this to be
+# considered earlier than any 0.8.2 final releases since those will start with
+# Version=0.8.2 Release=1)
+export RPM_RELEASE_POSTFIX=$(subst -,,$(subst $(RPM_VERSION),,$(VERSION)))
+ifneq ($(RPM_RELEASE_POSTFIX),)
+	export RPM_RELEASE_POSTFIX_UNDERSCORE=_$(RPM_RELEASE_POSTFIX)
+endif
+
+rpm: RPM_BUILDING/SOURCES/$(PACKAGE_TITLE)-$(RPM_VERSION).tar.gz
+	echo "Building the rpm"
+	rpmbuild --define="_topdir `pwd`/RPM_BUILDING" -tb $<
+	find RPM_BUILDING/{,S}RPMS/ -type f | xargs -n1 -iXXX mv XXX .
+	echo
+	echo "================================================="
+	echo "The rpms have been created and can be found here:"
+	@ls -laF $(PACKAGE_TITLE)*rpm
+	echo "================================================="
+
+# Unfortunately, because of version naming issues and the way rpmbuild expects
+# the paths in the tar file to be named, we need to rearchive the package. So
+# instead of depending on archive, this target just uses the unarchived,
+# installed version to generate a new archive. Note that we always regenerate
+# the symlink because the RPM_VERSION doesn't include all the version info -- it
+# can leave of things like -beta, -rc1, etc.
+RPM_BUILDING/SOURCES/$(PACKAGE_TITLE)-$(RPM_VERSION).tar.gz: rpm-build-area install $(PACKAGE_TITLE).spec.in RELEASE_$(RPM_VERSION)$(RPM_RELEASE_POSTFIX_UNDERSCORE)
+	rm -rf $(PACKAGE_TITLE)-$(RPM_VERSION)
+	mkdir $(PACKAGE_TITLE)-$(RPM_VERSION)
+	cp -R $(DESTDIR)/* $(PACKAGE_TITLE)-$(RPM_VERSION)
+	./create_spec.sh $(PACKAGE_TITLE).spec.in $(PACKAGE_TITLE)-$(RPM_VERSION)/$(PACKAGE_TITLE).spec
+	rm -f $@ && tar -czf $@ $(PACKAGE_TITLE)-$(RPM_VERSION)
+	rm -rf $(PACKAGE_TITLE)-$(RPM_VERSION)
+
+rpm-build-area: RPM_BUILDING/BUILD RPM_BUILDING/RPMS RPM_BUILDING/SOURCES RPM_BUILDING/SPECS RPM_BUILDING/SRPMS
+
+RPM_BUILDING/%:
+	mkdir -p $@
+
+$(PACKAGE_TITLE).spec:
+	./create_spec.sh $(PACKAGE_TITLE).spec.in $(PACKAGE_TITLE).spec
+
+RELEASE_%:
+	echo 0 > $@
 
 check:
