@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--~
+  ~ Copyright 2018 Confluent Inc.
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~ http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  ~-->
+
+<suppressions xmlns="https://jeremylong.github.io/DependencyCheck/dependency-suppression.1.1.xsd">
+    <!-- Logging of credentials in plaintext -->
+    <suppress>
+        <notes><![CDATA[
+   file name: zookeeper-3.4.10.jar
+   ]]></notes>
+        <gav regex="true">^org\.apache\.zookeeper:zookeeper:.*$</gav>
+        <cpe>cpe:/a:apache:zookeeper</cpe>
+    </suppress>
+    <!-- Affects TCP or UDP socket server for log4j -->
+    <suppress>
+        <notes><![CDATA[
+   file name: log4j-1.2.17.jar
+   ]]></notes>
+        <gav regex="true">^org\.zenframework\.z8\.dependencies\.commons:log4j-1\.2\.17:.*$</gav>
+        <cve>CVE-2017-5645</cve>
+    </suppress>
+    <!-- Affects a script included with xz, but we only use the library -->
+    <suppress>
+        <notes><![CDATA[
+   file name: xz-1.5.jar
+   ]]></notes>
+        <gav regex="true">^org\.tukaani:xz:.*$</gav>
+        <cve>CVE-2015-4035</cve>
+    </suppress>
+    <!-- Scala compiler issue that doesn't affect our use of the library -->
+    <suppress>
+        <notes><![CDATA[
+   file name: scala-library-2.11.11.jar
+   ]]></notes>
+        <gav regex="true">^org\.scala-lang:scala-library:.*$</gav>
+        <cve>CVE-2017-15288</cve>
+    </suppress>
+    <!-- False positives for a git vulnerability that the tool concludes is associated with
+         airline -->
+    <suppress>
+        <notes><![CDATA[
+   file name: airline-0.7.jar
+   ]]></notes>
+        <gav regex="true">^io\.airlift:airline:.*$</gav>
+        <cve>CVE-2015-7082</cve>
+    </suppress>
+    <suppress>
+        <notes><![CDATA[
+   file name: airline-0.7.jar
+   ]]></notes>
+        <gav regex="true">^io\.airlift:airline:.*$</gav>
+        <cve>CVE-2017-14867</cve>
+    </suppress>
+    <!-- This CVE is for a Thrift Go client library issue which isn't an issue in Java-land -->
+    <suppress>
+        <notes><![CDATA[
+   file name: libthrift-0.9.2.jar
+   ]]></notes>
+        <gav regex="true">^org\.apache\.thrift:libthrift:.*$</gav>
+        <cve>CVE-2016-5397</cve>
+    </suppress>
+    <suppress>
+        <notes><![CDATA[
+   file name: libfb303-0.9.2.jar
+   ]]></notes>
+        <gav regex="true">^org\.apache\.thrift:libfb303:.*$</gav>
+        <cve>CVE-2016-5397</cve>
+    </suppress>
+</suppressions>

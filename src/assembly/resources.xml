@@ -1,0 +1,16 @@
+<assembly>
+    <id>resources</id>
+    <formats>
+        <format>zip</format>
+    </formats>
+
+    <fileSets>
+        <fileSet>
+            <directory>../src/assembly</directory>
+            <outputDirectory></outputDirectory>
+            <includes>
+                <include>common-docker-package.xml</include>
+            </includes>
+        </fileSet>
+    </fileSets>
+</assembly>
