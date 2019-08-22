@@ -90,16 +90,13 @@ INSTALL="install -D -m 644"
 INSTALL_X="install -D -m 755"
 
 install: build
-	if [ -z ${PACKAGE_TITLE} -o -z ${VERSION} -o -z ${DESTDIR} ]; then
-		echo "PACKAGE_TITLE, VERSION, and DESTDIR environment variables must be set."
-		exit 1
-	fi
-	rm -rf ${DESTDIR}${PREFIX}
+	if [ -z ${PACKAGE_TITLE} -o -z ${VERSION} -o -z ${DESTDIR} ]; then echo "PACKAGE_TITLE, VERSION, and DESTDIR environment variables must be set."; exit 1; fi
+    rm -rf ${DESTDIR}${PREFIX}
 	mkdir -p ${DESTDIR}${PREFIX}
 	mkdir -p ${DESTDIR}${BINPATH}
 	mkdir -p ${DESTDIR}${LIBPATH}
 	mkdir -p ${DESTDIR}${SYSCONFDIR}
-	PREPACKAGED="package/target/common-package-${VERSION}-package"
+    PREPACKAGED="package/target/common-package-${VERSION}-package"
 	pushd ${PREPACKAGED}
 	find . -type f | grep -v README[.]rpm | xargs -I XXX ${INSTALL} -o root -g root XXX ${DESTDIR}${PREFIX}/XXX
 	popd
