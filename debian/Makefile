@@ -98,9 +98,8 @@ install: build
 	mkdir -p ${DESTDIR}${BINPATH}
 	mkdir -p ${DESTDIR}${LIBPATH}
 	mkdir -p ${DESTDIR}${SYSCONFDIR}
-	PREPACKAGED="package/target/common-package-${VERSION}-package"
-	pushd ${PREPACKAGED}
-	find . -type f | grep -v README[.]rpm | xargs -I XXX ${INSTALL} -o root -g root XXX ${DESTDIR}${PREFIX}/XXX
+	pushd "package/target/common-package-${VERSION}-package" ; \
+	find . -type f | grep -v README[.]rpm | xargs -I XXX ${INSTALL} -o root -g root XXX ${DESTDIR}${PREFIX}/XXX ; \
 	popd
 
 
