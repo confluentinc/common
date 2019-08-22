@@ -1,6 +1,8 @@
 # Dependencies you'll probably need to install to compile this: make, curl, git,
 # zip, unzip, patch, java7-jdk | openjdk-7-jdk, maven.
 
+SHELL=/bin/bash
+
 # Release specifics. Note that some of these (VERSION, DESTDIR)
 # are required and passed to create_archive.sh as environment variables. That
 # script can also pick up some other settings (PREFIX, SYSCONFDIR) to customize
