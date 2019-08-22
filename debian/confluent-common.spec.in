@@ -1,0 +1,57 @@
+Summary: confluent-common is a set of common Java utilities
+Name: confluent-common
+Version: ##RPMVERSION##
+Release: ##RPMRELEASE##
+Group: Applications/Internet
+License: Apache (v2)
+Source0: confluent-common-%{version}.tar.gz
+URL: http://confluent.io
+BuildRoot: %{_tmppath}/%{name}-%{version}-root
+Vendor: Confluent, Inc.
+Packager: Confluent Packaging <packages@confluent.io>
+BuildArch: noarch
+
+%description
+
+Confluent Common provides shared utilities for Java projects.
+
+%define __jar_repack %{nil}
+
+%pre
+
+exit 0
+
+%post
+
+%preun
+
+%postun
+
+%prep
+
+%setup
+
+%build
+
+%install
+
+# Clean out any previous builds not on slash
+[ "%{buildroot}" != "/" ] && %{__rm} -rf %{buildroot}
+
+%{__mkdir_p} %{buildroot}
+%{__cp} -R * %{buildroot}
+# The spec file gets included, get rid of it
+%{__rm} %{buildroot}/confluent-common.spec
+
+%files
+%defattr(-,root,root)
+/usr/share/java/confluent-common
+/usr/share/doc/confluent-common
+
+%clean
+#used to cleanup things outside the build area and possibly inside.
+[ "%{buildroot}" != "/" ] && %{__rm} -rf %{buildroot}
+
+%changelog
+* Tue Dec 30 2014 Confluent Packaging <packages@confluent.io>
+- Initial import
