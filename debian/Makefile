@@ -19,27 +19,18 @@ export PACKAGE_NAME=$(PACKAGE_TITLE)-$(VERSION)
 # Defaults that are likely to vary by platform. These are cleanly separated so
 # it should be easy to maintain altered values on platform-specific branches
 # when the values aren't overridden by the script invoking the Makefile
-DEFAULT_APPLY_PATCHES=no
-DEFAULT_DESTDIR=$(CURDIR)/BUILD/
-DEFAULT_PREFIX=/usr
-DEFAULT_SYSCONFDIR=/etc/$(PACKAGE_TITLE)
-DEFAULT_SKIP_TESTS=no
 
 
 # Whether we should apply patches. This only makes sense for alternate packaging
 # systems that know how to apply patches themselves, e.g. Debian.
-ifndef APPLY_PATCHES
-APPLY_PATCHES=$(DEFAULT_APPLY_PATCHES)
-endif
+APPLY_PATCHES?=yes
 
 # Whether we should run tests during the build.
-ifndef SKIP_TESTS
-SKIP_TESTS=$(DEFAULT_SKIP_TESTS)
-endif
+SKIP_TESTS?=yes
 
 # Install directories
-ifndef DESTDIR
-DESTDIR=$(DEFAULT_DESTDIR)
+ifeq ($(DESTDIR),)
+DESTDIR=$(CURDIR)/BUILD/
 endif
 # For platform-specific packaging you'll want to override this to a normal
 # PREFIX like /usr or /usr/local. Using the PACKAGE_NAME here makes the default
@@ -48,6 +39,17 @@ endif
 #     bin/
 #     etc/
 #     share/kafka/
+ifeq ($(PACKAGE_TYPE),archive)
+PREFIX=$(PACKAGE_NAME)
+SYSCONFDIR=$(PREFIX)/etc/$(PACKAGE_TITLE)
+SYSTEMDDIR=$(PREFIX)/lib/systemd/system
+else
+PREFIX=/usr
+SYSCONFDIR=/etc/$(PACKAGE_TITLE)
+SYSTEMDDIR=/lib/systemd/system
+endif
+
+
 ifndef PREFIX
 PREFIX=$(DEFAULT_PREFIX)
 endif
@@ -57,15 +59,7 @@ SYSCONFDIR:=$(DEFAULT_SYSCONFDIR)
 endif
 SYSCONFDIR:=$(subst PREFIX,$(PREFIX),$(SYSCONFDIR))
 
-export APPLY_PATCHES
-export VERSION
-export DESTDIR
-export PREFIX
-export SYSCONFDIR
-export SKIP_TESTS
-
 all: install
-
 
 archive: install
 	rm -f $(CURDIR)/$(PACKAGE_NAME).tar.gz && cd $(DESTDIR) && tar -czf $(CURDIR)/$(PACKAGE_NAME).tar.gz $(PREFIX)
@@ -143,11 +137,11 @@ rpm: RPM_BUILDING/SOURCES/$(PACKAGE_TITLE)-$(RPM_VERSION).tar.gz
 # installed version to generate a new archive. Note that we always regenerate
 # the symlink because the RPM_VERSION doesn't include all the version info -- it
 # can leave of things like -beta, -rc1, etc.
-RPM_BUILDING/SOURCES/$(PACKAGE_TITLE)-$(RPM_VERSION).tar.gz: rpm-build-area install $(PACKAGE_TITLE).spec.in RELEASE_$(RPM_VERSION)$(RPM_RELEASE_POSTFIX_UNDERSCORE)
+RPM_BUILDING/SOURCES/$(PACKAGE_TITLE)-$(RPM_VERSION).tar.gz: rpm-build-area install debian/$(PACKAGE_TITLE).spec.in RELEASE_$(RPM_VERSION)$(RPM_RELEASE_POSTFIX_UNDERSCORE)
 	rm -rf $(PACKAGE_TITLE)-$(RPM_VERSION)
 	mkdir $(PACKAGE_TITLE)-$(RPM_VERSION)
 	cp -R $(DESTDIR)/* $(PACKAGE_TITLE)-$(RPM_VERSION)
-	./create_spec.sh $(PACKAGE_TITLE).spec.in $(PACKAGE_TITLE)-$(RPM_VERSION)/$(PACKAGE_TITLE).spec
+	debain/create_spec.sh debian/$(PACKAGE_TITLE).spec.in $(PACKAGE_TITLE)-$(RPM_VERSION)/$(PACKAGE_TITLE).spec
 	rm -f $@ && tar -czf $@ $(PACKAGE_TITLE)-$(RPM_VERSION)
 	rm -rf $(PACKAGE_TITLE)-$(RPM_VERSION)
 
