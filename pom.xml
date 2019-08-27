@@ -902,6 +902,7 @@
                                         <DOCKER_UPSTREAM_TAG>${docker.upstream-tag}</DOCKER_UPSTREAM_TAG>
                                         <GIT_COMMIT>${GIT_COMMIT}</GIT_COMMIT>
                                         <PROJECT_VERSION>${project.version}</PROJECT_VERSION>
+                                        <CONFLUENT_VERSION>${CONFLUENT_VERSION}</CONFLUENT_VERSION>
                                         <CONFLUENT_PACKAGES_REPO>${CONFLUENT_PACKAGES_REPO}</CONFLUENT_PACKAGES_REPO>
                                         <CONFLUENT_PLATFORM_LABEL>${CONFLUENT_PLATFORM_LABEL}</CONFLUENT_PLATFORM_LABEL>
                                         <CONFLUENT_DEB_VERSION>${CONFLUENT_DEB_VERSION}</CONFLUENT_DEB_VERSION>
