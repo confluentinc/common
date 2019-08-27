@@ -902,11 +902,6 @@
                                         <DOCKER_UPSTREAM_TAG>${docker.upstream-tag}</DOCKER_UPSTREAM_TAG>
                                         <GIT_COMMIT>${GIT_COMMIT}</GIT_COMMIT>
                                         <PROJECT_VERSION>${project.version}</PROJECT_VERSION>
-                                        <CONFLUENT_MAJOR_VERSION>${CONFLUENT_MAJOR_VERSION}</CONFLUENT_MAJOR_VERSION>
-                                        <CONFLUENT_MINOR_VERSION>${CONFLUENT_MINOR_VERSION}</CONFLUENT_MINOR_VERSION>
-                                        <CONFLUENT_PATCH_VERSION>${CONFLUENT_PATCH_VERSION}</CONFLUENT_PATCH_VERSION>
-                                        <PACKAGING_BRANCH_NAME>${PACKAGING_BRANCH_NAME}</PACKAGING_BRANCH_NAME>
-                                        <PACKAGING_BUILD_NUMBER>${PACKAGING_BUILD_NUMBER}</PACKAGING_BUILD_NUMBER>
                                         <CONFLUENT_PACKAGES_REPO>${CONFLUENT_PACKAGES_REPO}</CONFLUENT_PACKAGES_REPO>
                                         <CONFLUENT_PLATFORM_LABEL>${CONFLUENT_PLATFORM_LABEL}</CONFLUENT_PLATFORM_LABEL>
                                         <CONFLUENT_DEB_VERSION>${CONFLUENT_DEB_VERSION}</CONFLUENT_DEB_VERSION>
