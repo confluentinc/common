@@ -241,7 +241,11 @@
         <module name="ParameterNumber">
             <property name="max" value="10"/>
         </module>
-        <module name="ClassDataAbstractionCoupling"/>
+        <module name="ClassDataAbstractionCoupling">
+            <property name="excludeClassesRegexps"
+                      value="${checkstyle.classdataabstractioncoupling.excludeclassesregexps}"
+                      default="^.*Exception$"/>
+        </module>
         <module name="BooleanExpressionComplexity"/>
         <module name="CyclomaticComplexity"/>
         <module name="JavaNCSS" />
