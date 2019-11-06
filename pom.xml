@@ -49,15 +49,7 @@
         <confluent.version>3.3.4-SNAPSHOT</confluent.version>
         <easymock.version>3.4</easymock.version>
         <findbugs-maven-plugin.version>3.0.1</findbugs-maven-plugin.version>
-        <!--
-         jackson artifacts have both an overall version, and potentially individual versions for artifacts that
-         rev hotfix versions independent of the overall version
-         -->
         <jackson.version>2.9.10</jackson.version>
-        <!-- The following property should default to jackson.version unless there's an independent hotfix version.
-        If so, then once the next version of jackson is released, it should get reset to the default -->
-        <!-- <jackson-databind.version>${jackson.version}</jackson-databind.version> -->
-        <jackson-databind.version>2.9.10.1</jackson-databind.version>
         <jackson.bom.version>2.9.10.20191020</jackson.bom.version>
 
         <jacoco-maven-plugin.version>0.7.9</jacoco-maven-plugin.version>
