@@ -271,7 +271,7 @@
 
         <module name="TodoComment">
             <property name="format"
-                      value="${checkstyle.todo.format}"
+                      value="${checkstyle.todocomment.format}"
                       default="(TODO)|(FIXME)"/>
             <property name="severity"
                       value="${checkstyle.todocomment.severity}"
