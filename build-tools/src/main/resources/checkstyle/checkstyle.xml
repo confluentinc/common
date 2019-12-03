@@ -40,6 +40,8 @@
         <property name="header" value="/\*\nCopyright .* Confluent Inc."/>
     </module>
 
+    <module name="SuppressWarningsFilter" />
+
     <module name="TreeWalker">
         <!-- Generic 'turn all checkstyle off' comment filter -->
         <module name="SuppressionCommentFilter">
@@ -53,6 +55,8 @@
             <property name="onCommentFormat" value="CHECKSTYLE_RULES.ON:\s+([\w\|]+)"/>
             <property name="checkFormat" value="$1"/>
         </module>
+
+        <module name="SuppressWarningsHolder" />
 
         <module name="OuterTypeFilename"/>
         <module name="IllegalTokenText">
