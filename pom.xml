@@ -93,7 +93,7 @@
         <maven-resources-plugin.version>3.0.2</maven-resources-plugin.version>
         <checkstyle.config.location>checkstyle/checkstyle.xml</checkstyle.config.location>
         <checkstyle.suppressions.location>checkstyle/common-suppressions.xml</checkstyle.suppressions.location>
-        <dependency.check.version>3.3.4</dependency.check.version>
+        <dependency.check.version>5.2.4</dependency.check.version>
         <dependency.check.suppressions.location>dependency-check/suppressions.xml</dependency.check.suppressions.location>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.build.resourceEncoding>UTF-8</project.build.resourceEncoding>
