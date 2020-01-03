@@ -2,5 +2,5 @@
 
 common {
     upstreamProjects = ['confluentinc/license-file-generator']
-    slackChannel = '#kafka-core-eng'
+    slackChannel = '#kafka-warn'
 }
