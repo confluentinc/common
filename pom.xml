@@ -339,7 +339,6 @@
                         <suppressionFiles>
                             <suppressionFile>${dependency.check.suppressions.location}</suppressionFile>
                         </suppressionFiles>
-                        <format>xml</format>
                         <cveUrlModified>https://s3-us-west-2.amazonaws.com/confluent-packaging-tools/nvd.nist.gov/nvdcve-1.1-modified.json.gz</cveUrlModified>
                         <cveUrlBase>https://s3-us-west-2.amazonaws.com/confluent-packaging-tools/nvd.nist.gov/nvdcve-1.1-%d.json.gz</cveUrlBase>
                         <skipSystemScope>true</skipSystemScope>
