@@ -369,7 +369,17 @@ public class ConfigDef {
           if (value instanceof Class) {
             return (Class<?>) value;
           } else if (value instanceof String) {
-            return Class.forName(trimmed);
+              ClassLoader contextOrCallerClassLoader = Thread.currentThread().getContextClassLoader();
+              if (contextOrCallerClassLoader == null) {
+                contextOrCallerClassLoader = this.getClass().getClassLoader();
+              }
+              // Use loadClass here instead of Class.forName because the name we use here may be an alias
+              // and not match the name of the class that gets loaded. If that happens, Class.forName can
+              // throw an exception.
+              Class<?> klass = contextOrCallerClassLoader.loadClass(trimmed);
+              // Invoke forName here with the true name of the requested class to cause class
+              // initialization to take place.
+              return Class.forName(klass.getName(), true, contextOrCallerClassLoader);
           } else {
             throw new ConfigException(name, value, "Expected a Class instance or class name.");
           }
