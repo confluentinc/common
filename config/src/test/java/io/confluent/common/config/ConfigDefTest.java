@@ -33,10 +33,17 @@ package io.confluent.common.config;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.io.IOException;
+import java.net.URL;
+import java.net.URLClassLoader;
+import java.nio.file.Paths;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.Set;
 
 import io.confluent.common.config.types.Password;
 
@@ -52,8 +59,8 @@ import static io.confluent.common.config.ConfigDef.Type.LONG;
 import static io.confluent.common.config.ConfigDef.Type.STRING;
 import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.fail;
 
 public class ConfigDefTest {
@@ -272,6 +279,85 @@ public class ConfigDefTest {
         fail("Expected a config exception due to invalid value " + value);
       } catch (ConfigException e) {
         // this is good
+      }
+    }
+  }
+
+  @Test
+  public void testClassLoading() throws IOException {
+    ClassLoader systemLoader = Thread.currentThread().getContextClassLoader();
+
+    // test with system classloader
+    String configName = "type.class.property";
+    String configNameDefault = ConfigUtils.class.getName();
+
+    ConfigDef configDef = new ConfigDef();
+    configDef.define(configName, Type.CLASS, configNameDefault,
+        ConfigDef.Importance.MEDIUM, "system class");
+
+    AbstractConfig config = new AbstractConfig(configDef, new HashMap<>());
+
+    Class<?> systemKlass = config.getClass(configName);
+    assertEquals(systemLoader, systemKlass.getClassLoader());
+
+    // test with custom, child-first, classloader
+    Set<String> allowedKlasses = Collections.singleton(configNameDefault);
+    List<URL> pluginUrls = Collections.singletonList(Paths.get("target/classes/").toUri().toURL());
+    URLClassLoader pluginLoader = new PluginClassLoader(pluginUrls.toArray(new URL[0]), systemLoader, allowedKlasses);
+
+    try {
+      Thread.currentThread().setContextClassLoader(pluginLoader);
+
+      configDef = new ConfigDef();
+      configDef.define(configName, Type.CLASS, configNameDefault, ConfigDef.Importance.MEDIUM, "plugin class");
+
+      config = new AbstractConfig(configDef, new HashMap<>());
+
+      Class<?> pluginKlass = config.getClass(configName);
+      assertEquals(pluginLoader, pluginKlass.getClassLoader());
+      assertNotEquals(pluginKlass, systemKlass);
+      assertEquals(pluginKlass.getName(), systemKlass.getName());
+    } finally {
+      Thread.currentThread().setContextClassLoader(systemLoader);
+    }
+}
+
+  // Reduced dummy implementation of a child-first classloader based on
+  // org.apache.kafka.connect.runtime.isolation.PluginClassLoader
+  // Should be used only for testing
+  protected class PluginClassLoader extends URLClassLoader {
+    private final Set<String> allowedKlasses;
+
+    public PluginClassLoader(URL[] urls, ClassLoader parent, Set<String> allowedKlasses) {
+      super(urls, parent);
+      this.allowedKlasses = allowedKlasses;
+    }
+
+    public boolean shouldLoadInIsolation(String name) {
+      return allowedKlasses.contains(name);
+    }
+
+    @Override
+    protected synchronized Class<?> loadClass(String name, boolean resolve)
+        throws ClassNotFoundException {
+      synchronized (getClassLoadingLock(name)) {
+        Class<?> klass = findLoadedClass(name);
+        if (klass == null) {
+          try {
+            if (shouldLoadInIsolation(name)) {
+              klass = findClass(name);
+            }
+          } catch (ClassNotFoundException e) {
+            // Not found in loader's path. Search in parents.
+          }
+        }
+        if (klass == null) {
+          klass = super.loadClass(name, false);
+        }
+        if (resolve) {
+          resolveClass(klass);
+        }
+        return klass;
       }
     }
   }
