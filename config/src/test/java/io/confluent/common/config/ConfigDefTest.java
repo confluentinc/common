@@ -285,7 +285,7 @@ public class ConfigDefTest {
 
   @Test
   public void testClassLoading() throws IOException {
-    ClassLoader systemLoader = ClassLoader.getSystemClassLoader();
+    ClassLoader systemLoader = Thread.currentThread().getContextClassLoader();
 
     // test with system classloader
     String configName = "type.class.property";
@@ -305,23 +305,27 @@ public class ConfigDefTest {
     List<URL> pluginUrls = Collections.singletonList(Paths.get("target/classes/").toUri().toURL());
     URLClassLoader pluginLoader = new PluginClassLoader(pluginUrls.toArray(new URL[0]), systemLoader, allowedKlasses);
 
-    Thread.currentThread().setContextClassLoader(pluginLoader);
+    try {
+      Thread.currentThread().setContextClassLoader(pluginLoader);
 
-    configDef = new ConfigDef();
-    configDef.define(configName, Type.CLASS, configNameDefault, ConfigDef.Importance.MEDIUM, "plugin class");
+      configDef = new ConfigDef();
+      configDef.define(configName, Type.CLASS, configNameDefault, ConfigDef.Importance.MEDIUM, "plugin class");
 
-    config = new AbstractConfig(configDef, new HashMap<>());
+      config = new AbstractConfig(configDef, new HashMap<>());
 
-    Class<?> pluginKlass = config.getClass(configName);
-    assertEquals(pluginLoader, pluginKlass.getClassLoader());
-    assertNotEquals(pluginKlass, systemKlass);
-    assertEquals(pluginKlass.getName(), systemKlass.getName());
-  }
+      Class<?> pluginKlass = config.getClass(configName);
+      assertEquals(pluginLoader, pluginKlass.getClassLoader());
+      assertNotEquals(pluginKlass, systemKlass);
+      assertEquals(pluginKlass.getName(), systemKlass.getName());
+    } finally {
+      Thread.currentThread().setContextClassLoader(systemLoader);
+    }
+}
 
   // Reduced dummy implementation of a child-first classloader based on
   // org.apache.kafka.connect.runtime.isolation.PluginClassLoader
   // Should be used only for testing
-  public class PluginClassLoader extends URLClassLoader {
+  protected class PluginClassLoader extends URLClassLoader {
     private final Set<String> allowedKlasses;
 
     public PluginClassLoader(URL[] urls, ClassLoader parent, Set<String> allowedKlasses) {
