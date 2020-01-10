@@ -23,7 +23,7 @@
     <parent>
         <artifactId>common-parent</artifactId>
         <groupId>io.confluent</groupId>
-        <version>4.1.2</version>
+        <version>4.1.2-cp1</version>
     </parent>
 
     <artifactId>common-metrics</artifactId>
