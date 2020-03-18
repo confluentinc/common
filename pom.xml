@@ -957,7 +957,7 @@
                                     <skip>${docker.skip-build}</skip>
                                     <tag>${docker.tag}</tag>
                                     <repository>${docker.registry}confluentinc/${project.artifactId}</repository>
-                                    <pullNewerImage>false</pullNewerImage>
+                                    <pullNewerImage>true</pullNewerImage>
                                     <dockerfile>${docker.file}</dockerfile>
                                 </configuration>
                             </execution>
