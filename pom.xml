@@ -113,6 +113,8 @@
         <dockerfile-maven-plugin.version>1.4.13</dockerfile-maven-plugin.version>
         <!-- The name of the docker file to run. -->
         <docker.file>Dockerfile</docker.file>
+        <!-- Pull the latest base image or use a local image. -->
+        <docker.pull-image>false</docker.pull-image>
     </properties>
 
     <scm>
@@ -957,7 +959,7 @@
                                     <skip>${docker.skip-build}</skip>
                                     <tag>${docker.tag}</tag>
                                     <repository>${docker.registry}confluentinc/${project.artifactId}</repository>
-                                    <pullNewerImage>true</pullNewerImage>
+                                    <pullNewerImage>${docker.pull-image}</pullNewerImage>
                                     <dockerfile>${docker.file}</dockerfile>
                                 </configuration>
                             </execution>
