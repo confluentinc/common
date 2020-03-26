@@ -5,4 +5,5 @@ common {
   // place to trigger the rest of the pipeline. Note that we need to maintain the references to the jobs carefully since they
   // change across version branches.
   upstreamProjects = 'kafka-trunk'
+  nodeLabel = 'docker-oraclejdk7'
 }
