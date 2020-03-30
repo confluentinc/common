@@ -77,7 +77,7 @@
         <checkstyle.suppressions.location>checkstyle/common-suppressions.xml</checkstyle.suppressions.location>
         <dependency.check.version>3.3.4</dependency.check.version>
         <dependency.check.suppressions.location>dependency-check/suppressions.xml</dependency.check.suppressions.location>
-        <dependency.check.skip>true</dependency.check.skip>
+        <dependency.check.skip>false</dependency.check.skip>
     </properties>
 
     <scm>
@@ -340,10 +340,10 @@
                         <suppressionFiles>
                             <suppressionFile>${dependency.check.suppressions.location}</suppressionFile>
                         </suppressionFiles>
-                        <cveUrl12Modified>https://s3-us-west-2.amazonaws.com/confluent-packaging-tools/nvd.nist.gov/nvdcve-1.0-modified.json.gz</cveUrl12Modified>
-                        <cveUrl20Modified>https://s3-us-west-2.amazonaws.com/confluent-packaging-tools/nvd.nist.gov/nvdcve-1.1-modified.json.gz</cveUrl20Modified>
-                        <cveUrl12Base>https://s3-us-west-2.amazonaws.com/confluent-packaging-tools/nvd.nist.gov/nvdcve-1.0-%d.json.gz</cveUrl12Base>
-                        <cveUrl20Base>https://s3-us-west-2.amazonaws.com/confluent-packaging-tools/nvd.nist.gov/nvdcve-1.1-%d.json.gz</cveUrl20Base>
+                        <cveUrl12Modified>https://s3-us-west-2.amazonaws.com/confluent-packaging-tools/nvd.nist.gov/nvdcve-modified.xml.gz</cveUrl12Modified>
+                        <cveUrl20Modified>https://s3-us-west-2.amazonaws.com/confluent-packaging-tools/nvd.nist.gov/nvdcve-2.0-modified.xml.gz</cveUrl20Modified>
+                        <cveUrl12Base>https://s3-us-west-2.amazonaws.com/confluent-packaging-tools/nvd.nist.gov/nvdcve-%d.xml.gz</cveUrl12Base>
+                        <cveUrl20Base>https://s3-us-west-2.amazonaws.com/confluent-packaging-tools/nvd.nist.gov/nvdcve-2.0-%d.xml.gz</cveUrl20Base>
                         <!-- Don't use this except in special circumstances as a way to disable this check on the command
                              line. Downstream projects should all be running this as part of their normal builds and should
                              not override this flag in their pom file. -->
