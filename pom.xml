@@ -326,42 +326,6 @@
                     </dependencies>
                 </plugin>
                 <plugin>
-                    <groupId>org.owasp</groupId>
-                    <artifactId>dependency-check-maven</artifactId>
-                    <version>${dependency.check.version}</version>
-                    <dependencies>
-                        <dependency>
-                            <groupId>io.confluent</groupId>
-                            <artifactId>build-tools</artifactId>
-                            <version>${confluent.version}</version>
-                        </dependency>
-                    </dependencies>
-                    <configuration>
-                        <suppressionFiles>
-                            <suppressionFile>${dependency.check.suppressions.location}</suppressionFile>
-                        </suppressionFiles>
-                        <cveUrlModified>https://s3-us-west-2.amazonaws.com/confluent-packaging-tools/nvd.nist.gov/nvdcve-1.1-modified.json.gz</cveUrlModified>
-                        <cveUrlBase>https://s3-us-west-2.amazonaws.com/confluent-packaging-tools/nvd.nist.gov/nvdcve-1.1-%d.json.gz</cveUrlBase>
-                        <!-- Don't use this except in special circumstances as a way to disable this check on the command
-                             line. Downstream projects should all be running this as part of their normal builds and should
-                             not override this flag in their pom file. -->
-                        <skip>${dependency.check.skip}</skip>
-                        <skipSystemScope>true</skipSystemScope>
-                        <skipProvidedScope>true</skipProvidedScope>
-                        <skipTestScope>true</skipTestScope>
-                        <format>xml</format>
-                        <assemblyAnalyzerEnabled>false</assemblyAnalyzerEnabled>
-                        <ossindexAnalyzerEnabled>false</ossindexAnalyzerEnabled>
-                    </configuration>
-                    <executions>
-                        <execution>
-                            <goals>
-                                <goal>check</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                </plugin>
-                <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-assembly-plugin</artifactId>
                     <version>${maven-assembly.version}</version>
@@ -588,10 +552,6 @@
                         </dependency>
                       </dependencies>
                     </plugin>
-                    <plugin>
-                      <groupId>org.owasp</groupId>
-                      <artifactId>dependency-check-maven</artifactId>
-                    </plugin>
                 </plugins>
             </build>
             <reporting>
@@ -630,6 +590,52 @@
                     </plugin>
                 </plugins>
             </reporting>
+        </profile>
+        <profile>
+            <id>dependency-check</id>
+            <activation>
+                <jdk>[1.8,)</jdk>
+            </activation>
+            <build>
+              <plugins>
+                <plugin>
+                    <groupId>org.owasp</groupId>
+                    <artifactId>dependency-check-maven</artifactId>
+                    <version>${dependency.check.version}</version>
+                    <dependencies>
+                        <dependency>
+                            <groupId>io.confluent</groupId>
+                            <artifactId>build-tools</artifactId>
+                            <version>${confluent.version}</version>
+                        </dependency>
+                    </dependencies>
+                    <configuration>
+                        <suppressionFiles>
+                            <suppressionFile>${dependency.check.suppressions.location}</suppressionFile>
+                        </suppressionFiles>
+                        <cveUrlModified>https://s3-us-west-2.amazonaws.com/confluent-packaging-tools/nvd.nist.gov/nvdcve-1.1-modified.json.gz</cveUrlModified>
+                        <cveUrlBase>https://s3-us-west-2.amazonaws.com/confluent-packaging-tools/nvd.nist.gov/nvdcve-1.1-%d.json.gz</cveUrlBase>
+                        <!-- Don't use this except in special circumstances as a way to disable this check on the command
+                             line. Downstream projects should all be running this as part of their normal builds and should
+                             not override this flag in their pom file. -->
+                        <skip>${dependency.check.skip}</skip>
+                        <skipSystemScope>true</skipSystemScope>
+                        <skipProvidedScope>true</skipProvidedScope>
+                        <skipTestScope>true</skipTestScope>
+                        <format>xml</format>
+                        <assemblyAnalyzerEnabled>false</assemblyAnalyzerEnabled>
+                        <ossindexAnalyzerEnabled>false</ossindexAnalyzerEnabled>
+                    </configuration>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>check</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+               </plugins>
+            </build>
         </profile>
         <profile>
             <id>java-9+</id>
