@@ -592,6 +592,8 @@
             </reporting>
         </profile>
         <profile>
+            <!-- org.owasp:dependency-check-maven >= 4.0.0 will not work with JDK7 so it must be activated in a JDK>=1.8 profile.
+                 Developers can always pass -Ddependency.check.skip=true on the CLI to speed things up during development -->
             <id>dependency-check</id>
             <activation>
                 <jdk>[1.8,)</jdk>
