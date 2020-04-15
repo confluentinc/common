@@ -71,6 +71,7 @@
         <maven-deploy.version>2.8.2</maven-deploy.version>
         <maven-enforcer-plugin.version>3.0.0-M1</maven-enforcer-plugin.version>
         <maven-jar-plugin.version>3.0.2</maven-jar-plugin.version>
+        <maven-source-plugin.version>3.2.1</maven-source-plugin.version>
         <maven-surefire-plugin.version>2.22.0</maven-surefire-plugin.version>
         <maven-site-plugin.version>3.7.1</maven-site-plugin.version>
         <maven-project-info-reports-plugin.version>3.0.0</maven-project-info-reports-plugin.version>
@@ -504,6 +505,20 @@
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-source-plugin</artifactId>
+                    <version>${maven-source-plugin.version}</version>
+                    <executions>
+                        <execution>
+                            <id>attach-sources</id>
+                            <phase>verify</phase>
+                            <goals>
+                                <goal>jar-no-fork</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-project-info-reports-plugin</artifactId>
                     <version>${maven-project-info-reports-plugin.version}</version>
                     <configuration>
@@ -680,6 +695,79 @@
         </plugins>
     </build>
     <profiles>
+        <!-- Enable source jars only if a corresponding safe license file is found - projects
+        need to opt in by having one of the matching license files. Because maven activations
+        don't support multiple files, we need to have a separate profile per license. Finally, to
+        support both single and multi-module projects, we need to check for the files relative to
+        both the project and its parent directory (in multi-module projects we're interested in
+        source jars in the child modules, so need to look one level up). This has some risk
+        (checking one level above the project/repo directory) and requires some redundancy, but
+        seems to work sufficiently well.
+        -->
+        <profile>
+            <id>attach-sources-apache</id>
+            <activation>
+                <file>
+                    <exists>LICENSE-Apache</exists>
+                </file>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-source-plugin</artifactId>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>attach-sources-apache-parent</id>
+            <activation>
+                <file>
+                    <exists>../LICENSE-Apache</exists>
+                </file>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-source-plugin</artifactId>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>attach-sources-confluent</id>
+            <activation>
+                <file>
+                    <exists>LICENSE-ConfluentCommunity</exists>
+                </file>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-source-plugin</artifactId>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>attach-sources-confluent-parent</id>
+            <activation>
+                <file>
+                    <exists>../LICENSE-ConfluentCommunity</exists>
+                </file>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-source-plugin</artifactId>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
         <profile>
             <id>jenkins</id>
             <activation>
