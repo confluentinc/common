@@ -23,7 +23,7 @@
     <groupId>io.confluent</groupId>
     <artifactId>common-parent</artifactId>
     <packaging>pom</packaging>
-    <version>6.1.0-SNAPSHOT</version>
+    <version>6.1.0-0</version>
     <name>common</name>
     <organization>
         <name>Confluent, Inc.</name>
@@ -47,7 +47,6 @@
         <argLine></argLine>
         <avro.version>1.9.2</avro.version>
         <required.maven.version>3.2</required.maven.version>
-        <confluent.version>6.1.0-SNAPSHOT</confluent.version>
         <kafka.version>[6.1.0-0-ccs, 6.1.1-0-ccs)</kafka.version>
         <ce.kafka.version>[6.1.0-0-ce, 6.1.1-0-ce)</ce.kafka.version>
         <easymock.version>4.0.1</easymock.version>
@@ -59,7 +58,6 @@
         <java.version>8</java.version>
         <jackson.version>2.10.5</jackson.version>
         <jackson.bom.version>2.10.5</jackson.bom.version>
-
         <gson.version>2.8.6</gson.version>
         <guava.version>28.1-jre</guava.version>
         <jacoco-maven-plugin.version>0.8.5</jacoco-maven-plugin.version>
@@ -67,8 +65,7 @@
         <junit.jupiter.version>5.7.0</junit.jupiter.version>
         <kafka.scala.version>2.13</kafka.scala.version>
         <scala.version>2.13.3</scala.version>
-        <licenses.version>${confluent.version}</licenses.version>
-        <maven-assembly.version>3.0.0</maven-assembly.version>
+        <maven-assembly.version>3.3.0</maven-assembly.version>
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
         <maven-dependency-plugin.version>3.1.2</maven-dependency-plugin.version>
         <maven-deploy.version>2.8.2</maven-deploy.version>
@@ -123,6 +120,7 @@
         <!-- Pull the latest base image or use a local image. -->
         <docker.pull-image>false</docker.pull-image>
         <dependency.check.skip>true</dependency.check.skip>
+        <io.confluent.common.version>6.1.0-0</io.confluent.common.version>
         <!-- This is a version of the pom file that we install and deploy because
             the kafka and ce-kafka version ranges are resolved.
         -->
@@ -151,6 +149,7 @@
         <custom.deploy.phase>deploy</custom.deploy.phase>
         <maven.resolver.plugin.version>0.5.0</maven.resolver.plugin.version>
         <fail.if.ce-kafka.version.not.found>false</fail.if.ce-kafka.version.not.found>
+        <io.confluent.license-file-generator.version>${confluent.version.range}</io.confluent.license-file-generator.version>
     </properties>
 
     <scm>
@@ -343,17 +342,17 @@
             <dependency>
                 <groupId>io.confluent</groupId>
                 <artifactId>common-config</artifactId>
-                <version>${confluent.version}</version>
+                <version>${io.confluent.common.version}</version>
             </dependency>
             <dependency>
                 <groupId>io.confluent</groupId>
                 <artifactId>common-metrics</artifactId>
-                <version>${confluent.version}</version>
+                <version>${io.confluent.common.version}</version>
             </dependency>
             <dependency>
                 <groupId>io.confluent</groupId>
                 <artifactId>common-utils</artifactId>
-                <version>${confluent.version}</version>
+                <version>${io.confluent.common.version}</version>
             </dependency>
 
             <!--test deps-->
@@ -463,7 +462,7 @@
         <dependency>
             <groupId>io.confluent</groupId>
             <artifactId>assembly-plugin-boilerplate</artifactId>
-            <version>${confluent.version}</version>
+            <version>${io.confluent.common.version}</version>
             <classifier>resources</classifier>
             <type>zip</type>
             <scope>provided</scope>
@@ -502,7 +501,7 @@
                         <dependency>
                             <groupId>io.confluent</groupId>
                             <artifactId>build-tools</artifactId>
-                            <version>${confluent.version}</version>
+                            <version>${io.confluent.common.version}</version>
                         </dependency>
                         <dependency>
                             <groupId>com.puppycrawl.tools</groupId>
@@ -801,11 +800,11 @@
                         </goals>
                         <phase>${custom.install.phase}</phase>
                         <configuration>
-                          <file>${installed.pom.file}</file>
-                          <groupId>io.confluent</groupId>
-                          <artifactId>common-parent</artifactId>
-                          <packaging>pom</packaging>
-                          <version>${project.version}</version>
+                            <file>${installed.pom.file}</file>
+                            <groupId>io.confluent</groupId>
+                            <artifactId>common-parent</artifactId>
+                            <packaging>pom</packaging>
+                            <version>${project.version}</version>
                         </configuration>
                     </execution>
                 </executions>
@@ -1035,7 +1034,7 @@
                         <dependency>
                             <groupId>io.confluent</groupId>
                             <artifactId>build-tools</artifactId>
-                            <version>${confluent.version}</version>
+                            <version>${io.confluent.common.version}</version>
                         </dependency>
                     </dependencies>
                     <configuration>
@@ -1125,7 +1124,7 @@
                                 <configuration>
                                     <skipAssembly>${docker.skip-build}</skipAssembly>
                                     <descriptors>
-                                        <descriptor>target/dependency/assembly-plugin-boilerplate-${confluent.version}/common-docker-package.xml</descriptor>
+                                        <descriptor>target/dependency/assembly-plugin-boilerplate-${io.confluent.common.version}/common-docker-package.xml</descriptor>
                                     </descriptors>
                                     <archive>
                                         <manifest>
@@ -1159,7 +1158,7 @@
                                         <argument>-h ${project.build.directory}/${project.build.finalName}-package/share/doc/${project.artifactId}/licenses.html</argument>
                                         <argument>-l ${project.build.directory}/${project.build.finalName}-package/share/doc/${project.artifactId}/licenses</argument>
                                         <argument>-n ${project.build.directory}/${project.build.finalName}-package/share/doc/${project.artifactId}/notices</argument>
-                                        <argument>-x licenses-${licenses.version}.jar</argument>
+                                        <argument>-x licenses-${io.confluent.license-file-generator.version}.jar</argument>
                                     </arguments>
                                 </configuration>
                             </execution>
@@ -1195,7 +1194,7 @@
                             <dependency>
                                 <groupId>io.confluent</groupId>
                                 <artifactId>licenses</artifactId>
-                                <version>${licenses.version}</version>
+                                <version>${io.confluent.license-file-generator.version}</version>
                             </dependency>
                         </dependencies>
                     </plugin>

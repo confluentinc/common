@@ -23,7 +23,7 @@
     <parent>
         <artifactId>common-parent</artifactId>
         <groupId>io.confluent</groupId>
-        <version>6.1.0-SNAPSHOT</version>
+        <version>6.1.0-0</version>
     </parent>
 
     <artifactId>common-config</artifactId>
@@ -34,6 +34,7 @@
         <dependency>
             <groupId>io.confluent</groupId>
             <artifactId>common-utils</artifactId>
+            <version>${io.confluent.common.version}</version>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
