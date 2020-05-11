@@ -23,7 +23,7 @@
     <groupId>io.confluent</groupId>
     <artifactId>common-parent</artifactId>
     <packaging>pom</packaging>
-    <version>6.0.0-SNAPSHOT</version>
+    <version>6.0.0-beta200511191923</version>
     <name>common</name>
     <organization>
         <name>Confluent, Inc.</name>
@@ -47,9 +47,9 @@
         <argLine></argLine>
         <avro.version>1.9.2</avro.version>
         <required.maven.version>3.2</required.maven.version>
-        <confluent.version>6.0.0-SNAPSHOT</confluent.version>
-        <kafka.version>6.0.0-ccs-SNAPSHOT</kafka.version>
-        <ce.kafka.version>6.0.0-ce-SNAPSHOT</ce.kafka.version>
+        <confluent.version>6.0.0-beta200511191923</confluent.version>
+        <kafka.version>6.0.0-ccs-beta200511191923</kafka.version>
+        <ce.kafka.version>6.0.0-ce-beta200511191923</ce.kafka.version>
         <easymock.version>4.0.1</easymock.version>
         <exec-maven-plugin.version>1.5.0</exec-maven-plugin.version>
         <spotbugs.version>3.1.12</spotbugs.version>
