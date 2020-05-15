@@ -62,7 +62,7 @@
         <guava.version>28.1-jre</guava.version>
         <jacoco-maven-plugin.version>0.8.5</jacoco-maven-plugin.version>
         <junit.version>4.13</junit.version>
-        <kafka.scala.version>2.12</kafka.scala.version>
+        <kafka.scala.version>2.13</kafka.scala.version>
         <licenses.version>${confluent.version}</licenses.version>
         <maven-assembly.version>3.0.0</maven-assembly.version>
         <maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
