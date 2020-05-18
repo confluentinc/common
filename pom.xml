@@ -63,6 +63,7 @@
         <jacoco-maven-plugin.version>0.8.5</jacoco-maven-plugin.version>
         <junit.version>4.13</junit.version>
         <kafka.scala.version>2.13</kafka.scala.version>
+        <scala.version>2.13.2</scala.version>
         <licenses.version>${confluent.version}</licenses.version>
         <maven-assembly.version>3.0.0</maven-assembly.version>
         <maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
@@ -223,6 +224,19 @@
               <version>${jackson.bom.version}</version>
               <scope>import</scope>
               <type>pom</type>
+            </dependency>
+
+            <!-- We fix the scala version to prevent downstream projects from bringing in
+            different minor versions of Scala via different dependencies -->
+            <dependency>
+                <groupId>org.scala-lang</groupId>
+                <artifactId>scala-library</artifactId>
+                <version>${scala.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.scala-lang</groupId>
+                <artifactId>scala-reflect</artifactId>
+                <version>${scala.version}</version>
             </dependency>
 
             <!-- Kafka Deps -->
