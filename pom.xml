@@ -48,8 +48,8 @@
         <avro.version>1.9.2</avro.version>
         <required.maven.version>3.2</required.maven.version>
         <confluent.version>6.1.0-SNAPSHOT</confluent.version>
-        <kafka.version>6.1.0-ccs-SNAPSHOT</kafka.version>
-        <ce.kafka.version>6.1.0-ce-SNAPSHOT</ce.kafka.version>
+        <kafka.version>[6.1.0-0-ccs, 6.1.1-0-ccs)</kafka.version>
+        <ce.kafka.version>[6.1.0-0-ce, 6.1.1-0-ce)</ce.kafka.version>
         <easymock.version>4.0.1</easymock.version>
         <!-- keep exec-maven-plugin on 1.5.0 until https://github.com/mojohaus/exec-maven-plugin/issues/76 is fixed
              running our LicenseFinder plugin in create-licenses-for-docker breaks when upgrading to 1.6.0 -->
@@ -121,6 +121,33 @@
         <!-- Pull the latest base image or use a local image. -->
         <docker.pull-image>false</docker.pull-image>
         <dependency.check.skip>true</dependency.check.skip>
+        <!-- This is a version of the pom file that we install and deploy because
+            the kafka and ce-kafka version ranges are resolved.
+        -->
+        <installed.pom.file>installed_pom.xml</installed.pom.file>
+        <coderplus.plugin.version>1.0</coderplus.plugin.version>
+        <!-- This version range is only used in the custom resolver plugin for 
+            resolving the version of ccs and ce kafka. This property should 
+            never be used any where else.
+        -->
+        <confluent.version.range>[6.1.0-0, 6.1.1-0)</confluent.version.range>
+        <!-- Controls whether we run the maven resolver plugin which is used to resolve
+            the version ranges for kafka and ce-kafka. We want to run this for local builds,
+            but disable this in the jenkins profile so it doesn't run during CI builds.
+        -->
+        <skip.maven.resolver.plugin>false</skip.maven.resolver.plugin>
+        <!-- The custom install step handles installing a modified pom file with the
+            kafka version ranges resolved. We only do this for local builds so for 
+            CI builds we set the phase to none.
+        -->
+        <custom.install.phase>install</custom.install.phase>
+        <!-- The custom deploy step handles copying the modified pom over the 
+            standard pom so that we deploy a pom with the kafka versions resolved.
+            We only do this for local builds so for 
+            CI builds we set the phase to none.
+        -->
+        <custom.deploy.phase>deploy</custom.deploy.phase>
+        <maven.resolver.plugin.version>0.2.0</maven.resolver.plugin.version>
     </properties>
 
     <scm>
@@ -696,6 +723,80 @@
                     </execution>
                 </executions>
             </plugin>
+            <!-- This custom resolver plugin is used to resolve the version ranges
+                for kafka and ce-kafka since they don't use the standard version scheme.
+                This will set the properties kafka.version and ce.kafka.version
+            -->
+            <plugin>
+                <groupId>io.confluent</groupId>
+                <artifactId>resolver-maven-plugin</artifactId>
+                <version>${maven.resolver.plugin.version}</version>
+                <inherited>false</inherited>
+                <executions>
+                    <execution>
+                    <phase>validate</phase>
+                        <goals>
+                            <goal>resolve-kafka-range</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <groupId>org.apache.kafka</groupId>
+                    <artifactId>kafka-clients</artifactId>
+                    <versionRange>${confluent.version.range}</versionRange>
+                    <skip>${skip.maven.resolver.plugin}</skip>
+                </configuration>
+            </plugin>
+            <!-- This custom install plugin is run so that we install the common
+                artifact using a the pom with the kafka and ce-kafka version
+                range properties resolved to a specific version.
+            -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-install-plugin</artifactId>
+                <version>${maven-install-plugin.version}</version>
+                <inherited>false</inherited>
+                <executions>
+                    <execution>
+                        <id>custom-install</id>
+                        <goals>
+                            <goal>install-file</goal>
+                        </goals>
+                        <phase>${custom.install.phase}</phase>
+                        <configuration>
+                          <file>${installed.pom.file}</file>
+                          <groupId>io.confluent</groupId>
+                          <artifactId>common-parent</artifactId>
+                          <packaging>pom</packaging>
+                          <version>${project.version}</version>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- This custom deploy plugin is run so that when we deploy the common
+                artifact we use a version of the pom file with the kafka and
+                ce-kafka version range properties resolved to a specific version.
+            -->
+            <plugin>
+                <groupId>com.coderplus.maven.plugins</groupId>
+                <artifactId>copy-rename-maven-plugin</artifactId>
+                <version>${coderplus.plugin.version}</version>
+                <inherited>false</inherited>
+                <executions>
+                    <execution>
+                        <id>copy-file</id>
+                        <phase>${custom.deploy.phase}</phase>
+                        <goals>
+                            <goal>copy</goal>
+                        </goals>
+                        <configuration>
+                            <overWrite>true</overWrite>
+                            <sourceFile>${basedir}/${installed.pom.file}</sourceFile>
+                            <destinationFile>${basedir}/pom.xml</destinationFile>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
     <profiles>
@@ -781,6 +882,22 @@
             </activation>
             <properties>
                 <dependency.check.skip>false</dependency.check.skip>
+                <!-- During CI builds we do not want to execute the resolver plugin
+                    or the additional install and deploy steps as they are only
+                    needed when building locally.
+                -->
+                <!-- For the first phase of the nano versioning roll out we
+                    want the CI builds to resolve the kafka versions in the
+                    installed pom because we are not producing nano versioned
+                    artifacts for common, and so the custom update script is not
+                    being run which would normally update the pom files. This
+                    will be enabled in the second phase of the roll out when
+                    we produce nano versioned artifacts for common.
+
+                <skip.maven.resolver.plugin>true</skip.maven.resolver.plugin>
+                <custom.install.phase>none</custom.install.phase>
+                <custom.deploy.phase>none</custom.deploy.phase>
+                -->
             </properties>
             <build>
                 <pluginManagement>
