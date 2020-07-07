@@ -88,6 +88,7 @@
         <!-- Update to 2.0.0 for unit test patch usage -->
         <powermock.version>2.0.0</powermock.version>
         <slf4j.version>1.7.26</slf4j.version>
+        <confluent-log4j.version>1.2.17-cp1</confluent-log4j.version>
         <zkclient.version>0.11</zkclient.version>
         <zookeeper.version>3.5.8</zookeeper.version>
         <bouncycastle.version>1.60</bouncycastle.version>
@@ -294,6 +295,17 @@
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-log4j12</artifactId>
                 <version>${slf4j.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>log4j</groupId>
+                        <artifactId>log4j</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>io.confluent</groupId>
+                <artifactId>confluent-log4j</artifactId>
+                <version>${confluent-log4j.version}</version>
             </dependency>
 
             <!--this is our own artifacts, but lets others inherit-->
