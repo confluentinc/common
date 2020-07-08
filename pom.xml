@@ -296,6 +296,7 @@
                 <artifactId>slf4j-log4j12</artifactId>
                 <version>${slf4j.version}</version>
                 <exclusions>
+                    <!-- Use a repackaged version of log4j with security patches instead-->
                     <exclusion>
                         <groupId>log4j</groupId>
                         <artifactId>log4j</artifactId>
@@ -303,6 +304,7 @@
                 </exclusions>
             </dependency>
             <dependency>
+                <!-- Security patches to the end-of-life log4j 1.2.17 -->
                 <groupId>io.confluent</groupId>
                 <artifactId>confluent-log4j</artifactId>
                 <version>${confluent-log4j.version}</version>
