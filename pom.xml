@@ -84,7 +84,7 @@
         <powermock.version>2.0.0</powermock.version>
         <slf4j.version>1.7.26</slf4j.version>
         <zkclient.version>0.10</zkclient.version>
-        <zookeeper.version>3.4.14</zookeeper.version>
+        <zookeeper.version>3.5.8</zookeeper.version>
         <bouncycastle.version>1.60</bouncycastle.version>
         <checkstyle.version>8.18</checkstyle.version>
         <maven-checkstyle-plugin.version>2.17</maven-checkstyle-plugin.version>
