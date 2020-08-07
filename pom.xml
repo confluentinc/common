@@ -88,7 +88,7 @@
         <!-- Update to 2.0.0 for unit test patch usage -->
         <powermock.version>2.0.0</powermock.version>
         <slf4j.version>1.7.30</slf4j.version>
-        <confluent-log4j.version>1.2.17-cp1</confluent-log4j.version>
+        <confluent-log4j.version>1.2.17-cp2</confluent-log4j.version>
         <zkclient.version>0.11</zkclient.version>
         <zookeeper.version>3.5.8</zookeeper.version>
         <bouncycastle.version>1.60</bouncycastle.version>
