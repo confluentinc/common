@@ -900,18 +900,9 @@
                     or the additional install and deploy steps as they are only
                     needed when building locally.
                 -->
-                <!-- For the first phase of the nano versioning roll out we
-                    want the CI builds to resolve the kafka versions in the
-                    installed pom because we are not producing nano versioned
-                    artifacts for common, and so the custom update script is not
-                    being run which would normally update the pom files. This
-                    will be enabled in the second phase of the roll out when
-                    we produce nano versioned artifacts for common.
-
                 <skip.maven.resolver.plugin>true</skip.maven.resolver.plugin>
                 <custom.install.phase>none</custom.install.phase>
                 <custom.deploy.phase>none</custom.deploy.phase>
-                -->
             </properties>
             <build>
                 <pluginManagement>
