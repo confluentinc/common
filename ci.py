@@ -1,5 +1,6 @@
 #!/usr/bin/python
 
+import argparse
 import os
 import logging
 import re
@@ -137,3 +138,12 @@ class CI:
         else:
             log.error("Failed to set the property.")
             sys.exit(1)
+
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description="Run common ci update for nano versioning.")
+    parser.add_argument("version", help="The new version to use.")
+    parser.add_argument("path", help="The path to the repo.")
+    args = parser.parse_args()
+    updater = CI(args.version, args.path)
+    updater.run_update()
