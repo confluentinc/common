@@ -75,7 +75,16 @@ class CI:
         # We just use one of the kafka artifacts to resolve the range. No particular reason for using this artifact.
         group_id = "org.apache.kafka"
         artifact_id = "kafka-clients"
-        cmd = "mvn --batch-mode -Pjenkins io.confluent:resolver-maven-plugin:0.2.0:resolve-kafka-range "
+        cmd = "mvn --batch-mode -Pjenkins "
+        # When running this from packaging we need to provide the maven command additional args,
+        # such as point at another repo. In packaging if we don't override the repo then it
+        # doesn't find the resolver plugin.
+        mvn_args = os.getenv("MAVEN_ARGS")
+
+        if mvn_args:
+            cmd += "{} ".format(mvn_args)
+
+        cmd += "io.confluent:resolver-maven-plugin:0.2.0:resolve-kafka-range "
         cmd += "-DgroupId={} ".format(group_id)
         cmd += "-DartifactId={} ".format(artifact_id)
         cmd += "-DversionRange=\"{}\" ".format(version_range)
