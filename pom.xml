@@ -148,7 +148,7 @@
             CI builds we set the phase to none.
         -->
         <custom.deploy.phase>deploy</custom.deploy.phase>
-        <maven.resolver.plugin.version>0.2.0</maven.resolver.plugin.version>
+        <maven.resolver.plugin.version>0.3.0</maven.resolver.plugin.version>
     </properties>
 
     <scm>

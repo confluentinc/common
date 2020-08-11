@@ -14,6 +14,7 @@ logging.basicConfig(level=logging.INFO, format='%(message)s')
 log = logging.getLogger(__name__)
 
 NAME_SPACE = "{http://maven.apache.org/POM/4.0.0}"
+RESOLVER_PLUGIN_VERSION = "0.3.0"
 
 
 class CI:
@@ -84,7 +85,7 @@ class CI:
         if mvn_args:
             cmd += "{} ".format(mvn_args)
 
-        cmd += "io.confluent:resolver-maven-plugin:0.2.0:resolve-kafka-range "
+        cmd += "io.confluent:resolver-maven-plugin:{}:resolve-kafka-range ".format(RESOLVER_PLUGIN_VERSION)
         cmd += "-DgroupId={} ".format(group_id)
         cmd += "-DartifactId={} ".format(artifact_id)
         cmd += "-DversionRange=\"{}\" ".format(version_range)
