@@ -148,7 +148,7 @@
             CI builds we set the phase to none.
         -->
         <custom.deploy.phase>deploy</custom.deploy.phase>
-        <maven.resolver.plugin.version>0.3.0</maven.resolver.plugin.version>
+        <maven.resolver.plugin.version>0.4.0</maven.resolver.plugin.version>
     </properties>
 
     <scm>
@@ -758,6 +758,7 @@
                     <groupId>org.apache.kafka</groupId>
                     <artifactId>kafka-clients</artifactId>
                     <versionRange>${confluent.version.range}</versionRange>
+                    <newPomFile>${installed.pom.file}</newPomFile>
                     <skip>${skip.maven.resolver.plugin}</skip>
                 </configuration>
             </plugin>
