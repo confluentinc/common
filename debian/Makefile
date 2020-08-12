@@ -62,6 +62,8 @@ export PREFIX
 export SYSCONFDIR
 export SKIP_TESTS
 
+MVN_SETTINGS=-Dskip.maven.resolver.plugin=true -Dcustom.install.phase=none -Dcustom.deploy.phase=none
+
 all: install
 
 
@@ -77,9 +79,9 @@ endif
 
 build: apply-patches
 ifeq ($(SKIP_TESTS),yes)
-	mvn -DskipTests=true install
+	mvn -B $(MVN_SETTINGS) -DskipTests=true install
 else
-	mvn install
+	mvn -B $(MVN_SETTINGS) install
 endif
 
 install: build
