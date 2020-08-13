@@ -17,6 +17,7 @@ export PACKAGE_NAME=$(PACKAGE_TITLE)-$(VERSION)
 # Defaults that are likely to vary by platform. These are cleanly separated so
 # it should be easy to maintain altered values on platform-specific branches
 # when the values aren't overridden by the script invoking the Makefile
+DEFAULT_APPLY_PATCHES=yes
 
 # Install directories
 ifndef DESTDIR
@@ -31,6 +32,12 @@ endif
 #     share/kafka/
 ifndef PREFIX
 PREFIX=$(PACKAGE_NAME)
+endif
+
+# Whether we should apply patches. This only makes sense for alternate packaging
+# systems that know how to apply patches themselves, e.g. Debian.
+ifndef APPLY_PATCHES
+APPLY_PATCHES=$(DEFAULT_APPLY_PATCHES)
 endif
 
 # Whether we should run tests during the build.
@@ -60,6 +67,7 @@ export PREFIX
 export SYSCONFDIR
 export SKIP_TESTS
 export PULL_ARTIFACTS
+export APPLY_PATCHES
 
 ifeq ($(PULL_ARTIFACTS),yes)
 	BUILD_METHOD = newbuild
@@ -75,7 +83,13 @@ ifeq ($(PULL_ARTIFACTS),no)
 		rm -f $(CURDIR)/$(PACKAGE_NAME).zip && cd $(DESTDIR) && zip -r $(CURDIR)/$(PACKAGE_NAME).zip $(PREFIX)
 endif
 
-build:
+apply-patches: $(wildcard patches/*)
+ifeq ($(APPLY_PATCHES),yes)
+	git reset --hard HEAD
+	cat patches/series | xargs -iPATCH bash -c 'patch -p1 < patches/PATCH'
+endif
+
+build: apply-patches
 ifeq ($(SKIP_TESTS),yes)
 	mvn -B $(MVN_SETTINGS) -DskipTests=true install
 else
