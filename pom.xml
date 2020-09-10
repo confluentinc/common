@@ -148,7 +148,8 @@
             CI builds we set the phase to none.
         -->
         <custom.deploy.phase>deploy</custom.deploy.phase>
-        <maven.resolver.plugin.version>0.4.0</maven.resolver.plugin.version>
+        <maven.resolver.plugin.version>0.5.0</maven.resolver.plugin.version>
+        <fail.if.ce-kafka.version.not.found>false</fail.if.ce-kafka.version.not.found>
     </properties>
 
     <scm>
@@ -760,6 +761,8 @@
                     <versionRange>${confluent.version.range}</versionRange>
                     <newPomFile>${installed.pom.file}</newPomFile>
                     <skip>${skip.maven.resolver.plugin}</skip>
+                    <failIfCCSNotfound>true</failIfCCSNotfound>
+                    <failIfCENotfound>${fail.if.ce-kafka.version.not.found}</failIfCENotfound>
                 </configuration>
             </plugin>
             <!-- This custom install plugin is run so that we install the common
@@ -904,6 +907,10 @@
                 <skip.maven.resolver.plugin>true</skip.maven.resolver.plugin>
                 <custom.install.phase>none</custom.install.phase>
                 <custom.deploy.phase>none</custom.deploy.phase>
+                <!-- During CI builds we need to fail if we are unable to resolve
+                    the latest version of ce-kafka artifacts.
+                -->
+                <fail.if.ce-kafka.version.not.found>true</fail.if.ce-kafka.version.not.found>
             </properties>
             <build>
                 <pluginManagement>

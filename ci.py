@@ -14,7 +14,7 @@ logging.basicConfig(level=logging.INFO, format='%(message)s')
 log = logging.getLogger(__name__)
 
 NAME_SPACE = "{http://maven.apache.org/POM/4.0.0}"
-RESOLVER_PLUGIN_VERSION = "0.4.0"
+RESOLVER_PLUGIN_VERSION = "0.5.0"
 
 
 class CI:
