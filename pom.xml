@@ -85,6 +85,7 @@
         <slf4j-api.version>${slf4j.version}</slf4j-api.version>
         <jaxb.version>2.3.0</jaxb.version>
         <hamcrest.version>1.3</hamcrest.version>
+        <junit-jupiter.version>5.7.0</junit-jupiter.version>
         <!-- Update to 2.0.0 for unit test patch usage -->
         <powermock.version>2.0.0</powermock.version>
         <slf4j.version>1.7.30</slf4j.version>
@@ -408,6 +409,12 @@
                 <groupId>org.hamcrest</groupId>
                 <artifactId>hamcrest-all</artifactId>
                 <version>${hamcrest.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.junit.jupiter</groupId>
+                <artifactId>junit-jupiter-api</artifactId>
+                <version>{junit-jupiter.version}</version>
                 <scope>test</scope>
             </dependency>
             <!-- Kafka's SSL utilities are used in tests. -->
