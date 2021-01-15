@@ -7,7 +7,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
     <groupId>io.confluent</groupId>
     <artifactId>assembly-plugin-boilerplate</artifactId>
     <packaging>pom</packaging>
-    <version>6.1.0-0</version>
+    <version>6.1.0-144</version>
     <name>${project.artifactId}</name>
     <description>Maven Assembly Plugin boilerplate for Dockerized projects</description>
     <url>https://github.com/confluentinc/common</url>
