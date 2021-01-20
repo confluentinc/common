@@ -23,7 +23,7 @@
     <groupId>io.confluent</groupId>
     <artifactId>common-parent</artifactId>
     <packaging>pom</packaging>
-    <version>6.0.1</version>
+    <version>6.0.1-cp1</version>
     <name>common</name>
     <organization>
         <name>Confluent, Inc.</name>
@@ -47,9 +47,9 @@
         <argLine></argLine>
         <avro.version>1.9.2</avro.version>
         <required.maven.version>3.2</required.maven.version>
-        <confluent.version>6.0.1</confluent.version>
-        <kafka.version>6.0.1-ccs</kafka.version>
-        <ce.kafka.version>6.0.1-ce</ce.kafka.version>
+        <confluent.version>6.0.1-cp1</confluent.version>
+        <kafka.version>6.0.1-ccs-cp1</kafka.version>
+        <ce.kafka.version>6.0.1-ce-cp1</ce.kafka.version>
         <easymock.version>4.0.1</easymock.version>
         <!-- keep exec-maven-plugin on 1.5.0 until https://github.com/mojohaus/exec-maven-plugin/issues/76 is fixed
              running our LicenseFinder plugin in create-licenses-for-docker breaks when upgrading to 1.6.0 -->
