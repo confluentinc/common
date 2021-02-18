@@ -57,6 +57,7 @@
         <jackson.version>2.9.10</jackson.version>
         <jackson.bom.version>2.9.10.20200621</jackson.bom.version>
 
+        <guava.version>28.1-jre</guava.version>
         <jacoco-maven-plugin.version>0.8.1</jacoco-maven-plugin.version>
         <junit.version>4.13</junit.version>
         <kafka.version>2.0.2-SNAPSHOT</kafka.version>
