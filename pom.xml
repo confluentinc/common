@@ -23,7 +23,7 @@
     <groupId>io.confluent</groupId>
     <artifactId>common-parent</artifactId>
     <packaging>pom</packaging>
-    <version>7.0.0-0</version>
+    <version>7.0.0-5</version>
     <name>common</name>
     <organization>
         <name>Confluent, Inc.</name>
@@ -47,8 +47,8 @@
         <argLine></argLine>
         <avro.version>1.10.1</avro.version>
         <required.maven.version>3.2</required.maven.version>
-        <kafka.version>[7.0.0-0-ccs, 7.0.1-0-ccs)</kafka.version>
-        <ce.kafka.version>[7.0.0-0-ce, 7.0.1-0-ce)</ce.kafka.version>
+        <kafka.version>7.0.0-4-ccs</kafka.version>
+        <ce.kafka.version>7.0.0-2-ce</ce.kafka.version>
         <easymock.version>4.0.1</easymock.version>
         <!-- keep exec-maven-plugin on 1.5.0 until https://github.com/mojohaus/exec-maven-plugin/issues/76 is fixed
              running our LicenseFinder plugin in create-licenses-for-docker breaks when upgrading to 1.6.0 -->
@@ -120,7 +120,7 @@
         <!-- Pull the latest base image or use a local image. -->
         <docker.pull-image>false</docker.pull-image>
         <dependency.check.skip>true</dependency.check.skip>
-        <io.confluent.common.version>7.0.0-0</io.confluent.common.version>
+        <io.confluent.common.version>7.0.0-5</io.confluent.common.version>
         <!-- This is a version of the pom file that we install and deploy because
             the kafka and ce-kafka version ranges are resolved.
         -->
@@ -149,7 +149,7 @@
         <custom.deploy.phase>deploy</custom.deploy.phase>
         <maven.resolver.plugin.version>0.5.0</maven.resolver.plugin.version>
         <fail.if.ce-kafka.version.not.found>false</fail.if.ce-kafka.version.not.found>
-        <io.confluent.license-file-generator.version>${confluent.version.range}</io.confluent.license-file-generator.version>
+        <io.confluent.license-file-generator.version>7.0.0-1</io.confluent.license-file-generator.version>
     </properties>
 
     <scm>
