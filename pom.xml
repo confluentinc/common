@@ -147,7 +147,7 @@
             CI builds we set the phase to none.
         -->
         <custom.deploy.phase>deploy</custom.deploy.phase>
-        <maven.resolver.plugin.version>0.5.0</maven.resolver.plugin.version>
+        <maven.resolver.plugin.version>0.6.0</maven.resolver.plugin.version>
         <fail.if.ce-kafka.version.not.found>false</fail.if.ce-kafka.version.not.found>
         <io.confluent.license-file-generator.version>${confluent.version.range}</io.confluent.license-file-generator.version>
     </properties>
