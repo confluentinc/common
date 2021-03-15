@@ -23,7 +23,7 @@
     <parent>
         <artifactId>common-parent</artifactId>
         <groupId>io.confluent</groupId>
-        <version>6.2.0-beta210310224144</version>
+        <version>6.2.0-beta210310224144-cp2</version>
     </parent>
 
     <artifactId>common-config</artifactId>
