@@ -64,7 +64,7 @@
         <junit.version>4.13.1</junit.version>
         <junit.jupiter.version>5.7.0</junit.jupiter.version>
         <kafka.scala.version>2.13</kafka.scala.version>
-        <scala.version>2.13.3</scala.version>
+        <scala.version>2.13.5</scala.version>
         <maven-assembly.version>3.3.0</maven-assembly.version>
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
         <maven-dependency-plugin.version>3.1.2</maven-dependency-plugin.version>
@@ -88,7 +88,7 @@
         <slf4j.version>1.7.30</slf4j.version>
         <confluent-log4j.version>1.2.17-cp2</confluent-log4j.version>
         <zkclient.version>0.11</zkclient.version>
-        <zookeeper.version>3.5.8</zookeeper.version>
+        <zookeeper.version>3.5.9</zookeeper.version>
         <bouncycastle.version>1.68</bouncycastle.version>
         <checkstyle.version>8.18</checkstyle.version>
         <maven-checkstyle-plugin.version>3.1.1</maven-checkstyle-plugin.version>
