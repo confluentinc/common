@@ -11,6 +11,10 @@ The following libraries are included in packaged versions of this project:
  * LICENSE: licenses/LICENSE.bsd.txt
  * HOMEPAGE: http://jline.sourceforge.net/
 
+* logredactor
+ * COPYRIGHT: Copyright (c) 2015, Cloudera. All rights reserved.
+ * LICENSE: licenses/LICENSE.apache2.txt
+
 * SLF4J
  * COPYRIGHT: Copyright (c) 2004-2013 QOS.ch
  * LICENSE: licenses/LICENSE.mit.txt
