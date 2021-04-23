@@ -172,6 +172,7 @@
         <module>log4j2-extensions</module>
         <module>package</module>
         <module>parent</module>
+        <module>disk-usage-agent</module>
     </modules>
 
     <repositories>
