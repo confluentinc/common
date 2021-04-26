@@ -59,7 +59,7 @@
         <jackson.version>2.10.5</jackson.version>
         <jackson.bom.version>2.10.5.20201202</jackson.bom.version>
         <gson.version>2.8.6</gson.version>
-        <guava.version>28.1-jre</guava.version>
+        <guava.version>30.1.1-jre</guava.version>
         <jacoco-maven-plugin.version>0.8.6</jacoco-maven-plugin.version>
         <junit.version>4.13.1</junit.version>
         <junit.jupiter.version>5.7.0</junit.jupiter.version>
@@ -128,8 +128,8 @@
         -->
         <installed.pom.file>installed_pom.xml</installed.pom.file>
         <coderplus.plugin.version>1.0</coderplus.plugin.version>
-        <!-- This version range is only used in the custom resolver plugin for 
-            resolving the version of ccs and ce kafka. This property should 
+        <!-- This version range is only used in the custom resolver plugin for
+            resolving the version of ccs and ce kafka. This property should
             never be used any where else.
         -->
         <confluent.version.range>[7.0.0-0, 7.0.1-0)</confluent.version.range>
@@ -139,13 +139,13 @@
         -->
         <skip.maven.resolver.plugin>false</skip.maven.resolver.plugin>
         <!-- The custom install step handles installing a modified pom file with the
-            kafka version ranges resolved. We only do this for local builds so for 
+            kafka version ranges resolved. We only do this for local builds so for
             CI builds we set the phase to none.
         -->
         <custom.install.phase>install</custom.install.phase>
-        <!-- The custom deploy step handles copying the modified pom over the 
+        <!-- The custom deploy step handles copying the modified pom over the
             standard pom so that we deploy a pom with the kafka versions resolved.
-            We only do this for local builds so for 
+            We only do this for local builds so for
             CI builds we set the phase to none.
         -->
         <custom.deploy.phase>deploy</custom.deploy.phase>
