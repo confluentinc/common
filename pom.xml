@@ -89,6 +89,7 @@
         <confluent-log4j.version>1.2.17-cp2</confluent-log4j.version>
         <zkclient.version>0.11</zkclient.version>
         <zookeeper.version>3.5.9</zookeeper.version>
+        <netty.version>4.1.63.Final</netty.version>
         <bouncycastle.version>1.68</bouncycastle.version>
         <jmx_prometheus_javaagent.version>0.14.0</jmx_prometheus_javaagent.version>
         <jolokia-jvm.version>1.6.2</jolokia-jvm.version>
@@ -208,6 +209,10 @@
                     <exclusion>
                         <groupId>log4j</groupId>
                         <artifactId>log4j</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>io.netty</groupId>
+                        <artifactId>netty-codec</artifactId>
                     </exclusion>
                 </exclusions>
             </dependency>
@@ -338,6 +343,11 @@
                 <groupId>io.confluent</groupId>
                 <artifactId>confluent-log4j</artifactId>
                 <version>${confluent-log4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.netty</groupId>
+                <artifactId>netty-codec</artifactId>
+                <version>${netty.version}</version>
             </dependency>
 
             <!--this is our own artifacts, but lets others inherit-->
