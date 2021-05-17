@@ -10,7 +10,7 @@ if [ -z ${PACKAGE_TITLE} -o -z ${VERSION} -o -z ${DESTDIR} ]; then
     exit 1
 fi
 
-if [[ -n ${SECURITY_PATCH} ]]
+if [[ -n ${SECURITY_PATCH} ]]; then
 VERSION=${VERSION}-${SECURITY_PATCH}
 fi
 
