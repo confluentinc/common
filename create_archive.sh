@@ -10,10 +10,6 @@ if [ -z ${PACKAGE_TITLE} -o -z ${VERSION} -o -z ${DESTDIR} ]; then
     exit 1
 fi
 
-if [[ -n ${SECURITY_PATCH} ]]; then
-VERSION=${VERSION}-${SECURITY_PATCH}
-fi
-
 BINPATH=${PREFIX}/bin
 LIBPATH=${PREFIX}/share/${PACKAGE_TITLE}
 DOCPATH=${PREFIX}/share/doc/${PACKAGE_TITLE}
@@ -27,7 +23,7 @@ mkdir -p ${DESTDIR}${BINPATH}
 mkdir -p ${DESTDIR}${LIBPATH}
 mkdir -p ${DESTDIR}${SYSCONFDIR}
 
-PREPACKAGED="package/target/common-package-${VERSION}-package"
+PREPACKAGED="package/target/common-package-${VERSION}${SECURITY_SUFFIX}-package"
 pushd ${PREPACKAGED}
 find . -type f | grep -v README[.]rpm | xargs -I XXX ${INSTALL} -o root -g root XXX ${DESTDIR}${PREFIX}/XXX
 popd
