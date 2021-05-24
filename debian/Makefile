@@ -11,6 +11,10 @@ ifndef VERSION
 VERSION=$(shell grep \<version\> pom.xml | head -n 1 | awk -F'>|<' '{ print $$3 }')
 endif
 
+ifndef SECURITY_SUFFIX
+SECURITY_SUFFIX=
+endif
+
 export PACKAGE_TITLE=confluent-common
 export PACKAGE_NAME=$(PACKAGE_TITLE)-$(VERSION)$(SECURITY_SUFFIX)
 
