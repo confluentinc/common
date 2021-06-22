@@ -24,7 +24,7 @@
     <groupId>io.confluent</groupId>
     <artifactId>common-parent</artifactId>
     <packaging>pom</packaging>
-    <version>7.0.0-beta210604105212</version>
+    <version>7.0.0-beta210604105212-cp7</version>
     <name>common</name>
     <organization>
         <name>Confluent, Inc.</name>
@@ -48,8 +48,8 @@
         <argLine></argLine>
         <avro.version>1.10.1</avro.version>
         <required.maven.version>3.2</required.maven.version>
-        <kafka.version>7.0.0-ccs-beta210604105212</kafka.version>
-        <ce.kafka.version>7.0.0-ce-beta210604105212</ce.kafka.version>
+        <kafka.version>7.0.0-ccs-beta210604105212-cp7</kafka.version>
+        <ce.kafka.version>7.0.0-ce-beta210604105212-cp7</ce.kafka.version>
         <easymock.version>4.0.1</easymock.version>
         <!-- keep exec-maven-plugin on 1.5.0 until https://github.com/mojohaus/exec-maven-plugin/issues/76 is fixed
              running our LicenseFinder plugin in create-licenses-for-docker breaks when upgrading to 1.6.0 -->
@@ -126,7 +126,7 @@
         <!-- Pull the latest base image or use a local image. -->
         <docker.pull-image>false</docker.pull-image>
         <dependency.check.skip>true</dependency.check.skip>
-        <io.confluent.common.version>7.0.0-beta210604105212</io.confluent.common.version>
+        <io.confluent.common.version>7.0.0-beta210604105212-cp7</io.confluent.common.version>
         <!-- This is a version of the pom file that we install and deploy because
             the kafka and ce-kafka version ranges are resolved.
         -->
@@ -136,7 +136,7 @@
             resolving the version of ccs and ce kafka. This property should 
             never be used any where else.
         -->
-        <confluent.version.range>7.0.0-beta210604105212</confluent.version.range>
+        <confluent.version.range>7.0.0-beta210604105212-cp7</confluent.version.range>
         <!-- Controls whether we run the maven resolver plugin which is used to resolve
             the version ranges for kafka and ce-kafka. We want to run this for local builds,
             but disable this in the jenkins profile so it doesn't run during CI builds.
