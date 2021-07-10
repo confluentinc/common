@@ -35,5 +35,6 @@ To build the `utils` sub-project independently, run this from the parent directo
     $ mvn -pl :common-utils package
 
 
+
 ## License
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fconfluentinc%2Fcommon.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fconfluentinc%2Fcommon?ref=badge_large)
