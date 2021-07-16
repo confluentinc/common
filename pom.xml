@@ -54,8 +54,8 @@
         <!-- keep exec-maven-plugin on 1.5.0 until https://github.com/mojohaus/exec-maven-plugin/issues/76 is fixed
              running our LicenseFinder plugin in create-licenses-for-docker breaks when upgrading to 1.6.0 -->
         <exec-maven-plugin.version>1.5.0</exec-maven-plugin.version>
-        <spotbugs.version>4.2.0</spotbugs.version>
-        <spotbugs.maven.plugin.version>4.2.0</spotbugs.maven.plugin.version>
+        <spotbugs.version>4.3.0</spotbugs.version>
+        <spotbugs.maven.plugin.version>4.3.0</spotbugs.maven.plugin.version>
         <java.version>8</java.version>
         <jackson.version>2.10.5</jackson.version>
         <jackson.bom.version>2.10.5.20201202</jackson.bom.version>
