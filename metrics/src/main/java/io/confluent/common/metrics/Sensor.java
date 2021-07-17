@@ -121,6 +121,7 @@ public final class Sensor {
       }
       checkQuotas(timeMs);
     }
+    publishMetrics();
     for (int i = 0; i < parents.length; i++) {
       parents[i].record(value, timeMs);
     }
@@ -142,6 +143,13 @@ public final class Sensor {
           }
         }
       }
+    }
+  }
+
+  private void publishMetrics() {
+    for (int i = 0; i < this.metrics.size(); i++) {
+      KafkaMetric metric = this.metrics.get(i);
+      registry.publishMetric(metric);
     }
   }
 
