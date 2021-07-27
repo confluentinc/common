@@ -24,10 +24,10 @@ jobs:
         java-version: '11'
         distribution: 'adopt'
 
-- name: maven-settings-xml-action
-  uses: whelk-io/maven-settings-xml-action@v18
-  with:
-    repositories: '[{ "id": "confluent-snapshopts", "url": "https://s3-us-west-2.amazonaws.com/confluent-snapshots/" }]'
+    - name: maven-settings-xml-action
+      uses: whelk-io/maven-settings-xml-action@v18
+      with:
+        repositories: '[{ "id": "confluent-snapshopts", "url": "https://s3-us-west-2.amazonaws.com/confluent-snapshots/" }]'
 
     - name: Build with Maven
       run: mvn clean install 
