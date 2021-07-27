@@ -17,10 +17,17 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+
     - name: Set up JDK 11
       uses: actions/setup-java@v2
       with:
         java-version: '11'
         distribution: 'adopt'
+
+- name: maven-settings-xml-action
+  uses: whelk-io/maven-settings-xml-action@v18
+  with:
+    repositories: '[{ "id": "confluent-snapshopts", "url": "https://s3-us-west-2.amazonaws.com/confluent-snapshots/" }]'
+
     - name: Build with Maven
-      run: mvn clean install
+      run: mvn clean install 
