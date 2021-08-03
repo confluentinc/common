@@ -721,7 +721,9 @@
                         <configuration>
                             <configLocation>${checkstyle.config.location}</configLocation>
                             <suppressionsLocation>${checkstyle.suppressions.location}</suppressionsLocation>
-                            <sourceDirectory>${project.build.sourceDirectory}</sourceDirectory>
+                            <sourceDirectories>
+                                <sourceDirectory>${project.build.sourceDirectory}</sourceDirectory>
+                            </sourceDirectories>
                             <encoding>UTF-8</encoding>
                             <consoleOutput>true</consoleOutput>
                             <failsOnError>false</failsOnError>
