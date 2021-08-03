@@ -91,7 +91,7 @@
         <slf4j.version>1.7.30</slf4j.version>
         <confluent-log4j.version>1.2.17-cp2</confluent-log4j.version>
         <zkclient.version>0.11</zkclient.version>
-        <zookeeper.version>3.5.9</zookeeper.version>
+        <zookeeper.version>3.6.3</zookeeper.version>
         <netty.version>4.1.63.Final</netty.version>
         <bouncycastle.version>1.68</bouncycastle.version>
         <jmx_prometheus_javaagent.version>0.14.0</jmx_prometheus_javaagent.version>
