@@ -225,6 +225,8 @@
                     </exclusion>
                 </exclusions>
             </dependency>
+            <!-- Dropwizard Metrics are required by ZooKeeper as of v3.6.0,
+            but the library should *not* be used in Kafka code -->
             <dependency>
                 <groupId>io.dropwizard.metrics</groupId>
                 <artifactId>metrics-core</artifactId>
