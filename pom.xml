@@ -88,7 +88,7 @@
         <zookeeper.version>3.4.14</zookeeper.version>
         <bouncycastle.version>1.68</bouncycastle.version>
         <checkstyle.version>8.44</checkstyle.version>
-        <maven-checkstyle-plugin.version>2.17</maven-checkstyle-plugin.version>
+        <maven-checkstyle-plugin.version>3.1.1</maven-checkstyle-plugin.version>
         <maven-clean-plugin.version>3.0.0</maven-clean-plugin.version>
         <maven-install-plugin.version>2.5.2</maven-install-plugin.version>
         <maven-resources-plugin.version>3.0.2</maven-resources-plugin.version>
@@ -416,7 +416,9 @@
                     <configuration>
                         <configLocation>${checkstyle.config.location}</configLocation>
                         <suppressionsLocation>${checkstyle.suppressions.location}</suppressionsLocation>
-                        <sourceDirectory>${project.build.sourceDirectory}</sourceDirectory>
+                        <sourceDirectories>
+                            <sourceDirectory>${project.build.sourceDirectory}</sourceDirectory>
+                        </sourceDirectories>
                         <encoding>UTF-8</encoding>
                         <consoleOutput>true</consoleOutput>
                         <failsOnError>true</failsOnError>
