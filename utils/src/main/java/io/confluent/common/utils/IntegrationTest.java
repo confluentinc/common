@@ -17,7 +17,7 @@
 
 package io.confluent.common.utils;
 
-/**
+/*
  *  Marker interface for use with Junit Categories to separate Integration Tests
  *  from Unit Tests
  */

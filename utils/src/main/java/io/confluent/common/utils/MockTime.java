@@ -32,7 +32,7 @@ package io.confluent.common.utils;
 
 import java.util.concurrent.TimeUnit;
 
-/**
+/*
  * A clock that you can manually advance by calling sleep
  */
 public class MockTime implements Time {
