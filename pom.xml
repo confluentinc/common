@@ -47,6 +47,7 @@
         <!--jacoco prepare-agent needs argLine defined to set this variable. if we don't have a default set then maven gets angry.-->
         <argLine></argLine>
         <avro.version>1.10.1</avro.version>
+        <protobuf.version>3.17.3</protobuf.version>
         <required.maven.version>3.2</required.maven.version>
         <kafka.version>[7.1.0-0-ccs, 7.1.1-0-ccs)</kafka.version>
         <ce.kafka.version>[7.1.0-0-ce, 7.1.1-0-ce)</ce.kafka.version>
