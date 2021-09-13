@@ -1047,6 +1047,35 @@
             </reporting>
         </profile>
         <profile>
+            <id>enforce-dependency-convergence</id>
+            <activation>
+                <property>
+                    <name>env.ENFORCE_DEPENDENCY_CONVERGENCE</name>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-enforcer-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>enforce</id>
+                                <configuration>
+                                    <rules>
+                                        <dependencyConvergence/>
+                                    </rules>
+                                </configuration>
+                                <goals>
+                                    <goal>enforce</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
             <!-- org.owasp:dependency-check-maven >= 4.0.0 will not work with JDK7 so it must be activated in a JDK>=1.8 profile.
                  Developers can always pass -Ddependency.check.skip=true on the CLI to speed things up during development -->
             <id>dependency-check</id>
