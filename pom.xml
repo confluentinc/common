@@ -80,6 +80,7 @@
         <os-maven-plugin.version>1.5.0.Final</os-maven-plugin.version>
         <slf4j-api.version>${slf4j.version}</slf4j-api.version>
         <jaxb.version>2.3.0</jaxb.version>
+        <netty.version>4.1.68.Final</netty.version>
         <hamcrest.version>1.3</hamcrest.version>
         <!-- Update to 2.0.0 for unit test patch usage -->
         <powermock.version>2.0.0</powermock.version>
@@ -174,6 +175,14 @@
                     <exclusion>
                         <groupId>log4j</groupId>
                         <artifactId>log4j</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>io.netty</groupId>
+                        <artifactId>netty-handler</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>io.netty</groupId>
+                        <artifactId>netty-transport-native-epoll</artifactId>
                     </exclusion>
                 </exclusions>
             </dependency>
@@ -295,6 +304,16 @@
                 <groupId>io.confluent</groupId>
                 <artifactId>confluent-log4j</artifactId>
                 <version>${confluent-log4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.netty</groupId>
+                <artifactId>netty-handler</artifactId>
+                <version>${netty.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.netty</groupId>
+                <artifactId>netty-transport-native-epoll</artifactId>
+                <version>${netty.version}</version>
             </dependency>
 
             <!--this is our own artifacts, but lets others inherit-->
