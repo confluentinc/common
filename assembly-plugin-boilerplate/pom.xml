@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--~
-  ~ Copyright 2018 Confluent Inc.
+  ~ Copyright 2021 Confluent Inc.
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
   ~ you may not use this file except in compliance with the License.
@@ -24,7 +24,7 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
     <groupId>io.confluent</groupId>
     <artifactId>assembly-plugin-boilerplate</artifactId>
     <packaging>pom</packaging>
-    <version>7.1.0-0</version>
+    <version>7.2.0-0</version>
     <name>${project.artifactId}</name>
     <description>Maven Assembly Plugin boilerplate for Dockerized projects</description>
     <url>https://github.com/confluentinc/common</url>
