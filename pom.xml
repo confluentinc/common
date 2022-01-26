@@ -79,7 +79,7 @@
         <mockito-all.version>1.10.19</mockito-all.version>
         <os-maven-plugin.version>1.5.0.Final</os-maven-plugin.version>
         <slf4j-api.version>${slf4j.version}</slf4j-api.version>
-        <confluent-log4j.version>1.2.17-cp2</confluent-log4j.version>
+        <confluent-log4j.version>1.2.17-cp2.2</confluent-log4j.version>
         <jaxb.version>2.3.0</jaxb.version>
         <hamcrest.version>1.3</hamcrest.version>
         <!-- Update to 2.0.0 for unit test patch usage -->
