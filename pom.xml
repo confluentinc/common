@@ -115,7 +115,7 @@
         <docker.test-tag>${docker.upstream-tag}</docker.test-tag>  <!-- Tag for integration test dependencies -->
         <dockerfile-maven-plugin.version>1.4.9</dockerfile-maven-plugin.version>
         <dependency.check.skip>true</dependency.check.skip>
-        <protobuf.version>3.16.1</protobuf.version>
+        <google.protobuf.version>3.16.1</google.protobuf.version>
     </properties>
 
     <scm>
@@ -158,7 +158,7 @@
             <dependency>
                 <groupId>com.google.protobuf</groupId>
                 <artifactId>protobuf-java</artifactId>
-                <version>${protobuf.version}</version>
+                <version>${google.protobuf.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.slf4j</groupId>
