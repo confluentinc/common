@@ -65,7 +65,7 @@
         <guava.version>30.1.1-jre</guava.version>
         <jacoco-maven-plugin.version>0.8.7</jacoco-maven-plugin.version>
         <junit.version>4.13.2</junit.version>
-        <junit.jupiter.version>5.7.0</junit.jupiter.version>
+        <junit.jupiter.version>5.8.2</junit.jupiter.version>
         <kafka.scala.version>2.13</kafka.scala.version>
         <scala.version>2.13.5</scala.version>
         <maven-assembly.version>3.3.0</maven-assembly.version>
@@ -392,22 +392,11 @@
                 <scope>test</scope>
             </dependency>
             <dependency>
-                <groupId>org.junit.jupiter</groupId>
-                <artifactId>junit-jupiter</artifactId>
+                <groupId>org.junit</groupId>
+                <artifactId>junit-bom</artifactId>
                 <version>${junit.jupiter.version}</version>
-                <scope>test</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.junit.jupiter</groupId>
-                <artifactId>junit-jupiter-api</artifactId>
-                <version>${junit.jupiter.version}</version>
-                <scope>test</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.junit.vintage</groupId>
-                <artifactId>junit-vintage-engine</artifactId>
-                <version>${junit.jupiter.version}</version>
-                <scope>test</scope>
+                <type>pom</type>
+                <scope>import</scope>
             </dependency>
             <dependency>
                 <groupId>org.easymock</groupId>
