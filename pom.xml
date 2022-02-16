@@ -80,7 +80,7 @@
         <maven-project-info-reports-plugin.version>3.1.1</maven-project-info-reports-plugin.version>
         <mbknor-jackson-jsonschema.version>1.0.39</mbknor-jackson-jsonschema.version>
         <buildnumber-plugin.version>1.4</buildnumber-plugin.version>
-        <mockito.version>3.12.4</mockito.version>
+        <mockito.version>4.3.1</mockito.version>
         <mockito-all.version>1.10.19</mockito-all.version>
         <os-maven-plugin.version>1.7.0</os-maven-plugin.version>
         <slf4j-api.version>${slf4j.version}</slf4j-api.version>
@@ -430,9 +430,10 @@
             </dependency>
             <dependency>
                 <groupId>org.mockito</groupId>
-                <artifactId>mockito-core</artifactId>
+                <artifactId>mockito-bom</artifactId>
                 <version>${mockito.version}</version>
-                <scope>test</scope>
+                <type>pom</type>
+                <scope>import</scope>
             </dependency>
             <dependency>
                 <groupId>org.mockito</groupId>
