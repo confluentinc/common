@@ -57,6 +57,7 @@ import io.confluent.common.metrics.exceptions.MetricsException;
 /**
  * Register metrics in JMX as dynamic mbeans based on the metric names
  */
+@Deprecated
 public class JmxReporter implements MetricsReporter {
 
   private static final Logger log = LoggerFactory.getLogger(JmxReporter.class);

@@ -41,6 +41,8 @@ import io.confluent.common.utils.Time;
 import io.confluent.common.utils.Utils;
 
 /**
+ * @deprecated use the equivalent class in org.apache.kafka.metrics instead
+ *
  * A registry of sensors and metrics. <p> A metric is a named, numerical measurement. A sensor is a
  * handle to record numerical measurements as they occur. Each Sensor has zero or more associated
  * metrics. For example a Sensor might represent message sizes and we might associate with this
@@ -60,6 +62,7 @@ import io.confluent.common.utils.Utils;
  * sensor.record(messageSize);
  * </pre>
  */
+@Deprecated
 public class Metrics {
 
   private final MetricConfig config;

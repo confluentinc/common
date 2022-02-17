@@ -45,6 +45,7 @@ import io.confluent.common.utils.Utils;
  * #record(double)} api and would maintain a set of metrics about request sizes such as the average
  * or max.
  */
+@Deprecated
 public final class Sensor {
 
   private final Metrics registry;
