@@ -91,7 +91,6 @@
         <!-- Update to 2.0.0 for unit test patch usage -->
         <powermock.version>2.0.0</powermock.version>
         <slf4j.version>1.7.30</slf4j.version>
-        <confluent-log4j.version>1.2.17-cp10</confluent-log4j.version>
         <zkclient.version>0.11</zkclient.version>
         <zookeeper.version>3.6.3</zookeeper.version>
         <bouncycastle.version>1.68</bouncycastle.version>
@@ -349,12 +348,6 @@
                         <artifactId>log4j</artifactId>
                     </exclusion>
                 </exclusions>
-            </dependency>
-            <dependency>
-                <!-- Security patches to the end-of-life log4j 1.2.17 -->
-                <groupId>io.confluent</groupId>
-                <artifactId>confluent-log4j</artifactId>
-                <version>${confluent-log4j.version}</version>
             </dependency>
             <dependency>
                 <groupId>io.netty</groupId>

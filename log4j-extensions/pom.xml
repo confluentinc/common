@@ -36,10 +36,6 @@
     <dependencies>
         <dependency>
             <groupId>io.confluent</groupId>
-            <artifactId>confluent-log4j</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.confluent</groupId>
             <artifactId>common-logging</artifactId>
             <version>${io.confluent.common.version}</version>
         </dependency>
