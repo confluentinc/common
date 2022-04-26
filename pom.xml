@@ -359,6 +359,16 @@
                 <version>${confluent-log4j.version}</version>
             </dependency>
             <dependency>
+                <groupId>ch.qos.reload4j</groupId>
+                <artifactId>reload4j</artifactId>
+                <version>${reload4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-reload4j</artifactId>
+                <version>${slf4j-reload4j.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>io.confluent</groupId>
                 <artifactId>logredactor</artifactId>
                 <version>${logredactor.version}</version>
