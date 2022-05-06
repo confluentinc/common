@@ -23,7 +23,7 @@
     <groupId>io.confluent</groupId>
     <artifactId>common-parent</artifactId>
     <packaging>pom</packaging>
-    <version>5.4.3-SNAPSHOT</version>
+    <version>5.4.8-SNAPSHOT</version>
     <name>common</name>
     <organization>
         <name>Confluent, Inc.</name>
@@ -47,20 +47,23 @@
         <argLine></argLine>
         <avro.version>1.9.2</avro.version>
         <required.maven.version>3.2</required.maven.version>
-        <confluent.version>5.4.3-SNAPSHOT</confluent.version>
-        <kafka.version>5.4.3-ccs-SNAPSHOT</kafka.version>
-        <ce.kafka.version>5.4.3-ce-SNAPSHOT</ce.kafka.version>
+        <confluent.version>5.4.8-SNAPSHOT</confluent.version>
+        <kafka.version>5.4.8-ccs-SNAPSHOT</kafka.version>
+        <ce.kafka.version>5.4.8-ce-SNAPSHOT</ce.kafka.version>
         <easymock.version>4.0.1</easymock.version>
         <exec-maven-plugin.version>1.5.0</exec-maven-plugin.version>
-        <spotbugs.version>3.1.8</spotbugs.version>
-        <spotbugs.maven.plugin.version>3.1.8</spotbugs.maven.plugin.version>
+        <spotbugs.version>3.1.12</spotbugs.version>
+        <spotbugs.maven.plugin.version>3.1.12</spotbugs.maven.plugin.version>
         <java.version>8</java.version>
-        <jackson.version>2.10.2</jackson.version>
-        <jackson.bom.version>2.10.2.20200130</jackson.bom.version>
+        <jackson.version>2.13.2</jackson.version>
+        <jackson.databind.version>2.13.2.2</jackson.databind.version>
+        <jackson.bom.version>2.13.2.20220324</jackson.bom.version>
+        <jackson.cbor.version>2.13.2</jackson.cbor.version>
 
         <gson.version>2.9.0</gson.version>
-        <guava.version>28.1-jre</guava.version>
-        <jacoco-maven-plugin.version>0.8.2</jacoco-maven-plugin.version>
+        <guava.version>30.1.1-jre</guava.version>
+        <jacoco-maven-plugin.version>0.8.5</jacoco-maven-plugin.version>
+
         <junit.version>4.13</junit.version>
         <kafka.scala.version>2.12</kafka.scala.version>
         <licenses.version>${confluent.version}</licenses.version>
@@ -72,28 +75,31 @@
         <maven-jar-plugin.version>3.0.2</maven-jar-plugin.version>
         <maven-surefire-plugin.version>2.21.0</maven-surefire-plugin.version>
         <maven-site-plugin.version>3.7.1</maven-site-plugin.version>
-        <maven-project-info-reports-plugin.version>3.0.0</maven-project-info-reports-plugin.version>
         <buildnumber-plugin.version>1.4</buildnumber-plugin.version>
         <mockito.version>2.23.0</mockito.version>
+        <maven-project-info-reports-plugin.version>3.1.1</maven-project-info-reports-plugin.version>
         <mockito-all.version>1.10.19</mockito-all.version>
         <os-maven-plugin.version>1.5.0.Final</os-maven-plugin.version>
         <slf4j-api.version>${slf4j.version}</slf4j-api.version>
         <jaxb.version>2.3.0</jaxb.version>
+        <netty.version>4.1.73.Final</netty.version>
         <hamcrest.version>1.3</hamcrest.version>
+        <protobuf.version>3.19.4</protobuf.version>
         <!-- Update to 2.0.0 for unit test patch usage -->
         <powermock.version>2.0.0</powermock.version>
         <slf4j.version>1.7.26</slf4j.version>
+        <confluent-log4j.version>1.2.17-cp2.2</confluent-log4j.version>
         <zkclient.version>0.11</zkclient.version>
         <zookeeper.version>3.5.8</zookeeper.version>
-        <bouncycastle.version>1.60</bouncycastle.version>
-        <checkstyle.version>8.18</checkstyle.version>
-        <maven-checkstyle-plugin.version>2.17</maven-checkstyle-plugin.version>
+        <bouncycastle.version>1.68</bouncycastle.version>
+        <checkstyle.version>8.44</checkstyle.version>
+        <maven-checkstyle-plugin.version>3.1.1</maven-checkstyle-plugin.version>
         <maven-clean-plugin.version>3.0.0</maven-clean-plugin.version>
         <maven-install-plugin.version>2.5.2</maven-install-plugin.version>
         <maven-resources-plugin.version>3.0.2</maven-resources-plugin.version>
         <checkstyle.config.location>checkstyle/checkstyle.xml</checkstyle.config.location>
         <checkstyle.suppressions.location>checkstyle/common-suppressions.xml</checkstyle.suppressions.location>
-        <dependency.check.version>5.2.4</dependency.check.version>
+        <dependency.check.version>6.1.6</dependency.check.version>
         <dependency.check.suppressions.location>dependency-check/suppressions.xml</dependency.check.suppressions.location>
         <dependency.check.skip>false</dependency.check.skip>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -155,6 +161,12 @@
     <dependencyManagement>
         <dependencies>
             <!-- our deps-->
+            <!-- This is to unify the version of Protocol Buffers across CP -->
+            <dependency>
+                <groupId>com.google.protobuf</groupId>
+                <artifactId>protobuf-java</artifactId>
+                <version>${protobuf.version}</version>
+            </dependency>
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-api</artifactId>
@@ -172,6 +184,14 @@
                     <exclusion>
                         <groupId>log4j</groupId>
                         <artifactId>log4j</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>io.netty</groupId>
+                        <artifactId>netty-handler</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>io.netty</groupId>
+                        <artifactId>netty-transport-native-epoll</artifactId>
                     </exclusion>
                 </exclusions>
             </dependency>
@@ -223,7 +243,16 @@
               <scope>import</scope>
               <type>pom</type>
             </dependency>
-
+            <dependency>
+                <groupId>com.fasterxml.jackson.dataformat</groupId>
+                <artifactId>jackson-dataformat-cbor</artifactId>
+                <version>${jackson.cbor.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.core</groupId>
+                <artifactId>jackson-databind</artifactId>
+                <version>${jackson.databind.version}</version>
+            </dependency>
             <!-- Kafka Deps -->
             <dependency>
                 <groupId>org.apache.kafka</groupId>
@@ -276,6 +305,29 @@
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-log4j12</artifactId>
                 <version>${slf4j.version}</version>
+                <exclusions>
+                    <!-- Use a repackaged version of log4j with security patches instead-->
+                    <exclusion>
+                        <groupId>log4j</groupId>
+                        <artifactId>log4j</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <!-- Security patches to the end-of-life log4j 1.2.17 -->
+                <groupId>io.confluent</groupId>
+                <artifactId>confluent-log4j</artifactId>
+                <version>${confluent-log4j.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.netty</groupId>
+                <artifactId>netty-handler</artifactId>
+                <version>${netty.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.netty</groupId>
+                <artifactId>netty-transport-native-epoll</artifactId>
+                <version>${netty.version}</version>
             </dependency>
 
             <!--this is our own artifacts, but lets others inherit-->
@@ -409,7 +461,9 @@
                     <configuration>
                         <configLocation>${checkstyle.config.location}</configLocation>
                         <suppressionsLocation>${checkstyle.suppressions.location}</suppressionsLocation>
-                        <sourceDirectory>${project.build.sourceDirectory}</sourceDirectory>
+                        <sourceDirectories>
+                            <sourceDirectory>${project.build.sourceDirectory}</sourceDirectory>
+                        </sourceDirectories>
                         <encoding>UTF-8</encoding>
                         <consoleOutput>true</consoleOutput>
                         <failsOnError>true</failsOnError>
@@ -741,7 +795,9 @@
                         <configuration>
                             <configLocation>${checkstyle.config.location}</configLocation>
                             <suppressionsLocation>${checkstyle.suppressions.location}</suppressionsLocation>
-                            <sourceDirectory>${project.build.sourceDirectory}</sourceDirectory>
+                            <sourceDirectories>
+                                <sourceDirectory>${project.build.sourceDirectory}</sourceDirectory>
+                            </sourceDirectories>
                             <encoding>UTF-8</encoding>
                             <consoleOutput>true</consoleOutput>
                             <failsOnError>false</failsOnError>
