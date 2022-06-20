@@ -23,7 +23,7 @@
     <parent>
         <groupId>io.confluent</groupId>
         <artifactId>common-parent</artifactId>
-        <version>7.3.0-462</version>
+        <version>7.3.0-cc-docker-ksql.102-462-rc1</version>
     </parent>
 
     <artifactId>common-package</artifactId>
