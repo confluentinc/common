@@ -40,6 +40,7 @@ import io.confluent.common.metrics.exceptions.MetricsException;
  * Thrown when a sensor records a value that causes a metric to go outside the bounds configured as
  * its quota
  */
+@Deprecated
 public class QuotaViolationException extends MetricsException {
 
   private static final long serialVersionUID = 1L;
