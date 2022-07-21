@@ -27,9 +27,9 @@
     <name>common</name>
     <organization>
         <name>Confluent, Inc.</name>
-        <url>http://confluent.io</url>
+        <url>https://confluent.io</url>
     </organization>
-    <url>http://confluent.io</url>
+    <url>https://confluent.io</url>
     <description>
         Common utilities, including metrics and config.
     </description>
@@ -148,14 +148,14 @@
     <repositories>
         <repository>
             <id>confluent</id>
-            <url>http://packages.confluent.io/maven/</url>
+            <url>https://packages.confluent.io/maven/</url>
         </repository>
     </repositories>
 
     <pluginRepositories>
         <pluginRepository>
             <id>confluent</id>
-            <url>http://packages.confluent.io/maven/</url>
+            <url>https://packages.confluent.io/maven/</url>
         </pluginRepository>
     </pluginRepositories>
 
