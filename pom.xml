@@ -28,9 +28,9 @@
     <name>common</name>
     <organization>
         <name>Confluent, Inc.</name>
-        <url>http://confluent.io</url>
+        <url>https://confluent.io</url>
     </organization>
-    <url>http://confluent.io</url>
+    <url>https://confluent.io</url>
     <description>
         Common utilities, including metrics and config.
     </description>
