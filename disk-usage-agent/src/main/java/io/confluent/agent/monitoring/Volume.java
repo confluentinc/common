@@ -90,16 +90,16 @@ public class Volume implements VolumeMBean {
 
   @Override
   public String toString() {
-    return "Volume{" +
-        "store=" + store.toString() +
-        ", total=" + getTotal() +
-        ", used=" + getUsed() +
-        ", available=" + getAvailable() +
-        ", percentUsed=" + getPercentUsed() +
-        ", percentAvailable=" + getPercentAvailable() +
-        ", mountpoint='" + getMountpoint() + '\'' +
-        ", deviceName='" + getDeviceName() + '\'' +
-        '}';
+    return "Volume{"
+        + "store=" + store.toString()
+        + ", total=" + getTotal()
+        + ", used=" + getUsed()
+        + ", available=" + getAvailable()
+        + ", percentUsed=" + getPercentUsed()
+        + ", percentAvailable=" + getPercentAvailable()
+        + ", mountpoint='" + getMountpoint() + '\''
+        + ", deviceName='" + getDeviceName() + '\''
+        + '}';
   }
 
 }
