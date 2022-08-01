@@ -58,7 +58,8 @@ public class DiskUsage {
           String displayName = dir.replace("disk.", "");
           String volume = dirs.get(dir);
 
-          String objectName = String.format("io.confluent.caas:type=VolumeMetrics, service=%s, dir=%s", serviceName, displayName);
+          String objectName = String.format(
+              "io.confluent.caas:type=VolumeMetrics, service=%s, dir=%s", serviceName, displayName);
           ObjectName volumeMBeanName = new ObjectName(objectName);
 
           Volume volumeMBean = new Volume(volume);
@@ -67,7 +68,11 @@ public class DiskUsage {
           Set<ObjectInstance> instances = server.queryMBeans(new ObjectName(objectName), null);
           ObjectInstance instance = (ObjectInstance) instances.toArray()[0];
 
-          log.info("DiskUsage Agent: Registering object :" + instance.getObjectName() + " for class : " + instance.getClassName());
+          log.info("DiskUsage Agent: Registering object :"
+              + instance.getObjectName()
+              + " for class : "
+              + instance.getClassName()
+          );
 
           log.info("DiskUsage Agent: Ping " + volumeMBean.toString());
         }
