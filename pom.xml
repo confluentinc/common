@@ -169,7 +169,13 @@
         <url>https://github.com/confluentinc/common</url>
         <tag>HEAD</tag>
     </scm>
-
+    <distributionManagement>
+    <repository>
+        <id>codeartifact</id>
+        <name>confluent-dev-huiz-test-1</name>
+        <url>https://confluent-dev-755363985185.d.codeartifact.us-west-2.amazonaws.com/maven/huiz-test-1/</url>
+    </repository>
+    </distributionManagement>
     <modules>
         <module>assembly-plugin-boilerplate</module>
         <module>build-tools</module>
