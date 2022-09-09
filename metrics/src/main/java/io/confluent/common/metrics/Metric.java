@@ -35,8 +35,11 @@
 package io.confluent.common.metrics;
 
 /**
+ * @deprecated use the equivalent class in org.apache.kafka.metrics instead
+ *
  * A numerical metric tracked for monitoring purposes
  */
+@Deprecated
 public interface Metric {
 
   /**

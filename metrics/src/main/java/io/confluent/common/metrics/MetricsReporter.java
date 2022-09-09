@@ -35,8 +35,11 @@ import java.util.List;
 import io.confluent.common.Configurable;
 
 /**
+ * @deprecated use the equivalent class in org.apache.kafka.metrics instead
+ *
  * A plugin interface to allow things to listen as new metrics are created so they can be reported.
  */
+@Deprecated
 public interface MetricsReporter extends Configurable {
 
   /**

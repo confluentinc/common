@@ -37,6 +37,7 @@ package io.confluent.common.metrics;
 /**
  * An upper or lower bound for metrics
  */
+@Deprecated
 public final class Quota {
 
   private final boolean upper;

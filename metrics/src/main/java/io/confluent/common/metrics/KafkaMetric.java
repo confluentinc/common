@@ -36,6 +36,7 @@ package io.confluent.common.metrics;
 
 import io.confluent.common.utils.Time;
 
+@Deprecated
 public final class KafkaMetric implements Metric {
 
   private MetricName metricName;
