@@ -49,7 +49,7 @@
         <avro.version>1.11.0</avro.version>
         <required.maven.version>3.2</required.maven.version>
         <kafka.version>7.4.0-144-ccs</kafka.version>
-        <ce.kafka.version>7.4.0-318-ce</ce.kafka.version>
+        <ce.kafka.version>7.4.0-319-ce</ce.kafka.version>
         <easymock.version>4.3</easymock.version>
         <!-- keep exec-maven-plugin on 1.5.0 until https://github.com/mojohaus/exec-maven-plugin/issues/76 is fixed
              running our LicenseFinder plugin in create-licenses-for-docker breaks when upgrading to 1.6.0 -->
