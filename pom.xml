@@ -58,7 +58,7 @@
         <spotbugs.maven.plugin.version>4.7.1.0</spotbugs.maven.plugin.version>
         <java.version>8</java.version>
         <jackson.version>2.13.2</jackson.version>
-        <jackson.databind.version>2.13.2.2</jackson.databind.version>
+        <jackson.databind.version>2.13.4.1</jackson.databind.version>
         <jackson.bom.version>2.13.2.20220324</jackson.bom.version>
         <jackson.cbor.version>2.13.2</jackson.cbor.version>
 
