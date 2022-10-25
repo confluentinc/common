@@ -24,7 +24,7 @@
     <groupId>io.confluent</groupId>
     <artifactId>common-parent</artifactId>
     <packaging>pom</packaging>
-    <version>7.4.0-0</version>
+    <version>7.4.0-468</version>
     <name>common</name>
     <organization>
         <name>Confluent, Inc.</name>
@@ -131,7 +131,7 @@
         <!-- Pull the latest base image or use a local image. -->
         <docker.pull-image>false</docker.pull-image>
         <dependency.check.skip>true</dependency.check.skip>
-        <io.confluent.common.version>7.4.0-0</io.confluent.common.version>
+        <io.confluent.common.version>7.4.0-468</io.confluent.common.version>
         <!-- This is a version of the pom file that we install and deploy because
             the kafka and ce-kafka version ranges are resolved.
         -->
