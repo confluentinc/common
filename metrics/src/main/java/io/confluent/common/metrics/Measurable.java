@@ -33,6 +33,7 @@ package io.confluent.common.metrics;
 /**
  * A measurable quantity that can be registered as a metric
  */
+@Deprecated
 public interface Measurable {
 
   /**

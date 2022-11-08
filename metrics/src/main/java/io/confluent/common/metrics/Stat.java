@@ -38,6 +38,7 @@ package io.confluent.common.metrics;
  * A Stat is a quanity such as average, max, etc that is computed off the stream of updates to a
  * sensor
  */
+@Deprecated
 public interface Stat {
 
   /**

@@ -40,6 +40,7 @@ package io.confluent.common.metrics;
  * {@link io.confluent.common.metrics.stats.Avg}, {@link io.confluent.common.metrics.stats.Max},
  * {@link io.confluent.common.metrics.stats.Count}, etc.
  */
+@Deprecated
 public interface MeasurableStat extends Stat, Measurable {
 
 }
