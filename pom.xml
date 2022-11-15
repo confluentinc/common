@@ -65,7 +65,7 @@
         <jacoco-maven-plugin.version>0.8.5</jacoco-maven-plugin.version>
 
         <junit.version>4.13.1</junit.version>
-        <kafka.scala.version>2.12</kafka.scala.version>
+        <kafka.scala.version>2.13</kafka.scala.version>
         <licenses.version>${confluent.version}</licenses.version>
         <maven-assembly.version>3.0.0</maven-assembly.version>
         <maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
@@ -1015,7 +1015,7 @@
                                         <CONFLUENT_PLATFORM_LABEL>${CONFLUENT_PLATFORM_LABEL}</CONFLUENT_PLATFORM_LABEL>
                                         <CONFLUENT_DEB_VERSION>${CONFLUENT_DEB_VERSION}</CONFLUENT_DEB_VERSION>
                                         <ALLOW_UNSIGNED>${ALLOW_UNSIGNED}</ALLOW_UNSIGNED>
-                                        <SCALA_VERSION>${kafka.scala.version}</SCALA_VERSION>
+                                        <SCALA_VERSION>${kafka.scala.version}.10</SCALA_VERSION>
                                     </buildArgs>
                                     <skip>${docker.skip-build}</skip>
                                     <tag>${docker.tag}</tag>
