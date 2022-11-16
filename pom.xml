@@ -101,7 +101,7 @@
         <zkclient.version>0.11</zkclient.version>
         <zookeeper.version>3.6.3</zookeeper.version>
         <bouncycastle.version>1.68</bouncycastle.version>
-        <jmx_prometheus_javaagent.version>0.14.0</jmx_prometheus_javaagent.version>
+        <jmx_prometheus_javaagent.version>0.17.2</jmx_prometheus_javaagent.version>
         <jolokia-jvm.version>1.7.1</jolokia-jvm.version>
         <checkstyle.version>8.44</checkstyle.version>
         <maven-checkstyle-plugin.version>3.1.1</maven-checkstyle-plugin.version>
