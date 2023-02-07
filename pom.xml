@@ -141,6 +141,11 @@
             the version ranges for kafka and ce-kafka. We want to run this for local builds,
             but disable this in the jenkins profile so it doesn't run during CI builds.
         -->
+        <versionRange>${confluent.version.range}</versionRange>
+        <!-- This is the version range used by resolver-maven-plugin to resolve the
+            version of ccs and ce-kafka. This allowed this property to be overridden
+            through cmd lines.
+        -->
         <skip.maven.resolver.plugin>false</skip.maven.resolver.plugin>
         <!-- The custom install step handles installing a modified pom file with the
             kafka version ranges resolved. We only do this for local builds so for 
@@ -806,7 +811,7 @@
                 <configuration>
                     <groupId>org.apache.kafka</groupId>
                     <artifactId>kafka-clients</artifactId>
-                    <versionRange>${confluent.version.range}</versionRange>
+                    <versionRange>${versionRange}</versionRange>
                     <newPomFile>${installed.pom.file}</newPomFile>
                     <skip>${skip.maven.resolver.plugin}</skip>
                     <failIfCCSNotfound>true</failIfCCSNotfound>
