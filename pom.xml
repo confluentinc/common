@@ -142,6 +142,11 @@
             never be used any where else.
         -->
         <confluent.version.range>[7.3.2-0, 7.3.3-0)</confluent.version.range>
+        <!-- This is the version range used by resolver-maven-plugin to resolve the
+            version of ccs and ce-kafka. This allowed this property to be overridden
+            through cmd lines.
+        -->
+        <versionRange>${confluent.version.range}</versionRange>
         <!-- Controls whether we run the maven resolver plugin which is used to resolve
             the version ranges for kafka and ce-kafka. We want to run this for local builds,
             but disable this in the jenkins profile so it doesn't run during CI builds.
@@ -808,7 +813,7 @@
                 <configuration>
                     <groupId>org.apache.kafka</groupId>
                     <artifactId>kafka-clients</artifactId>
-                    <versionRange>${confluent.version.range}</versionRange>
+                    <versionRange>${versionRange}</versionRange>
                     <newPomFile>${installed.pom.file}</newPomFile>
                     <skip>${skip.maven.resolver.plugin}</skip>
                     <failIfCCSNotfound>true</failIfCCSNotfound>
