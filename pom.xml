@@ -105,6 +105,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.build.resourceEncoding>UTF-8</project.build.resourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <snakeyaml.version>1.32</snakeyaml.version>
         <!-- docker build support -->
         <GIT_COMMIT>unknown</GIT_COMMIT>
         <BUILD_NUMBER>-1</BUILD_NUMBER>
@@ -337,6 +338,11 @@
                 <groupId>io.confluent</groupId>
                 <artifactId>common-utils</artifactId>
                 <version>${confluent.version}</version>
+            </dependency>
+            <dependency>
+              <groupId>org.yaml</groupId>
+              <artifactId>snakeyaml</artifactId>
+              <version>${snakeyaml.version}</version>
             </dependency>
 
             <!--test deps-->
