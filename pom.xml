@@ -95,7 +95,7 @@
         <slf4j-reload4j.version>1.7.36</slf4j-reload4j.version>
         <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-reload4j/1.7.36 -->
         <reload4j.version>1.2.19</reload4j.version>
-        <logredactor.version>1.0.10</logredactor.version>
+        <logredactor.version>1.0.11</logredactor.version>
         <zkclient.version>0.11</zkclient.version>
         <zookeeper.version>3.6.3</zookeeper.version>
         <bouncycastle.version>1.68</bouncycastle.version>
