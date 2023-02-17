@@ -107,7 +107,6 @@ class CI:
                 return version
 
         log.error("Failed to resolve the version range.")
-        sys.exit(1)
 
     def run_cmd(self, cmd, return_stdout=False):
         """Execute a shell command. Return true if successful, false otherwise."""
