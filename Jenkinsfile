@@ -5,6 +5,5 @@ common {
     downStreamRepos = ["rest-utils", "ksql", "newwave",
         "kafka-connect-replicator", "hub-client"]
     nanoVersion = true
-    pinnedNanoVersions = true
     timeoutHours = 3
 }
