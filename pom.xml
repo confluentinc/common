@@ -89,6 +89,7 @@
         <slf4j.version>1.7.36</slf4j.version>
         <reload4j.version>1.2.19</reload4j.version>
         <slf4j-reload4j.version>1.7.36</slf4j-reload4j.version>
+        <snakeyaml.version>1.33</snakeyaml.version>
         <zkclient.version>0.11</zkclient.version>
         <zookeeper.version>3.5.8</zookeeper.version>
         <bouncycastle.version>1.68</bouncycastle.version>
@@ -166,6 +167,17 @@
                 <groupId>com.google.protobuf</groupId>
                 <artifactId>protobuf-java</artifactId>
                 <version>${protobuf.version}</version>
+            </dependency>
+            <!-- snakeyaml is brought in by several confluent libraries
+                 as "provided" dependency, thus leading to usage of
+                 outdated versions. This instructs projects using this pom
+                 to use this snakeyaml version, unless otherwise overriden.
+                 After this change, we should remove all the snakeyaml re-definitions
+                 in other Confluent repositories. -->
+            <dependency>
+                <groupId>org.yaml</groupId>
+                <artifactId>snakeyaml</artifactId>
+                <version>${snakeyaml.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.slf4j</groupId>
