@@ -73,6 +73,10 @@ class CI:
 
     def resolve_version_range(self, version_range, print_method):
         """Run the custom maven resolver plugin to find the latest artifact version in the range."""
+        if not self.is_version_range(version_range):
+            log.info("Specified version is not a range: {}".format(version_range))
+            return version_range
+
         # We just use one of the kafka artifacts to resolve the range. No particular reason for using this artifact.
         group_id = "org.apache.kafka"
         artifact_id = "kafka-clients"
@@ -95,7 +99,7 @@ class CI:
         cmd += "-Dprint{} -q".format(print_method)
         log.info("Resolving the version range for: {}".format(version_range))
         result, stdout = self.run_cmd(cmd, return_stdout=True)
-  
+
         if result:
             # When run from Jenkins there will be additional output included so we just get the last line of output.
             version = stdout.strip().splitlines()[-1]
@@ -108,6 +112,11 @@ class CI:
 
         log.error("Failed to resolve the version range.")
         sys.exit(1)
+
+    def is_version_range(self, version):
+        """Checks if the specified Maven version is a range"""
+        return (version.startswith('[') or version.startswith('(')) and \
+            (version.endswith(']') or version.endswith(')'))
 
     def run_cmd(self, cmd, return_stdout=False):
         """Execute a shell command. Return true if successful, false otherwise."""
