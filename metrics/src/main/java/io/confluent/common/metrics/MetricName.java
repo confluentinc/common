@@ -66,6 +66,7 @@ import io.confluent.common.utils.Utils;
  * sensor.record(messageSize);
  * }</pre>
  */
+@Deprecated
 public final class MetricName {
 
   private final String name;

@@ -24,7 +24,7 @@
     <parent>
         <artifactId>common-parent</artifactId>
         <groupId>io.confluent</groupId>
-        <version>5.3.5-SNAPSHOT</version>
+        <version>7.5.0-0</version>
     </parent>
 
     <properties>
@@ -41,10 +41,12 @@
         <dependency>
             <groupId>org.apache.kafka</groupId>
             <artifactId>connect-api</artifactId>
+            <version>${kafka.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.kafka</groupId>
             <artifactId>connect-json</artifactId>
+            <version>${kafka.version}</version>
         </dependency>
         <dependency>
             <groupId>com.google.guava</groupId>

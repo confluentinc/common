@@ -1,5 +1,5 @@
-/**
- * Copyright 2015 Confluent Inc.
+/*
+ * Copyright 2021 Confluent Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -12,27 +12,23 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- **/
+ */
 
-package io.confluent.common.utils.zookeeper;
+package io.confluent.agent.monitoring;
 
-import org.apache.zookeeper.data.Stat;
+public interface VolumeMBean {
 
-public class ZkData {
+  long getTotal();
 
-  private final String data;
-  private final Stat stat;
+  long getUsed();
 
-  public ZkData(String data, Stat stat) {
-    this.data = data;
-    this.stat = stat;
-  }
+  long getAvailable();
 
-  public String getData() {
-    return this.data;
-  }
+  double getPercentUsed();
 
-  public Stat getStat() {
-    return this.stat;
-  }
+  double getPercentAvailable();
+
+  String getMountpoint();
+
+  String getDeviceName();
 }

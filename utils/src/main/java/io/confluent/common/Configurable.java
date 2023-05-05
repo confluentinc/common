@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2015 Confluent Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,9 +12,9 @@
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- **/
+ */
 
-/**
+/*
  * Original license:
  *
  * Licensed to the Apache Software Foundation (ASF) under one or more
@@ -36,13 +36,13 @@ package io.confluent.common;
 
 import java.util.Map;
 
-/**
+/*
  * A Mix-in style interface for classes that are instantiated by reflection and need to take
  * configuration parameters
  */
 public interface Configurable {
 
-  /**
+  /*
    * Configure this class with the given key-value pairs
    */
   public void configure(Map<String, ?> configs);

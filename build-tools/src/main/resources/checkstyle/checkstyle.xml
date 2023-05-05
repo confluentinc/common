@@ -40,6 +40,13 @@
         <property name="header" value="/\*\nCopyright .* Confluent Inc."/>
     </module>
 
+    <module name="SuppressWarningsFilter" />
+
+    <module name="LineLength">
+        <property name="max" value="100"/>
+        <property name="ignorePattern" value="^package.*|^import.*|a href|href|http://|https://|ftp://"/>
+    </module>
+
     <module name="TreeWalker">
         <!-- Generic 'turn all checkstyle off' comment filter -->
         <module name="SuppressionCommentFilter">
@@ -54,6 +61,8 @@
             <property name="checkFormat" value="$1"/>
         </module>
 
+        <module name="SuppressWarningsHolder" />
+
         <module name="OuterTypeFilename"/>
         <module name="IllegalTokenText">
             <property name="tokens" value="STRING_LITERAL, CHAR_LITERAL"/>
@@ -64,10 +73,6 @@
             <property name="allowEscapesForControlCharacters" value="true"/>
             <property name="allowByTailComment" value="true"/>
             <property name="allowNonPrintableEscapes" value="true"/>
-        </module>
-        <module name="LineLength">
-            <property name="max" value="100"/>
-            <property name="ignorePattern" value="^package.*|^import.*|a href|href|http://|https://|ftp://"/>
         </module>
         <module name="AvoidStarImport"/>
         <module name="UnusedImports"/>
@@ -87,6 +92,13 @@
             <property name="id" value="RightCurlyAlone"/>
             <property name="option" value="alone"/>
             <property name="tokens" value="CLASS_DEF, METHOD_DEF, CTOR_DEF, LITERAL_FOR, LITERAL_WHILE, STATIC_INIT, INSTANCE_INIT"/>
+        </module>
+        <module name="SuppressionXpathSingleFilter">
+            <!-- allow empty {}, see https://github.com/checkstyle/checkstyle/issues/7541
+                 taken from https://github.com/checkstyle/checkstyle/blob/422be612a4dce54f204094449f3de75d248e2871/src/main/resources/google_checks.xml#L99-L104 -->
+            <property name="id" value="RightCurlyAlone"/>
+            <property name="query" value="//RCURLY[parent::SLIST[count(./*)=1]
+                                          or preceding-sibling::*[last()][self::LCURLY]]"/>
         </module>
         <module name="WhitespaceAround">
             <property name="allowEmptyConstructors" value="true"/>
@@ -241,7 +253,11 @@
         <module name="ParameterNumber">
             <property name="max" value="10"/>
         </module>
-        <module name="ClassDataAbstractionCoupling"/>
+        <module name="ClassDataAbstractionCoupling">
+            <property name="excludeClassesRegexps"
+                      value="${checkstyle.classdataabstractioncoupling.excludeclassesregexps}"
+                      default="^.*Exception$"/>
+        </module>
         <module name="BooleanExpressionComplexity"/>
         <module name="CyclomaticComplexity"/>
         <module name="JavaNCSS" />
@@ -262,6 +278,15 @@
         <module name="FinalClass">
             <property name="severity"
                       value="${checkstyle.finalclass.severity}"
+                      default="ignore"/>
+        </module>
+
+        <module name="TodoComment">
+            <property name="format"
+                      value="${checkstyle.todocomment.format}"
+                      default="(TODO)|(FIXME)"/>
+            <property name="severity"
+                      value="${checkstyle.todocomment.severity}"
                       default="ignore"/>
         </module>
 
