@@ -91,7 +91,7 @@
         <!-- Update to 2.0.0 for unit test patch usage -->
         <powermock.version>2.0.0</powermock.version>
         <slf4j.version>1.7.36</slf4j.version>
-        <logredactor.version>1.0.11</logredactor.version>
+        <logredactor.version>1.0.12</logredactor.version>
         <!-- Potentially used by downstream projects -->
         <slf4j-api.version>${slf4j.version}</slf4j-api.version>
         <slf4j-reload4j.version>1.7.36</slf4j-reload4j.version>
