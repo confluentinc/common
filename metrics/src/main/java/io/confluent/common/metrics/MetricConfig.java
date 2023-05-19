@@ -39,6 +39,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * Configuration values for metrics
  */
+@Deprecated
 public class MetricConfig {
 
   private Quota quota;
