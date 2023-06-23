@@ -8,6 +8,7 @@ Contains 3 libraries: [metrics](metrics), [config](config), [utils](utils).
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fconfluentinc%2Fcommon.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fconfluentinc%2Fcommon?ref=badge_shield)
 
 
+
 ## Overview
 
 Typically you will run standard maven commands such as `mvn install` from the top-level directory (i.e. the directory
