@@ -9,8 +9,6 @@ Contains 3 libraries: [metrics](metrics), [config](config), [utils](utils).
 
 
 
-
-
 ## Overview
 
 Typically you will run standard maven commands such as `mvn install` from the top-level directory (i.e. the directory
