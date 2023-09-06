@@ -137,8 +137,8 @@
         -->
         <installed.pom.file>installed_pom.xml</installed.pom.file>
         <coderplus.plugin.version>1.0</coderplus.plugin.version>
-        <!-- This version range is only used in the custom resolver plugin for 
-            resolving the version of ccs and ce kafka. This property should 
+        <!-- This version range is only used in the custom resolver plugin for
+            resolving the version of ccs and ce kafka. This property should
             never be used any where else.
         -->
         <confluent.version.range>[7.3.5-0, 7.3.6-0)</confluent.version.range>
@@ -153,13 +153,13 @@
         -->
         <skip.maven.resolver.plugin>false</skip.maven.resolver.plugin>
         <!-- The custom install step handles installing a modified pom file with the
-            kafka version ranges resolved. We only do this for local builds so for 
+            kafka version ranges resolved. We only do this for local builds so for
             CI builds we set the phase to none.
         -->
         <custom.install.phase>install</custom.install.phase>
-        <!-- The custom deploy step handles copying the modified pom over the 
+        <!-- The custom deploy step handles copying the modified pom over the
             standard pom so that we deploy a pom with the kafka versions resolved.
-            We only do this for local builds so for 
+            We only do this for local builds so for
             CI builds we set the phase to none.
         -->
         <custom.deploy.phase>deploy</custom.deploy.phase>
@@ -893,6 +893,37 @@
                         </configuration>
                     </execution>
                 </executions>
+            </plugin>
+            <!-- This plugin generates the aggregate SBOM of the project
+                including ALL the required dependencies. The source based SBOMs
+                are required for Dependency Mirrors, EOL and full accounting
+                of components used in Confluent's portfolio -->
+            <plugin>
+                <groupId>org.cyclonedx</groupId>
+                <artifactId>cyclonedx-maven-plugin</artifactId>
+                <version>2.7.9</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>makeAggregateBom</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <projectType>library</projectType>
+                    <schemaVersion>1.4</schemaVersion>
+                    <includeBomSerialNumber>true</includeBomSerialNumber>
+                    <includeCompileScope>true</includeCompileScope>
+                    <includeProvidedScope>true</includeProvidedScope>
+                    <includeRuntimeScope>true</includeRuntimeScope>
+                    <includeSystemScope>true</includeSystemScope>
+                    <includeTestScope>true</includeTestScope>
+                    <includeLicenseText>false</includeLicenseText>
+                    <outputReactorProjects>true</outputReactorProjects>
+                    <outputFormat>all</outputFormat>
+                    <outputName>bom</outputName>
+                </configuration>
             </plugin>
         </plugins>
     </build>
