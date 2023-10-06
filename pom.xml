@@ -97,7 +97,7 @@
         <snakeyaml.version>2.0</snakeyaml.version>
         <snappy.version>1.1.10.1</snappy.version>
         <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-reload4j/1.7.36 -->
-        <reload4j.version>1.2.19</reload4j.version>
+        <reload4j.version>1.2.25</reload4j.version>
         <zkclient.version>0.11</zkclient.version>
         <zookeeper.version>3.6.3</zookeeper.version>
         <bouncycastle.version>1.68</bouncycastle.version>
@@ -241,7 +241,7 @@
                 <artifactId>snappy-java</artifactId>
                 <version>1.1.10.1</version>
             </dependency>
-            <!-- jose4j is used in ce-kafka and its version is sepcified
+            <!-- jose4j is used in ce-kafka and its version is specified
             in ce-kafka, this is for maven projects to use the correct version -->
             <dependency>
                 <groupId>org.bitbucket.b_c</groupId>
