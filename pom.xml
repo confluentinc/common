@@ -246,6 +246,13 @@
                 <artifactId>jose4j</artifactId>
                 <version>${jose4j.version}</version>
             </dependency>
+            <!-- we define guava version above, its version is specified
+            in ce-kafka, this is for maven projects to use the correct version -->
+            <dependency>
+                <groupId>com.google.guava</groupId>
+                <artifactId>guava</artifactId>
+                <version>${guava.version}</version>
+            </dependency>
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-api</artifactId>
