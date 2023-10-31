@@ -1153,6 +1153,7 @@
                         <format>xml</format>
                         <assemblyAnalyzerEnabled>false</assemblyAnalyzerEnabled>
                         <ossindexAnalyzerEnabled>false</ossindexAnalyzerEnabled>
+                        <retirejsAnalyzerEnabled>false</retirejsAnalyzerEnabled>
                     </configuration>
                     <executions>
                         <execution>
