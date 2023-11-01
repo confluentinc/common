@@ -1164,6 +1164,7 @@
                         <format>xml</format>
                         <assemblyAnalyzerEnabled>false</assemblyAnalyzerEnabled>
                         <ossindexAnalyzerEnabled>false</ossindexAnalyzerEnabled>
+                        <retireJsAnalyzerEnabled>false</retireJsAnalyzerEnabled>
                     </configuration>
                     <executions>
                         <execution>
