@@ -1,0 +1,8 @@
+name: common
+lang: unknown
+codeowners:
+  enable: true
+semaphore:
+  enable: true
+  pipeline_type: cp
+  downstream_projects: ["rest-utils", "ksql", "newwave", "kafka-connect-replicator", "hub-client"]
