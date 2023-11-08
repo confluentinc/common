@@ -6,5 +6,4 @@ common {
         "kafka-connect-replicator", "hub-client"]
     nanoVersion = true
     timeoutHours = 3
-  mvnSkipDeploy = true
 }
