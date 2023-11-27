@@ -1,0 +1,12 @@
+name: common
+lang: unknown
+lang_version: unknown
+codeowners:
+  enable: true
+semaphore:
+  enable: true
+  pipeline_type: cp
+  nano_version: true
+  downstream_projects: ["rest-utils", "ksql", "newwave", "kafka-connect-replicator", "hub-client"]
+git:
+  enable: true
