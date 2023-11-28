@@ -7,6 +7,8 @@ semaphore:
   enable: true
   pipeline_type: cp
   nano_version: true
+  extra_deploy_args: "-Pjenkins"
+  extra_build_args: "-Pjenkins"
   downstream_projects: ["rest-utils", "ksql", "newwave", "kafka-connect-replicator", "hub-client"]
 git:
   enable: true
