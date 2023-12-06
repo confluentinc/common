@@ -2,7 +2,6 @@
 
 common {
     slackChannel = '#kafka-warn'
-    downStreamRepos = ["rest-utils", "ksql", "newwave",
-        "kafka-connect-replicator", "hub-client"]
+    downStreamRepos = ["rest-utils", "ksql", "newwave", "hub-client"]
     nanoVersion = true
 }
