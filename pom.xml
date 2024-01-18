@@ -129,6 +129,7 @@
         <docker.file>Dockerfile</docker.file>
         <!-- Pull the latest base image or use a local image. -->
         <docker.pull-image>false</docker.pull-image>
+        <docker.imagePullPolicy>IfNotPresent</docker.imagePullPolicy>
         <dependency.check.skip>true</dependency.check.skip>
         <io.confluent.common.version>6.1.16-0</io.confluent.common.version>
         <!-- This is a version of the pom file that we install and deploy because
@@ -1332,6 +1333,179 @@
                                 </configuration>
                             </execution>
                         </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
+            <id>docker-arm</id>
+            <activation>
+                <property>
+                    <name>env.DOCKER_HOST</name>
+                </property>
+            </activation>
+
+            <properties>
+                <ALLOW_UNSIGNED>true</ALLOW_UNSIGNED>
+                <CONFLUENT_DEB_VERSION>unknown</CONFLUENT_DEB_VERSION>
+                <CONFLUENT_PLATFORM_LABEL>unknown</CONFLUENT_PLATFORM_LABEL>
+            </properties>
+
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-dependency-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>unpack-assembly-plugin-boilerplate</id>
+                                <goals>
+                                    <goal>unpack-dependencies</goal>
+                                </goals>
+                                <phase>process-sources</phase>
+                                <configuration>
+                                    <includeArtifactIds>assembly-plugin-boilerplate</includeArtifactIds>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-assembly-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>make-assembly-for-docker</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>single</goal>
+                                </goals>
+                                <configuration>
+                                    <skipAssembly>${docker.skip-build}</skipAssembly>
+                                    <descriptors>
+                                        <descriptor>target/dependency/assembly-plugin-boilerplate-${io.confluent.common.version}/common-docker-package.xml</descriptor>
+                                    </descriptors>
+                                    <archive>
+                                        <manifest>
+                                            <mainClass>${main-class}</mainClass>
+                                        </manifest>
+                                    </archive>
+                                    <attach>false</attach>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>exec-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>create-licenses-for-docker</id>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>java</goal>
+                                </goals>
+                                <configuration>
+                                    <skip>${docker.skip-build}</skip>
+                                    <mainClass>io.confluent.licenses.LicenseFinder</mainClass>
+                                    <arguments>
+                                        <!-- Note use of development instead of package so we pick up all dependencies.
+                                             This assumes both subprojects will be packaged together. -->
+                                        <argument>-i ${project.build.directory}/${project.build.finalName}-package/share/java/${project.artifactId}</argument>
+                                        <argument>-f</argument>
+                                        <argument>-h ${project.build.directory}/${project.build.finalName}-package/share/doc/${project.artifactId}/licenses.html</argument>
+                                        <argument>-l ${project.build.directory}/${project.build.finalName}-package/share/doc/${project.artifactId}/licenses</argument>
+                                        <argument>-n ${project.build.directory}/${project.build.finalName}-package/share/doc/${project.artifactId}/notices</argument>
+                                        <argument>-x licenses-${io.confluent.license-file-generator.version}.jar</argument>
+                                    </arguments>
+                                </configuration>
+                            </execution>
+                            <execution>
+                                <id>python-docker-tests</id>
+                                <phase>integration-test</phase>
+                                <goals>
+                                    <goal>exec</goal>
+                                </goals>
+                                <configuration>
+                                    <skip>${docker.skip-test}</skip>
+                                    <environmentVariables>
+                                        <TOX_TESTENV_PASSENV>DOCKER_REGISTRY DOCKER_TAG DOCKER_TEST_REGISTRY DOCKER_TEST_TAG DOCKER_HOST</TOX_TESTENV_PASSENV>
+                                        <DOCKER_REGISTRY>${docker.registry}</DOCKER_REGISTRY>
+                                        <DOCKER_TAG>${docker.tag}</DOCKER_TAG>
+                                        <DOCKER_TEST_REGISTRY>${docker.test-registry}</DOCKER_TEST_REGISTRY>
+                                        <DOCKER_TEST_TAG>${docker.test-tag}</DOCKER_TEST_TAG>
+                                    </environmentVariables>
+                                    <executable>tox</executable>
+                                </configuration>
+                            </execution>
+                        </executions>
+
+                        <configuration>
+                            <includeProjectDependencies>true</includeProjectDependencies>
+                            <includePluginDependencies>true</includePluginDependencies>
+                            <executableDependency>
+                                <groupId>io.confluent</groupId>
+                                <artifactId>licenses</artifactId>
+                            </executableDependency>
+                        </configuration>
+                        <dependencies>
+                            <dependency>
+                                <groupId>io.confluent</groupId>
+                                <artifactId>licenses</artifactId>
+                                <version>${io.confluent.license-file-generator.version}</version>
+                            </dependency>
+                        </dependencies>
+                    </plugin>
+                    <plugin>
+                        <groupId>io.fabric8</groupId>
+                        <artifactId>docker-maven-plugin</artifactId>
+                        <version>0.43.4</version>
+                      <executions>
+                        <execution>
+                          <phase>package</phase>
+                          <goals>
+                            <goal>build</goal>
+                          </goals>
+                        </execution>
+                      </executions>
+                        <configuration>
+                          <images>
+                            <image>
+                              <name>confluentinc/${project.artifactId}</name>
+                              <registry>${docker.registry}</registry>
+                              <build>
+                                <args>
+                                  <ARTIFACT_ID>${project.artifactId}</ARTIFACT_ID>
+                                  <BUILD_NUMBER>${BUILD_NUMBER}</BUILD_NUMBER>
+                                  <DOCKER_REGISTRY>${docker.registry}</DOCKER_REGISTRY>
+                                  <DOCKER_TAG>${docker.tag}</DOCKER_TAG>
+                                  <DOCKER_UPSTREAM_REGISTRY>${docker.upstream-registry}
+                                  </DOCKER_UPSTREAM_REGISTRY>
+                                  <DOCKER_UPSTREAM_TAG>${docker.upstream-tag}</DOCKER_UPSTREAM_TAG>
+                                  <GIT_COMMIT>${GIT_COMMIT}</GIT_COMMIT>
+                                  <PROJECT_VERSION>${project.version}</PROJECT_VERSION>
+                                  <CONFLUENT_VERSION>${CONFLUENT_VERSION}</CONFLUENT_VERSION>
+                                  <CONFLUENT_PACKAGES_REPO>${CONFLUENT_PACKAGES_REPO}
+                                  </CONFLUENT_PACKAGES_REPO>
+                                  <CONFLUENT_PLATFORM_LABEL>${CONFLUENT_PLATFORM_LABEL}
+                                  </CONFLUENT_PLATFORM_LABEL>
+                                  <CONFLUENT_DEB_VERSION>${CONFLUENT_DEB_VERSION}
+                                  </CONFLUENT_DEB_VERSION>
+                                  <ALLOW_UNSIGNED>${ALLOW_UNSIGNED}</ALLOW_UNSIGNED>
+                                  <SCALA_VERSION>${kafka.scala.version}</SCALA_VERSION>
+                                </args>
+                                <contextDir>${project.basedir}</contextDir>
+                                <dockerFile>${docker.file}</dockerFile>
+                                <imagePullPolicy>${docker.imagePullPolicy}</imagePullPolicy>
+                                <skip>${docker.skip-build}</skip>
+                                <tags>
+                                  <tag>${docker.tag}</tag>
+                                </tags>
+                              </build>
+                            </image>
+                          </images>
+                        </configuration>
                     </plugin>
                 </plugins>
             </build>
