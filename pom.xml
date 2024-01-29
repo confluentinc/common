@@ -1365,11 +1365,6 @@
         </profile>
         <profile>
             <id>docker-arm</id>
-            <activation>
-                <property>
-                    <name>env.DOCKER_HOST</name>
-                </property>
-            </activation>
 
             <properties>
                 <ALLOW_UNSIGNED>true</ALLOW_UNSIGNED>
