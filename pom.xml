@@ -57,7 +57,7 @@
         <spotbugs.version>4.2.0</spotbugs.version>
         <spotbugs.maven.plugin.version>4.2.0</spotbugs.maven.plugin.version>
         <java.version>8</java.version>
-        <jackson.version>2.14.2</jackson.version>
+        <jackson.version>2.16.2</jackson.version>
         <jetty.version>9.4.54.v20240208</jetty.version>
         <jose4j.version>0.9.5</jose4j.version>
         <gson.version>2.9.0</gson.version>
