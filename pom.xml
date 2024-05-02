@@ -99,7 +99,7 @@
         <zookeeper.version>3.8.4</zookeeper.version>
         <!-- remove the bouncycastle.version after all downstream repos are updated -->
         <bouncycastle.version>1.70</bouncycastle.version>
-        <bouncycastle.jdk18.version>1.77</bouncycastle.jdk18.version>
+        <bouncycastle.jdk18.version>1.78.1</bouncycastle.jdk18.version>
         <jmx_prometheus_javaagent.version>0.18.0</jmx_prometheus_javaagent.version>
         <jolokia-jvm.version>1.6.2</jolokia-jvm.version>
         <checkstyle.version>8.44</checkstyle.version>
