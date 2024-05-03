@@ -916,26 +916,30 @@
                 artifact we use a version of the pom file with the kafka and
                 ce-kafka version range properties resolved to a specific version.
             -->
+            <!-- replacing the plugin that has reached end of life
+            with the invocation of antrun.
+            the configuration: failonerror and quite are required
+            to ignore build targets other than common -->
+
             <plugin>
-                <groupId>com.coderplus.maven.plugins</groupId>
-                <artifactId>copy-rename-maven-plugin</artifactId>
-                <version>${coderplus.plugin.version}</version>
-                <inherited>false</inherited>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <version>3.1.0</version>
                 <executions>
                     <execution>
-                        <id>copy-file</id>
                         <phase>${custom.deploy.phase}</phase>
-                        <goals>
-                            <goal>copy</goal>
-                        </goals>
                         <configuration>
-                            <overWrite>true</overWrite>
-                            <sourceFile>${basedir}/${installed.pom.file}</sourceFile>
-                            <destinationFile>${basedir}/pom.xml</destinationFile>
+                        <target>
+                            <copy file="${basedir}/${installed.pom.file}" tofile="${basedir}/pom.xml" overwrite="true" failonerror="false" quiet="true"/>
+                        </target>
                         </configuration>
+                        <goals>
+                        <goal>run</goal>
+                        </goals>
                     </execution>
                 </executions>
             </plugin>
+
         </plugins>
     </build>
     <profiles>
