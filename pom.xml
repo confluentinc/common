@@ -97,8 +97,6 @@
         <snappy.version>1.1.10.5</snappy.version>
         <zkclient.version>0.11</zkclient.version>
         <zookeeper.version>3.8.4</zookeeper.version>
-        <!-- remove the bouncycastle.version after all downstream repos are updated -->
-        <bouncycastle.version>1.70</bouncycastle.version>
         <bouncycastle.jdk18.version>1.78</bouncycastle.jdk18.version>
         <jmx_prometheus_javaagent.version>0.18.0</jmx_prometheus_javaagent.version>
         <jolokia-jvm.version>1.6.2</jolokia-jvm.version>
@@ -328,11 +326,6 @@
             <dependency>
                 <groupId>org.bouncycastle</groupId>
                 <artifactId>bcpkix-jdk15on</artifactId>
-                <version>${bouncycastle.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.bouncycastle</groupId>
-                <artifactId>bcprov-jdk15on</artifactId>
                 <version>${bouncycastle.version}</version>
             </dependency>
             <dependency>
