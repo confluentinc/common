@@ -1,7 +1,3 @@
-#
-# Copyright [2019 - 2019] Confluent Inc.
-#
-
 version: 2
 updates:
   - package-ecosystem: "maven"
