@@ -77,4 +77,11 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
             </plugin>
         </plugins>
     </build>
+
+    <pluginRepositories>
+        <pluginRepository>
+            <id>confluent</id>
+            <url>https://packages.confluent.io/maven/</url>
+        </pluginRepository>
+    </pluginRepositories>
 </project>
