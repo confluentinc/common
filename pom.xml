@@ -47,6 +47,9 @@
         <!--jacoco prepare-agent needs argLine defined to set this variable. if we don't have a default set then maven gets angry.-->
         <argLine></argLine>
         <avro.version>1.11.3</avro.version>
+        <aws-java-sdk.version>1.12.701</aws-java-sdk.version>
+        <azure-identity.version>1.11.4</azure-identity.version>
+        <azure-storage.version>12.25.4</azure-storage.version>
         <required.maven.version>3.2</required.maven.version>
         <kafka.version>[7.0.15-0-ccs, 7.0.16-0-ccs)</kafka.version>
         <ce.kafka.version>[7.0.15-0-ce, 7.0.16-0-ce)</ce.kafka.version>
@@ -262,6 +265,25 @@
                 <groupId>com.google.guava</groupId>
                 <artifactId>guava</artifactId>
                 <version>${guava.version}</version>
+            </dependency>
+            <!-- we define aws-java-sdk azure-identity and azure-storage-blob
+            versions above, to match the versions in ce-kafka -->
+            <dependency>
+                <groupId>com.amazonaws</groupId>
+                <artifactId>aws-java-sdk-bom</artifactId>
+                <version>${aws-java-sdk.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.azure</groupId>
+                <artifactId>azure-identity</artifactId>
+                <version>${azure-identity.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.azure</groupId>
+                <artifactId>azure-storage-blob</artifactId>
+                <version>${azure-storage.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.slf4j</groupId>
