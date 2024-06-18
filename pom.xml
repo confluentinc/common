@@ -115,9 +115,6 @@
         <maven-resources-plugin.version>3.1.0</maven-resources-plugin.version>
         <checkstyle.config.location>checkstyle/checkstyle.xml</checkstyle.config.location>
         <checkstyle.suppressions.location>checkstyle/common-suppressions.xml</checkstyle.suppressions.location>
-        <dependency.check.version>7.4.4</dependency.check.version>
-        <dependency.check.suppressions.location>dependency-check/suppressions.xml</dependency.check.suppressions.location>
-        <dependency.check.skip>false</dependency.check.skip>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.build.resourceEncoding>UTF-8</project.build.resourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -138,7 +135,6 @@
         <!-- Pull the latest base image or use a local image. -->
         <docker.pull-image>false</docker.pull-image>
         <docker.imagePullPolicy>IfNotPresent</docker.imagePullPolicy>
-        <dependency.check.skip>true</dependency.check.skip>
         <io.confluent.common.version>7.0.15-0</io.confluent.common.version>
         <!-- This is a version of the pom file that we install and deploy because
             the kafka and ce-kafka version ranges are resolved.
@@ -1095,7 +1091,6 @@
                 </property>
             </activation>
             <properties>
-                <dependency.check.skip>false</dependency.check.skip>
                 <!-- During CI builds we do not want to execute the resolver plugin
                     or the additional install and deploy steps as they are only
                     needed when building locally.
@@ -1194,18 +1189,6 @@
                     </plugin>
                 </plugins>
             </reporting>
-        </profile>
-        <profile>
-            <!-- org.owasp:dependency-check-maven >= 4.0.0 will not work with JDK7 so it must be activated in a JDK>=1.8 profile.
-                 Developers can always pass -Ddependency.check.skip=true on the CLI to speed things up during development -->
-            <id>dependency-check</id>
-            <activation>
-                <jdk>[1.8,)</jdk>
-            </activation>
-            <build>
-              <plugins>
-               </plugins>
-            </build>
         </profile>
         <profile>
             <id>java-9+</id>
