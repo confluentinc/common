@@ -88,4 +88,5 @@ after_pipeline:
               sem-trigger -p newwave -b $SEMAPHORE_GIT_BRANCH -f .semaphore/semaphore.yml
               sem-trigger -p kafka-connect-replicator -b $SEMAPHORE_GIT_BRANCH -f .semaphore/semaphore.yml
               sem-trigger -p hub-client -b $SEMAPHORE_GIT_BRANCH -f .semaphore/semaphore.yml
+              sem-trigger -p cc-cluster-upgrader -b $SEMAPHORE_GIT_BRANCH -f .semaphore/semaphore.yml
             fi
