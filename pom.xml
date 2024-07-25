@@ -48,8 +48,8 @@
         <argLine></argLine>
         <avro.version>1.11.3</avro.version>
         <aws-java-sdk.version>1.12.701</aws-java-sdk.version>
-        <azure-identity.version>1.11.4</azure-identity.version>
-        <azure-storage.version>12.25.4</azure-storage.version>
+        <azure-identity.version>1.13.0</azure-identity.version>
+        <azure-storage.version>12.26.1</azure-storage.version>
         <required.maven.version>3.2</required.maven.version>
         <kafka.version>[7.0.16-0-ccs, 7.0.17-0-ccs)</kafka.version>
         <ce.kafka.version>[7.0.16-0-ce, 7.0.17-0-ce)</ce.kafka.version>
