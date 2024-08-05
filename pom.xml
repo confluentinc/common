@@ -104,8 +104,6 @@
         <reload4j.version>1.2.25</reload4j.version>
         <zkclient.version>0.11</zkclient.version>
         <zookeeper.version>3.8.4</zookeeper.version>
-        <!-- remove the bouncycastle.version after all downstream repos are updated -->
-        <bouncycastle.version>1.70</bouncycastle.version>
         <bouncycastle.jdk18.version>1.78</bouncycastle.jdk18.version>
         <!-- before updating bouncycastle.fips.version make sure
         that the library version you're updating to is FIPS certified e.g. 1.0.2.4 -> 1.0.2.5 is not OK
@@ -368,11 +366,6 @@
             <dependency>
                 <groupId>org.bouncycastle</groupId>
                 <artifactId>bcpkix-jdk15on</artifactId>
-                <version>${bouncycastle.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.bouncycastle</groupId>
-                <artifactId>bcprov-jdk15on</artifactId>
                 <version>${bouncycastle.version}</version>
             </dependency>
             <dependency>
