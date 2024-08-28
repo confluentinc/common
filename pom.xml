@@ -111,6 +111,12 @@
         <bouncycastle.fips.version>1.0.2.4</bouncycastle.fips.version>
         <bouncycastle.tls-fips.version>1.0.13</bouncycastle.tls-fips.version>
         <bouncycastle.bcpkix-fips.version>1.0.7</bouncycastle.bcpkix-fips.version>
+        <!-- Bouncycastle update to version 2.0 This will have to be applied all .x branches,
+        here for FedRAMP builds -->
+        <bouncycastle.bc-fips-v2.version>2.0.0</bouncycastle.bc-fips-v2.version>
+        <bouncycastle.bcutil-fips-v2.version>2.0.3</bouncycastle.bcutil-fips-v2.version>
+        <bouncycastle.bcpkix-fips-v2.version>2.0.7</bouncycastle.bcpkix-fips-v2.version>
+        <bouncycastle.bctls-fips-v2.version>2.0.19</bouncycastle.bctls-fips-v2.version>
         <jmx_prometheus_javaagent.version>0.18.0</jmx_prometheus_javaagent.version>
         <jolokia-jvm.version>1.7.1</jolokia-jvm.version>
         <checkstyle.version>9.3</checkstyle.version>
@@ -363,6 +369,8 @@
                 <artifactId>spotbugs-annotations</artifactId>
                 <version>${spotbugs.version}</version>
             </dependency>
+
+            <!-- All those need to be removed -->
             <dependency>
                 <groupId>org.bouncycastle</groupId>
                 <artifactId>bcpkix-jdk15on</artifactId>
@@ -383,21 +391,30 @@
                 <artifactId>bcprov-jdk18on</artifactId>
                 <version>${bouncycastle.jdk18.version}</version>
             </dependency>
+
+            <!-- Bouncycastle 2.0 definitions -->
+
             <dependency>
                 <groupId>org.bouncycastle</groupId>
                 <artifactId>bc-fips</artifactId>
-                <version>${bouncycastle.fips.version}</version>
+                <version>${bouncycastle.bc-fips-v2.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.bouncycastle</groupId>
+                <artifactId>bcutil-fips</artifactId>
+                <version>${bouncycastle.bcutil-fips-v2.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.bouncycastle</groupId>
                 <artifactId>bctls-fips</artifactId>
-                <version>${bouncycastle.tls-fips.version}</version>
+                <version>${bouncycastle.bctls-fips-v2.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.bouncycastle</groupId>
                 <artifactId>bcpkix-fips</artifactId>
-                <version>${bouncycastle.bcpkix-fips.version}</version>
+                <version>${bouncycastle.bcpkix-fips-v2.version}</version>
             </dependency>
+
             <dependency>
                 <groupId>com.google.code.gson</groupId>
                 <artifactId>gson</artifactId>
