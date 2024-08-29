@@ -370,7 +370,7 @@
                 <version>${spotbugs.version}</version>
             </dependency>
 
-            <!-- All those need to be removed -->
+            <!-- All those need to be removed in 7.7.0-cp3-->
             <dependency>
                 <groupId>org.bouncycastle</groupId>
                 <artifactId>bcpkix-jdk15on</artifactId>
@@ -391,10 +391,24 @@
                 <artifactId>bcprov-jdk18on</artifactId>
                 <version>${bouncycastle.jdk18.version}</version>
             </dependency>
-
-            <!-- Bouncycastle 2.0 definitions -->
-
+             <dependency>
+                <groupId>org.bouncycastle</groupId>
+                <artifactId>bc-fips</artifactId>
+                <version>${bouncycastle.bc-fips.version}</version>
+            </dependency>
             <dependency>
+                <groupId>org.bouncycastle</groupId>
+                <artifactId>bctls-fips</artifactId>
+                <version>${bouncycastle.bctls-fips.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.bouncycastle</groupId>
+                <artifactId>bcpkix-fips</artifactId>
+                <version>${bouncycastle.bcpkix-fips.version}</version>
+            </dependency>
+
+            <!-- Bouncycastle 2.0 definitions
+             <dependency>
                 <groupId>org.bouncycastle</groupId>
                 <artifactId>bc-fips</artifactId>
                 <version>${bouncycastle.bc-fips-v2.version}</version>
@@ -414,6 +428,7 @@
                 <artifactId>bcpkix-fips</artifactId>
                 <version>${bouncycastle.bcpkix-fips-v2.version}</version>
             </dependency>
+            -->
 
             <dependency>
                 <groupId>com.google.code.gson</groupId>
