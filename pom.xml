@@ -103,11 +103,11 @@
         <zookeeper.version>3.8.4</zookeeper.version>
         <bouncycastle.jdk18.version>1.78</bouncycastle.jdk18.version>
         <!-- before updating bouncycastle.fips.version make sure
-        that the library version you're updating to is FIPS certified e.g. 1.0.2.4 -> 1.0.2.5 is not OK
-        as of -->
-        <bouncycastle.fips.version>1.0.2.4</bouncycastle.fips.version>
-        <bouncycastle.tls-fips.version>1.0.13</bouncycastle.tls-fips.version>
-        <bouncycastle.bcpkix-fips.version>1.0.7</bouncycastle.bcpkix-fips.version>
+        that the library version you're updating to is FIPS certified e.g. 1.0.2.4 -> 1.0.2.5 is not OK -->
+        <bouncycastle.fips.version>2.0.0</bouncycastle.fips.version>
+        <bouncycastle.bcutil-fips.version>2.0.3</bouncycastle.bcutil-fips.version>
+        <bouncycastle.tls-fips.version>2.0.19</bouncycastle.tls-fips.version>
+        <bouncycastle.bcpkix-fips.version>2.0.7</bouncycastle.bcpkix-fips.version>
         <jmx_prometheus_javaagent.version>0.18.0</jmx_prometheus_javaagent.version>
         <jolokia-jvm.version>1.7.1</jolokia-jvm.version>
         <checkstyle.version>8.44</checkstyle.version>
@@ -384,6 +384,11 @@
                 <groupId>org.bouncycastle</groupId>
                 <artifactId>bcpkix-fips</artifactId>
                 <version>${bouncycastle.bcpkix-fips.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.bouncycastle</groupId>
+                <artifactId>bcutil-fips</artifactId>
+                <version>${bouncycastle.bcutil-fips.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.google.code.gson</groupId>
