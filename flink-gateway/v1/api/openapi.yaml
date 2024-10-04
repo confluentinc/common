@@ -4293,7 +4293,6 @@ components:
           example: sa-abc123
           maxLength: 255
           type: string
-          x-immutable: true
         stopped:
           description: Indicates whether the statement should be stopped.
           example: false
