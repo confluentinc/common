@@ -115,7 +115,7 @@
         <bouncycastle.bcpkix-fips.version>1.0.7</bouncycastle.bcpkix-fips.version>
         <jmx_prometheus_javaagent.version>0.18.0</jmx_prometheus_javaagent.version>
         <jolokia-jvm.version>1.7.1</jolokia-jvm.version>
-        <checkstyle.version>9.3</checkstyle.version>
+        <checkstyle.version>10.20.1</checkstyle.version>
         <maven-checkstyle-plugin.version>3.1.2</maven-checkstyle-plugin.version>
         <maven-clean-plugin.version>3.1.0</maven-clean-plugin.version>
         <maven-install-plugin.version>2.5.2</maven-install-plugin.version>
