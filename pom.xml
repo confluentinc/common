@@ -46,7 +46,7 @@
     <properties>
         <!--jacoco prepare-agent needs argLine defined to set this variable. if we don't have a default set then maven gets angry.-->
         <argLine></argLine>
-        <avro.version>1.11.4</avro.version>
+        <avro.version>1.12.0</avro.version>
         <classgraph.version>4.8.138</classgraph.version>
         <commons-io.version>2.16.0</commons-io.version>
         <aws-java-sdk.version>1.12.701</aws-java-sdk.version>
@@ -61,7 +61,7 @@
         <exec-maven-plugin.version>1.5.0</exec-maven-plugin.version>
         <spotbugs.version>4.7.1</spotbugs.version>
         <spotbugs.maven.plugin.version>4.7.1.0</spotbugs.maven.plugin.version>
-        <java.version>8</java.version>
+        <java.version>17</java.version>
         <jackson.version>2.16.0</jackson.version>
         <jetty.version>9.4.56.v20240826</jetty.version>
         <jose4j.version>0.9.5</jose4j.version>
