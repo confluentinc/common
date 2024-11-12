@@ -111,7 +111,7 @@
         <!-- BC should be upated to version 2.0 in Q1 2025, bcutil-fips is 2.0 only, so no change there -->
         <bouncycastle.fips.version>1.0.2.4</bouncycastle.fips.version>
         <bouncycastle.bcutil-fips.version>2.0.3</bouncycastle.bcutil-fips.version>
-        <bouncycastle.tls-fips.version>1.0.19</bouncycastle.tls-fips.version>
+        <bouncycastle.tls-fips.version>1.0.13</bouncycastle.tls-fips.version>
         <bouncycastle.bcpkix-fips.version>1.0.7</bouncycastle.bcpkix-fips.version>
         <jmx_prometheus_javaagent.version>0.18.0</jmx_prometheus_javaagent.version>
         <jolokia-jvm.version>1.7.1</jolokia-jvm.version>
