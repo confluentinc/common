@@ -46,66 +46,66 @@
     <properties>
         <!--jacoco prepare-agent needs argLine defined to set this variable. if we don't have a default set then maven gets angry.-->
         <argLine></argLine>
-        <avro.version>1.11.4</avro.version>
-        <classgraph.version>4.8.138</classgraph.version>
-        <commons-io.version>2.16.0</commons-io.version>
-        <aws-java-sdk.version>1.12.701</aws-java-sdk.version>
-        <azure-identity.version>1.13.0</azure-identity.version>
-        <azure-storage.version>12.26.1</azure-storage.version>
+        <avro.version>1.12.0</avro.version>
+        <classgraph.version>4.8.179</classgraph.version>
+        <commons-io.version>2.18.0</commons-io.version>
+        <aws-java-sdk.version>1.12.779</aws-java-sdk.version>
+        <azure-identity.version>1.14.2</azure-identity.version>
+        <azure-storage.version>12.29.0</azure-storage.version>
         <required.maven.version>3.2</required.maven.version>
         <kafka.version>[8.0.0-0-ccs, 8.0.1-0-ccs)</kafka.version>
         <ce.kafka.version>[8.0.0-0-ce, 8.0.1-0-ce)</ce.kafka.version>
-        <easymock.version>5.2.0</easymock.version>
+        <easymock.version>5.5.0</easymock.version>
         <!-- keep exec-maven-plugin on 1.5.0 until https://github.com/mojohaus/exec-maven-plugin/issues/76 is fixed
              running our LicenseFinder plugin in create-licenses-for-docker breaks when upgrading to 1.6.0 -->
-        <exec-maven-plugin.version>1.5.0</exec-maven-plugin.version>
-        <spotbugs.version>4.7.1</spotbugs.version>
-        <spotbugs.maven.plugin.version>4.7.1.0</spotbugs.maven.plugin.version>
+        <exec-maven-plugin.version>1.6.0</exec-maven-plugin.version>
+        <spotbugs.version>4.8.6</spotbugs.version>
+        <spotbugs.maven.plugin.version>4.8.6.6</spotbugs.maven.plugin.version>
         <java.version>17</java.version>
-        <jackson.version>2.16.0</jackson.version>
+        <jackson.version>2.18.2</jackson.version>
         <jetty.version>9.4.56.v20240826</jetty.version>
-        <jose4j.version>0.9.5</jose4j.version>
-        <gson.version>2.9.0</gson.version>
-        <guava.version>32.0.1-jre</guava.version>
-        <jacoco-maven-plugin.version>0.8.7</jacoco-maven-plugin.version>
+        <jose4j.version>0.9.6</jose4j.version>
+        <gson.version>2.11.0</gson.version>
+        <guava.version>32.1.3-jre</guava.version>
+        <jacoco-maven-plugin.version>0.8.12</jacoco-maven-plugin.version>
         <junit.version>4.13.2</junit.version>
-        <junit.jupiter.version>5.8.2</junit.jupiter.version>
+        <junit.jupiter.version>5.11.3</junit.jupiter.version>
         <kafka.scala.version>2.13</kafka.scala.version>
-        <scala.version>2.13.11</scala.version>
-        <maven-assembly.version>3.3.0</maven-assembly.version>
-        <maven-compiler-plugin.version>3.10.0</maven-compiler-plugin.version>
-        <maven-dependency-plugin.version>3.3.0</maven-dependency-plugin.version>
+        <scala.version>2.13.15</scala.version>
+        <maven-assembly.version>3.7.1</maven-assembly.version>
+        <maven-compiler-plugin.version>3.13.0</maven-compiler-plugin.version>
+        <maven-dependency-plugin.version>3.8.1</maven-dependency-plugin.version>
         <maven-deploy.version>2.8.2</maven-deploy.version>
-        <maven-enforcer-plugin.version>3.0.0-M3</maven-enforcer-plugin.version>
-        <maven-jar-plugin.version>3.2.0</maven-jar-plugin.version>
-        <maven-source-plugin.version>3.2.1</maven-source-plugin.version>
-        <maven-surefire-plugin.version>3.0.0-M7</maven-surefire-plugin.version>
-        <maven-site-plugin.version>3.9.0</maven-site-plugin.version>
-        <maven-project-info-reports-plugin.version>3.1.1</maven-project-info-reports-plugin.version>
+        <maven-enforcer-plugin.version>3.5.0</maven-enforcer-plugin.version>
+        <maven-jar-plugin.version>3.4.2</maven-jar-plugin.version>
+        <maven-source-plugin.version>3.3.1</maven-source-plugin.version>
+        <maven-surefire-plugin.version>3.5.2</maven-surefire-plugin.version>
+        <maven-site-plugin.version>3.21.0</maven-site-plugin.version>
+        <maven-project-info-reports-plugin.version>3.8.0</maven-project-info-reports-plugin.version>
         <mbknor-jackson-jsonschema.version>1.0.39</mbknor-jackson-jsonschema.version>
         <buildnumber-plugin.version>1.4</buildnumber-plugin.version>
-        <mockito.version>4.6.1</mockito.version>
+        <mockito.version>4.11.0</mockito.version>
         <mockito-all.version>1.10.19</mockito-all.version>
-        <os-maven-plugin.version>1.7.0</os-maven-plugin.version>
-        <jaxb.version>2.3.0</jaxb.version>
+        <os-maven-plugin.version>1.7.1</os-maven-plugin.version>
+        <jaxb.version>2.3.1</jaxb.version>
         <netty.version>4.1.115.Final</netty.version>
         <hamcrest.version>1.3</hamcrest.version>
         <!-- okio version to match ce-kafka 7.8.x -->
-        <okio.version>3.7.0</okio.version>
+        <okio.version>3.9.1</okio.version>
         <protobuf.version>3.25.5</protobuf.version>
         <powermock.version>2.0.9</powermock.version>
         <!-- Potentially used by downstream projects -->
         <slf4j-api.version>${slf4j.version}</slf4j-api.version>
         <slf4j.version>1.7.36</slf4j.version>
         <slf4j-reload4j.version>1.7.36</slf4j-reload4j.version>
-        <snakeyaml.version>2.0</snakeyaml.version>
-        <snappy.version>1.1.10.5</snappy.version>
+        <snakeyaml.version>2.3</snakeyaml.version>
+        <snappy.version>1.1.10.7</snappy.version>
         <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-reload4j/1.7.36 -->
         <reload4j.version>1.2.25</reload4j.version>
         <logredactor.version>1.0.12</logredactor.version>
         <zkclient.version>0.11</zkclient.version>
-        <zookeeper.version>3.8.4</zookeeper.version>
-        <bouncycastle.jdk18.version>1.78</bouncycastle.jdk18.version>
+        <zookeeper.version>3.9.3</zookeeper.version>
+        <bouncycastle.jdk18.version>1.79</bouncycastle.jdk18.version>
         <!-- before updating bouncycastle.fips.version make sure
         that the library version you're updating to is FIPS certified e.g. 1.0.2.4 -> 1.0.2.5 is not OK -->
         <!-- BC should be upated to version 2.0 in Q1 2025, bcutil-fips is 2.0 only, so no change there -->
@@ -116,10 +116,10 @@
         <jmx_prometheus_javaagent.version>0.18.0</jmx_prometheus_javaagent.version>
         <jolokia-jvm.version>1.7.1</jolokia-jvm.version>
         <checkstyle.version>9.3</checkstyle.version>
-        <maven-checkstyle-plugin.version>3.1.2</maven-checkstyle-plugin.version>
-        <maven-clean-plugin.version>3.1.0</maven-clean-plugin.version>
+        <maven-checkstyle-plugin.version>3.6.0</maven-checkstyle-plugin.version>
+        <maven-clean-plugin.version>3.4.0</maven-clean-plugin.version>
         <maven-install-plugin.version>2.5.2</maven-install-plugin.version>
-        <maven-resources-plugin.version>3.1.0</maven-resources-plugin.version>
+        <maven-resources-plugin.version>3.3.1</maven-resources-plugin.version>
         <checkstyle.config.location>checkstyle/checkstyle.xml</checkstyle.config.location>
         <checkstyle.suppressions.location>checkstyle/common-suppressions.xml</checkstyle.suppressions.location>
         <dependency.check.version>7.4.4</dependency.check.version>
@@ -146,7 +146,7 @@
         <docker.pull-image>false</docker.pull-image>
         <docker.imagePullPolicy>IfNotPresent</docker.imagePullPolicy>
         <dependency.check.skip>true</dependency.check.skip>
-        <io.confluent.common.version>8.0.0-0</io.confluent.common.version>
+        <io.confluent.common.version>8.0.0-363</io.confluent.common.version>
         <!-- This is a version of the pom file that we install and deploy because
             the kafka and ce-kafka version ranges are resolved.
         -->
@@ -1000,7 +1000,7 @@
             <plugin>
                 <groupId>org.cyclonedx</groupId>
                 <artifactId>cyclonedx-maven-plugin</artifactId>
-                <version>2.9.0</version>
+                <version>2.9.1</version>
                 <executions>
                     <execution>
                         <phase>package</phase>
@@ -1510,7 +1510,7 @@
                     <plugin>
                         <groupId>io.fabric8</groupId>
                         <artifactId>docker-maven-plugin</artifactId>
-                        <version>0.43.4</version>
+                        <version>0.45.1</version>
                       <executions>
                         <execution>
                           <phase>package</phase>
