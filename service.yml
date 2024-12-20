@@ -8,6 +8,10 @@ semaphore:
   run_pint_merge: true
   pipeline_type: cp
   nano_version: true
+  pr_ci_gating:
+    enable: true
+    project_name: common
+  status_level: block
   extra_deploy_args: "-Pjenkins"
   extra_build_args: "-Pjenkins"
   downstream_projects: ["rest-utils", "ksql", "newwave", "kafka-connect-replicator", "hub-client"]
