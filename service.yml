@@ -13,3 +13,13 @@ semaphore:
   downstream_projects: ["rest-utils", "ksql", "newwave", "kafka-connect-replicator", "hub-client"]
 git:
   enable: true
+code_artifact:
+  enable: true
+  package_paths:
+    - maven-snapshots/maven/io.confluent/disk-usage-agent
+    - maven-snapshots/maven/io.confluent/common
+    - maven-snapshots/maven/io.confluent/common-*
+    - maven-snapshots/maven/io.confluent/confluent-log4j2-extensions
+    - maven-snapshots/maven/io.confluent/confluent-log4j-extensions
+    - maven-snapshots/maven/io.confluent/build-tools
+    - maven-snapshots/maven/io.confluent/assembly-plugin-boilerplate
