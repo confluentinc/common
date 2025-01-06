@@ -49,6 +49,7 @@
         <avro.version>1.11.4</avro.version>
         <classgraph.version>4.8.138</classgraph.version>
         <commons-io.version>2.16.0</commons-io.version>
+        <commons-codec.version>1.16.1</commons-codec.version>
         <aws-java-sdk.version>1.12.701</aws-java-sdk.version>
         <azure-identity.version>1.13.0</azure-identity.version>
         <azure-storage.version>12.26.1</azure-storage.version>
@@ -240,6 +241,11 @@
                 <artifactId>commons-io</artifactId>
                 <version>${commons-io.version}</version>
             </dependency>
+            <dependency>
+                <groupId>commons-codec</groupId>
+                <artifactId>commons-codec</artifactId>
+                <version>${commons-codec.version}</version>
+            </dependency>
             <!-- This is to match to okio version used in ce-flink / ce-kafka 7.8  -->
             <dependency>
                 <groupId>com.squareup.okio</groupId>
@@ -271,6 +277,13 @@
                 <version>${jetty.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
+            </dependency>
+            <!-- pin version of mina-core to override the definition from jetty
+                TODO: remove after update of jetty to version 12-->
+            <dependency>
+                <groupId>org.apache.mina</groupId>
+                <artifactId>mina-core</artifactId>
+                <version>2.2.4</version>
             </dependency>
             <!-- snappy-java is brought in by kafka-clients and its version is specified
             in ce-kafka -->
