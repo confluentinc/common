@@ -38,7 +38,7 @@ Configuration:
         - ref: Console
 ```
 
-If you are using `SerializableSchemaAndValue`, then the following properties can be provided to `StructuredJsonLayout` to migrate to log4j2:-
+If you are using `SerializableSchemaAndValue`, then the following properties can be provided to `StructuredJsonLayout` to migrate to log4j2:
 
 ```yaml
   StructuredJsonLayout:
