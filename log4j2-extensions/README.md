@@ -10,7 +10,7 @@ Ensure you have the `log4j2-extensions` dependency included in your project. Add
 ```xml
 <dependency>
     <groupId>io.confluent</groupId>
-    <artifactId>log4j2-extensions</artifactId>
+    <artifactId>confluent-log4j2-extensions</artifactId>
 </dependency>
 ```
 
