@@ -51,8 +51,8 @@
         <commons-io.version>2.16.0</commons-io.version>
         <commons-codec.version>1.16.1</commons-codec.version>
         <aws-java-sdk.version>1.12.701</aws-java-sdk.version>
-        <azure-identity.version>1.13.0</azure-identity.version>
-        <azure-storage.version>12.26.1</azure-storage.version>
+        <azure-identity.version>1.15.3</azure-identity.version>
+        <azure-storage.version>12.29.1</azure-storage.version>
         <required.maven.version>3.2</required.maven.version>
         <kafka.version>[7.2.14-0-ccs, 7.2.15-0-ccs)</kafka.version>
         <ce.kafka.version>[7.2.14-0-ce, 7.2.15-0-ce)</ce.kafka.version>
