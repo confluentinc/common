@@ -246,18 +246,16 @@
                 <artifactId>commons-codec</artifactId>
                 <version>${commons-codec.version}</version>
             </dependency>
-<<<<<<< HEAD
             <dependency>
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-compress</artifactId>
                 <version>${commons-compress.version}</version>
-=======
+            </dependency>
             <!-- This is to match to okio version used in ce-flink / ce-kafka 7.8  -->
             <dependency>
                 <groupId>com.squareup.okio</groupId>
                 <artifactId>okio-jvm</artifactId>
                 <version>${okio.version}</version>
->>>>>>> 7.8.x
             </dependency>
             <!-- This is to unify the version of Protocol Buffers across CP -->
             <dependency>
