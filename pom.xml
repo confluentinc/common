@@ -50,6 +50,7 @@
         <classgraph.version>4.8.138</classgraph.version>
         <commons-io.version>2.16.0</commons-io.version>
         <commons-codec.version>1.16.1</commons-codec.version>
+        <>
         <aws-java-sdk.version>1.12.701</aws-java-sdk.version>
         <azure-identity.version>1.15.3</azure-identity.version>
         <azure-storage.version>12.29.1</azure-storage.version>
@@ -243,6 +244,11 @@
                 <groupId>commons-codec</groupId>
                 <artifactId>commons-codec</artifactId>
                 <version>${commons-codec.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-compress</artifactId>
+                <version>${commons-compress.version}</version>
             </dependency>
             <!-- This is to unify the version of Protocol Buffers across CP -->
             <dependency>
