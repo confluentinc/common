@@ -64,6 +64,7 @@
         <spotbugs.version>4.7.1</spotbugs.version>
         <spotbugs.maven.plugin.version>4.7.1.0</spotbugs.maven.plugin.version>
         <java.version>17</java.version>
+        <client.java.version>11</client.java.version>
         <jackson.version>2.16.0</jackson.version>
         <jakarta-websocket-api.version>2.2.0</jakarta-websocket-api.version>
         <jakarta-servlet-api.version>6.1.0</jakarta-servlet-api.version>
@@ -838,8 +839,7 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <inherited>true</inherited>
                 <configuration>
-                    <source>${java.version}</source>
-                    <target>${java.version}</target>
+                    <release>${client.java.version}</release>
                 </configuration>
             </plugin>
             <plugin>
@@ -1234,37 +1234,6 @@
                     </plugin>
                 </plugins>
             </reporting>
-        </profile>
-        <profile>
-            <!-- org.owasp:dependency-check-maven >= 4.0.0 will not work with JDK7 so it must be activated in a JDK>=1.8 profile.
-                 Developers can always pass -Ddependency.check.skip=true on the CLI to speed things up during development -->
-            <id>dependency-check</id>
-            <activation>
-                <jdk>[1.8,)</jdk>
-            </activation>
-            <build>
-              <plugins>
-               </plugins>
-            </build>
-        </profile>
-        <profile>
-            <id>java-9+</id>
-            <activation>
-                <jdk>[9,)</jdk>
-            </activation>
-            <build>
-                <plugins>
-                    <!-- Use release instead of source/target in Java 9 or higher -->
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-compiler-plugin</artifactId>
-                        <inherited>true</inherited>
-                        <configuration>
-                            <release>${java.version}</release>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
         </profile>
         <profile>
             <id>docker</id>
