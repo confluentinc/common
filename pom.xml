@@ -64,6 +64,7 @@
         <spotbugs.version>4.7.1</spotbugs.version>
         <spotbugs.maven.plugin.version>4.7.1.0</spotbugs.maven.plugin.version>
         <java.version>17</java.version>
+        <client.java.version>11</client.java.version>
         <jackson.version>2.16.0</jackson.version>
         <jakarta-websocket-api.version>2.2.0</jakarta-websocket-api.version>
         <jakarta-servlet-api.version>6.1.0</jakarta-servlet-api.version>
@@ -838,8 +839,7 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <inherited>true</inherited>
                 <configuration>
-                    <source>${java.version}</source>
-                    <target>${java.version}</target>
+                    <release>${client.java.version}</release>
                 </configuration>
             </plugin>
             <plugin>
@@ -1260,7 +1260,7 @@
                         <artifactId>maven-compiler-plugin</artifactId>
                         <inherited>true</inherited>
                         <configuration>
-                            <release>${java.version}</release>
+                            <release>${client.java.version}</release>
                         </configuration>
                     </plugin>
                 </plugins>
