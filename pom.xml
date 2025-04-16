@@ -1236,37 +1236,6 @@
             </reporting>
         </profile>
         <profile>
-            <!-- org.owasp:dependency-check-maven >= 4.0.0 will not work with JDK7 so it must be activated in a JDK>=1.8 profile.
-                 Developers can always pass -Ddependency.check.skip=true on the CLI to speed things up during development -->
-            <id>dependency-check</id>
-            <activation>
-                <jdk>[1.8,)</jdk>
-            </activation>
-            <build>
-              <plugins>
-               </plugins>
-            </build>
-        </profile>
-        <profile>
-            <id>java-9+</id>
-            <activation>
-                <jdk>[9,)</jdk>
-            </activation>
-            <build>
-                <plugins>
-                    <!-- Use release instead of source/target in Java 9 or higher -->
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-compiler-plugin</artifactId>
-                        <inherited>true</inherited>
-                        <configuration>
-                            <release>${java.version}</release>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-        <profile>
             <id>docker</id>
             <activation>
                 <property>
