@@ -51,6 +51,8 @@
         <commons-io.version>2.16.0</commons-io.version>
         <commons-codec.version>1.16.1</commons-codec.version>
         <commons-compress.version>1.26.1</commons-compress.version>
+        <commons-validator.version>1.10.0</commons-validator.version>
+        <commons-beanutils.version>1.11.0</commons-beanutils.version>
         <aws-java-sdk.version>1.12.701</aws-java-sdk.version>
         <azure-identity.version>1.15.3</azure-identity.version>
         <azure-storage.version>12.29.1</azure-storage.version>
@@ -240,6 +242,12 @@
                 <artifactId>commons-io</artifactId>
                 <version>${commons-io.version}</version>
             </dependency>
+            <!-- Pin version of commons-beanutils as it is used transitively not only by commons-validator -->
+            <dependency>
+                <groupId>commons-beanutils</groupId>
+                <artifactId>commons-beanutils</artifactId>
+                <version>${commons-beanutils.version}</version>
+            </dependency>
             <dependency>
                 <groupId>commons-codec</groupId>
                 <artifactId>commons-codec</artifactId>
@@ -249,6 +257,12 @@
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-compress</artifactId>
                 <version>${commons-compress.version}</version>
+            </dependency>
+            <!-- Unify version of commons-validator with ce-kafka, allow downstream repos to unpin -->
+            <dependency>
+                <groupId>commons-validator</groupId>
+                <artifactId>commons-validator</artifactId>
+                <version>${commons-validator.version}</version>
             </dependency>
             <!-- This is to unify the version of Protocol Buffers across CP -->
             <dependency>
