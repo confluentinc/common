@@ -24,7 +24,7 @@
     <groupId>io.confluent</groupId>
     <artifactId>common-parent</artifactId>
     <packaging>pom</packaging>
-    <version>8.2.0-0</version>
+    <version>8.2.0-35</version>
     <name>common</name>
     <organization>
         <name>Confluent, Inc.</name>
@@ -56,8 +56,8 @@
         <azure-identity.version>1.15.3</azure-identity.version>
         <azure-storage.version>12.29.1</azure-storage.version>
         <required.maven.version>3.2</required.maven.version>
-        <kafka.version>[8.2.0-0-ccs, 8.2.1-0-ccs)</kafka.version>
-        <ce.kafka.version>[8.2.0-0-ce, 8.2.1-0-ce)</ce.kafka.version>
+        <kafka.version>8.2.0-15-ccs</kafka.version>
+        <ce.kafka.version>8.2.0-53-ce</ce.kafka.version>
         <easymock.version>5.2.0</easymock.version>
         <!-- keep exec-maven-plugin on 1.5.0 until https://github.com/mojohaus/exec-maven-plugin/issues/76 is fixed
              running our LicenseFinder plugin in create-licenses-for-docker breaks when upgrading to 1.6.0 -->
@@ -151,7 +151,7 @@
         <docker.pull-image>false</docker.pull-image>
         <docker.imagePullPolicy>IfNotPresent</docker.imagePullPolicy>
         <dependency.check.skip>true</dependency.check.skip>
-        <io.confluent.common.version>8.2.0-0</io.confluent.common.version>
+        <io.confluent.common.version>8.2.0-35</io.confluent.common.version>
         <!-- This is a version of the pom file that we install and deploy because
             the kafka and ce-kafka version ranges are resolved.
         -->
