@@ -49,6 +49,8 @@
         <avro.version>1.11.4</avro.version>
         <aws-java-sdk.version>1.12.701</aws-java-sdk.version>
         <commons-io.version>2.16.0</commons-io.version>
+        <commons-validator.version>1.10.0</commons-validator.version>
+        <commons-beanutils.version>1.11.0</commons-beanutils.version>
         <azure-identity.version>1.15.3</azure-identity.version>
         <azure-storage.version>12.29.1</azure-storage.version>
         <classgraph.version>4.8.138</classgraph.version>
@@ -239,6 +241,18 @@
                 <groupId>commons-io</groupId>
                 <artifactId>commons-io</artifactId>
                 <version>${commons-io.version}</version>
+            </dependency>
+            <!-- Unify version of commons-validator with ce-kafka, allow downstream repos to unpin -->
+            <dependency>
+                <groupId>commons-validator</groupId>
+                <artifactId>commons-validator</artifactId>
+                <version>${commons-validator.version}</version>
+            </dependency>
+            <!-- Pin version of commons-beanutils as it is used transitively not only by commons-validator -->
+            <dependency>
+                <groupId>commons-beanutils</groupId>
+                <artifactId>commons-beanutils</artifactId>
+                <version>${commons-beanutils.version}</version>
             </dependency>
             <!-- This is to unify the version of Protocol Buffers across CP -->
             <dependency>
