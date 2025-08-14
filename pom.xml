@@ -112,7 +112,7 @@
         <bouncycastle.fips.version>2.1.0</bouncycastle.fips.version>
         <bouncycastle.bcutil-fips.version>2.0.3</bouncycastle.bcutil-fips.version>
         <bouncycastle.tls-fips.version>2.0.19</bouncycastle.tls-fips.version>
-        <bouncycastle.bcpkix-fips.version>2.0.7</bouncycastle.bcpkix-fips.version>
+        <bouncycastle.bcpkix-fips.version>2.0.8</bouncycastle.bcpkix-fips.version>
         <jmx_prometheus_javaagent.version>0.18.0</jmx_prometheus_javaagent.version>
         <jolokia-jvm.version>1.7.1</jolokia-jvm.version>
         <checkstyle.version>9.3</checkstyle.version>
