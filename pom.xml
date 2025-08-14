@@ -113,7 +113,7 @@
         <logredactor.version>1.0.13</logredactor.version>
         <zkclient.version>0.11</zkclient.version>
         <zookeeper.version>3.8.4</zookeeper.version>
-        <bouncycastle.jdk18.version>1.78</bouncycastle.jdk18.version>
+        <bouncycastle.jdk18.version>1.79</bouncycastle.jdk18.version>
         <!-- before updating bouncycastle.fips.version make sure
         that the library version you're updating to is FIPS certified e.g. 1.0.2.4 -> 1.0.2.5 is not OK -->
         <bouncycastle.fips.version>2.1.0</bouncycastle.fips.version>
