@@ -107,7 +107,7 @@
         <logredactor.version>1.0.12</logredactor.version>
         <zkclient.version>0.11</zkclient.version>
         <zookeeper.version>3.8.4</zookeeper.version>
-        <bouncycastle.jdk18.version>1.78</bouncycastle.jdk18.version>
+        <bouncycastle.jdk18.version>1.79</bouncycastle.jdk18.version>
         <!-- before updating bouncycastle.fips.version make sure
         that the library version you're updating to is FIPS certified e.g. 1.0.2.4 -> 1.0.2.5 is not OK -->
         <!-- BC should be upated to version 2.0 in Q1 2025, bcutil-fips is 2.0 only, so no change there -->
