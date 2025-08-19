@@ -109,7 +109,7 @@
         <!-- before updating bouncycastle.fips.version make sure
         that the library version you're updating to is FIPS certified e.g. 1.0.2.4 -> 1.0.2.5 is not OK -->
         <!-- BC should be upated to version 2.0 in Q1 2025, bcutil-fips is 2.0 only, so no change there -->
-        <bouncycastle.fips.version>2.1.0</bouncycastle.fips.version>
+        <bouncycastle.fips.version>2.1.1</bouncycastle.fips.version>
         <bouncycastle.bcutil-fips.version>2.0.3</bouncycastle.bcutil-fips.version>
         <bouncycastle.tls-fips.version>2.0.19</bouncycastle.tls-fips.version>
         <bouncycastle.bcpkix-fips.version>2.0.8</bouncycastle.bcpkix-fips.version>
