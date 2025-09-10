@@ -93,7 +93,7 @@
         <mockito-all.version>1.10.19</mockito-all.version>
         <os-maven-plugin.version>1.7.0</os-maven-plugin.version>
         <jaxb.version>2.3.0</jaxb.version>
-        <netty.version>4.1.124.Final</netty.version>
+        <netty.version>4.1.125.Final</netty.version>
         <hamcrest.version>1.3</hamcrest.version>
         <!-- okio version to match ce-kafka 7.8.x -->
         <okio.version>3.7.0</okio.version>
