@@ -51,8 +51,8 @@
         <commons-io.version>2.16.0</commons-io.version>
         <commons-validator.version>1.10.0</commons-validator.version>
         <commons-beanutils.version>1.11.0</commons-beanutils.version>
-        <azure-identity.version>1.15.3</azure-identity.version>
-        <azure-storage.version>12.29.1</azure-storage.version>
+        <azure-identity.version>1.17.0</azure-identity.version>
+        <azure-storage.version>12.31.2/azure-storage.version>
         <classgraph.version>4.8.138</classgraph.version>
         <required.maven.version>3.2</required.maven.version>
         <kafka.version>7.7.0-ccs</kafka.version>
