@@ -55,8 +55,8 @@
         <commons-beanutils.version>1.11.0</commons-beanutils.version>
         <aws-java-sdk.version>1.12.746</aws-java-sdk.version>
         <aws-java-sdk-v2.version>2.21.44</aws-java-sdk-v2.version>
-        <azure-identity.version>1.15.3</azure-identity.version>
-        <azure-storage.version>12.29.1</azure-storage.version>
+        <azure-identity.version>1.17.0</azure-identity.version>
+        <azure-storage.version>12.31.2</azure-storage.version>
         <required.maven.version>3.2</required.maven.version>
         <kafka.version>[7.8.4-0-ccs, 7.8.5-0-ccs)</kafka.version>
         <ce.kafka.version>[7.8.4-0-ce, 7.8.5-0-ce)</ce.kafka.version>
