@@ -76,7 +76,7 @@
         <jose4j.version>0.9.6</jose4j.version>
         <grpc.version>1.75.0</grpc.version>
         <gson.version>2.9.0</gson.version>
-        <guava.version>32.0.1-jre</guava.version>
+        <guava.version>33.5.0-jre</guava.version>
         <jacoco-maven-plugin.version>0.8.13</jacoco-maven-plugin.version>
         <junit.version>4.13.2</junit.version>
         <junit.jupiter.version>5.8.2</junit.jupiter.version>
