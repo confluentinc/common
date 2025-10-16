@@ -95,7 +95,8 @@
         <mockito-all.version>1.10.19</mockito-all.version>
         <os-maven-plugin.version>1.7.0</os-maven-plugin.version>
         <jaxb.version>2.3.0</jaxb.version>
-        <netty.version>4.1.125.Final</netty.version>
+        <netty.version>4.1.128.Final</netty.version>
+        <nimbus-jose-jwt.version>10.0.2</nimbus-jose-jwt.version>
         <hamcrest.version>1.3</hamcrest.version>
         <!-- okio version to match ce-kafka 7.8.x -->
         <okio.version>3.7.0</okio.version>
@@ -111,15 +112,13 @@
         <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-reload4j/1.7.36 -->
         <reload4j.version>1.2.25</reload4j.version>
         <logredactor.version>1.0.13</logredactor.version>
-        <zkclient.version>0.11</zkclient.version>
-        <zookeeper.version>3.8.4</zookeeper.version>
-        <bouncycastle.jdk18.version>1.79</bouncycastle.jdk18.version>
+        <bouncycastle.jdk18.version>1.82</bouncycastle.jdk18.version>
         <!-- before updating bouncycastle.fips.version make sure
         that the library version you're updating to is FIPS certified e.g. 1.0.2.4 -> 1.0.2.5 is not OK -->
-        <bouncycastle.fips.version>2.0.0</bouncycastle.fips.version>
-        <bouncycastle.bcutil-fips.version>2.0.3</bouncycastle.bcutil-fips.version>
-        <bouncycastle.tls-fips.version>2.0.19</bouncycastle.tls-fips.version>
-        <bouncycastle.bcpkix-fips.version>2.0.8</bouncycastle.bcpkix-fips.version>
+        <bouncycastle.fips.version>2.1.0</bouncycastle.fips.version>
+        <bouncycastle.bcutil-fips.version>2.1.5</bouncycastle.bcutil-fips.version>
+        <bouncycastle.tls-fips.version>2.1.22</bouncycastle.tls-fips.version>
+        <bouncycastle.bcpkix-fips.version>2.1.10</bouncycastle.bcpkix-fips.version>
         <jmx_prometheus_javaagent.version>0.20.0</jmx_prometheus_javaagent.version>
         <jolokia-jvm.version>1.7.1</jolokia-jvm.version>
         <checkstyle.version>9.3</checkstyle.version>
@@ -361,54 +360,9 @@
                 <version>${slf4j.version}</version>
             </dependency>
             <dependency>
-                <groupId>org.apache.zookeeper</groupId>
-                <artifactId>zookeeper</artifactId>
-                <version>${zookeeper.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <groupId>org.slf4j</groupId>
-                        <artifactId>slf4j-log4j12</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>log4j</groupId>
-                        <artifactId>log4j</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>io.netty</groupId>
-                        <artifactId>netty-handler</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>io.netty</groupId>
-                        <artifactId>netty-transport-native-epoll</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>ch.qos.logback</groupId>
-                        <artifactId>logback-core</artifactId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>ch.qos.logback</groupId>
-                        <artifactId>logback-classic</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-            <dependency>
-                <groupId>com.101tec</groupId>
-                <artifactId>zkclient</artifactId>
-                <version>${zkclient.version}</version>
-                <exclusions>
-                    <exclusion>
-                        <artifactId>slf4j-log4j12</artifactId>
-                        <groupId>org.slf4j</groupId>
-                    </exclusion>
-                    <exclusion>
-                        <artifactId>log4j</artifactId>
-                        <groupId>log4j</groupId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>org.apache.zookeeper</groupId>
-                        <artifactId>zookeeper</artifactId>
-                    </exclusion>
-                </exclusions>
+                <groupId>com.nimbusds</groupId>
+                <artifactId>nimbus-jose-jwt</artifactId>
+                <version>${nimbus-jose-jwt.version}</version>
             </dependency>
             <dependency>
                 <groupId>javax.xml.bind</groupId>
