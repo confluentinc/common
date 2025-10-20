@@ -281,6 +281,7 @@
                 <artifactId>grpc-bom</artifactId>
                 <version>1.75.0</version>
                 <type>pom</type>
+                <scope>import</scope>
             </dependency>
             <!-- This is to match to okio version used in ce-flink / ce-kafka 7.8  -->
             <dependency>
