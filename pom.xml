@@ -56,8 +56,9 @@
         <commons-lang3.version>3.18.0</commons-lang3.version>
         <aws-java-sdk.version>1.12.746</aws-java-sdk.version>
         <aws-java-sdk-v2.version>2.29.39</aws-java-sdk-v2.version>
-        <azure-identity.version>1.15.3</azure-identity.version>
-        <azure-storage.version>12.29.1</azure-storage.version>
+        <azure-identity.version>1.17.0</azure-identity.version>
+        <azure-storage.version>12.31.2</azure-storage.version>
+        <httpclient5.version>5.4.4</httpclient5.version>
         <required.maven.version>3.2</required.maven.version>
         <kafka.version>8.0.2-ccs</kafka.version>
         <ce.kafka.version>8.0.2-ce</ce.kafka.version>
@@ -369,6 +370,12 @@
                 <groupId>com.azure</groupId>
                 <artifactId>azure-storage-blob</artifactId>
                 <version>${azure-storage.version}</version>
+            </dependency>
+            <!-- specify version of httpclient5 that is used in ce-kafka for compatibility in maven builds -->
+            <dependency>
+                <groupId>org.apache.httpcomponents.client5</groupId>
+                <artifactId>httpclient5</artifactId>
+                <version>${httpclient5.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.slf4j</groupId>
