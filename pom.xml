@@ -58,6 +58,7 @@
         <aws-java-sdk-v2.version>2.29.39</aws-java-sdk-v2.version>
         <azure-identity.version>1.17.0</azure-identity.version>
         <azure-storage.version>12.31.2</azure-storage.version>
+        <azure-security-keyvault-keys.version>4.10.3</azure-security-keyvault-keys.version>
         <httpclient5.version>5.4.4</httpclient5.version>
         <required.maven.version>3.2</required.maven.version>
         <kafka.version>[8.0.3-0-ccs, 8.0.4-0-ccs)</kafka.version>
@@ -363,6 +364,11 @@
                 <groupId>com.azure</groupId>
                 <artifactId>azure-storage-blob</artifactId>
                 <version>${azure-storage.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.azure</groupId>
+                <artifactId>azure-security-keyvault-keys</artifactId>
+                <version>${azure-security-keyvault-keys.version}</version>
             </dependency>
             <!-- specify version of httpclient5 that is used in ce-kafka for compatibility in maven builds -->
             <dependency>
