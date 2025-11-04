@@ -252,7 +252,7 @@
             </dependency>
             <!-- Unify version of commons-lang3 with ce-kafka, allow downstream repos to unpin -->
             <dependency>
-                <groupId>commons-lang3</groupId>
+                <groupId>org.apache.commons</groupId>
                 <artifactId>commons-lang3</artifactId>
                 <version>${commons-lang3.version}</version>
             </dependency>
