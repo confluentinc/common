@@ -75,7 +75,7 @@
         <guava.version>32.0.1-jre</guava.version>
         <jacoco-maven-plugin.version>0.8.7</jacoco-maven-plugin.version>
         <junit.version>4.13.2</junit.version>
-        <junit.jupiter.version>5.8.2</junit.jupiter.version>
+        <junit.jupiter.version>6.0.1</junit.jupiter.version>
         <kafka.scala.version>2.13</kafka.scala.version>
         <scala.version>2.13.10</scala.version>
         <maven-assembly.version>3.3.0</maven-assembly.version>
