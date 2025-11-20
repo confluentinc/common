@@ -119,7 +119,7 @@
         <bouncycastle.jdk18.version>1.82</bouncycastle.jdk18.version>
         <!-- before updating bouncycastle.fips.version make sure
         that the library version you're updating to is FIPS certified e.g. 1.0.2.4 -> 1.0.2.5 is not OK -->
-        <bouncycastle.fips.version>2.1.0</bouncycastle.fips.version>
+        <bouncycastle.fips.version>2.1.2</bouncycastle.fips.version>
         <bouncycastle.bcutil-fips.version>2.1.5</bouncycastle.bcutil-fips.version>
         <bouncycastle.tls-fips.version>2.1.22</bouncycastle.tls-fips.version>
         <bouncycastle.bcpkix-fips.version>2.1.10</bouncycastle.bcpkix-fips.version>
