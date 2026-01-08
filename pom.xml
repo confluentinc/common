@@ -109,7 +109,7 @@
         <!-- Potentially used by downstream projects -->
         <slf4j-api.version>${slf4j.version}</slf4j-api.version>
         <slf4j.version>1.7.36</slf4j.version>
-        <log4j2.version>2.24.3</log4j2.version>
+        <log4j2.version>2.25.3</log4j2.version>
         <slf4j-reload4j.version>1.7.36</slf4j-reload4j.version>
         <snakeyaml.version>2.0</snakeyaml.version>
         <snappy.version>1.1.10.7</snappy.version>
