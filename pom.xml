@@ -100,7 +100,7 @@
         <mockito-all.version>1.10.19</mockito-all.version>
         <os-maven-plugin.version>1.7.0</os-maven-plugin.version>
         <jaxb.version>2.3.0</jaxb.version>
-        <netty.version>4.1.129.Final</netty.version>
+        <netty.version>4.1.130.Final</netty.version>
         <hamcrest.version>1.3</hamcrest.version>
         <!-- okio version to match ce-kafka 7.8.x -->
         <okio.version>3.7.0</okio.version>
@@ -115,7 +115,7 @@
         <snappy.version>1.1.10.7</snappy.version>
         <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-reload4j/1.7.36 -->
         <reload4j.version>1.2.25</reload4j.version>
-        <logredactor.version>1.0.13</logredactor.version>
+        <logredactor.version>1.0.17</logredactor.version>
         <bouncycastle.jdk18.version>1.82</bouncycastle.jdk18.version>
         <!-- before updating bouncycastle.fips.version make sure
         that the library version you're updating to is FIPS certified e.g. 1.0.2.4 -> 1.0.2.5 is not OK -->
