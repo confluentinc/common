@@ -74,7 +74,7 @@
         <jakarta-websocket-api.version>2.2.0</jakarta-websocket-api.version>
         <jakarta-servlet-api.version>6.1.0</jakarta-servlet-api.version>
         <jetty.version>12.0.25</jetty.version>
-        <jose4j.version>0.9.5</jose4j.version>
+        <jose4j.version>0.9.6</jose4j.version>
         <grpc.version>1.75.0</grpc.version>
         <gson.version>2.9.0</gson.version>
         <guava.version>32.0.1-jre</guava.version>
@@ -115,7 +115,7 @@
         <snappy.version>1.1.10.5</snappy.version>
         <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-reload4j/1.7.36 -->
         <reload4j.version>1.2.25</reload4j.version>
-        <logredactor.version>1.0.13</logredactor.version>
+        <logredactor.version>1.0.17</logredactor.version>
         <bouncycastle.jdk18.version>1.83</bouncycastle.jdk18.version>
         <!-- before updating bouncycastle.fips.version make sure
         that the library version you're updating to is FIPS certified e.g. 1.0.2.4 -> 1.0.2.5 is not OK -->
