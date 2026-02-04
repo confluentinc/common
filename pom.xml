@@ -110,6 +110,7 @@
         <slf4j.version>1.7.36</slf4j.version>
         <log4j2.version>2.25.3</log4j2.version>
         <slf4j-reload4j.version>1.7.36</slf4j-reload4j.version>
+        <logback-core.version>1.5.27</logback-core.version>
         <snakeyaml.version>2.0</snakeyaml.version>
         <snappy.version>1.1.10.7</snappy.version>
         <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-reload4j/1.7.36 -->
@@ -236,8 +237,8 @@
               <artifactId>avro</artifactId>
               <version>${avro.version}</version>
             </dependency>
-            <!-- Pin the classgraph version to match version used in ce-kafka
-            the outadated version is brought by schema-registry transitive
+            <!-- Pin the classgraph version to match version used in ce-kafka.
+            The outadated version is brought by schema-registry transitive
             dependency mbknor-jackson -->
             <dependency>
                 <groupId>io.github.classgraph</groupId>
@@ -340,7 +341,7 @@
                 <version>${guava.version}</version>
             </dependency>
             <!-- we define aws-java-sdk azure-identity and azure-storage-blob
-            versions above, to match the versions in ce-kafka -->
+            versions, to match the versions in ce-kafka -->
             <dependency>
                 <groupId>com.amazonaws</groupId>
                 <artifactId>aws-java-sdk-bom</artifactId>
@@ -499,6 +500,14 @@
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-reload4j</artifactId>
                 <version>${slf4j-reload4j.version}</version>
+            </dependency>
+            <!-- add version definition of logback that is
+            a transitive dependency of ce-kafka -> resource manager
+            This is needed as maven brings back dependency excluded in bazel -->
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-core</artifactId>
+                <version>${logback-core.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.logging.log4j</groupId>
