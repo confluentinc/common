@@ -106,7 +106,9 @@ class CI:
             # When run from Jenkins there will be additional output included so we just get the last line of output.
             version = stdout.strip().splitlines()[-1]
             # Make sure we got a valid version back and the script didn't silently fail.
-            match_result = re.match("[0-9]*\\.[0-9]*\\.[0-9]*-[0-9]*-{}".format(print_method.lower()), version)
+            # The version format may include an optional nano version segment, e.g.:
+            #   8.3.0-570-ce (old format) or 8.3.0-641-0-ce (new format with nano version)
+            match_result = re.match("[0-9]*\\.[0-9]*\\.[0-9]*-[0-9]*(-[0-9]+)*-{}".format(print_method.lower()), version)
 
             if match_result:
                 log.info("Resolved the version range to version: {}".format(version))
