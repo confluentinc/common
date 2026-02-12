@@ -19,7 +19,7 @@ RESOLVER_PLUGIN_VERSION = "0.6.0"
 
 class CI:
 
-    def __init__(self, new_version, repo_path):
+    def __init__(self, new_version, repo_path, direct_pom_edit=False):
         """Initialize class variables"""
         # List of all the files that were modified by this script so the parent
         # script that runs this update can commit them.
@@ -28,6 +28,8 @@ class CI:
         self.new_version = new_version
         # The path the root of the repo so we can use full absolute paths
         self.repo_path = repo_path
+        # Use direct pom.xml editing instead of mvn versions:set-property.
+        self.direct_pom_edit = direct_pom_edit
 
     def run_update(self):
         """Update all the files with the new version"""
@@ -143,19 +145,51 @@ class CI:
 
     def set_property(self, property_name, property_value):
         """Update the project version property in the pom file.
-        Each property follows the format: io.confluent.<repo>.version
+
+        When --direct-pom-edit is passed to ci-tools ci-update-version, this
+        method directly edits the XML instead of invoking mvn versions:set-property
+        (which is extremely slow on multi-module projects due to dependency resolution).
         """
+        log.info("Setting the property {} to {}".format(property_name, property_value))
+
+        if self.direct_pom_edit:
+            self._set_property_direct(property_name, property_value)
+        else:
+            self._set_property_mvn(property_name, property_value)
+
+        log.info("Finished setting the property.")
+
+    def _set_property_mvn(self, property_name, property_value):
+        """Update a pom property using mvn versions:set-property."""
         cmd = "mvn --batch-mode versions:set-property "
         cmd += "-DgenerateBackupPoms=false "
         cmd += "-Dproperty={} ".format(property_name)
         cmd += "-DnewVersion={}".format(property_value)
-        log.info("Setting the property {} to {}".format(property_name, property_value))
 
-        if self.run_cmd(cmd):
-            log.info("Finished setting the property.")
-        else:
+        if not self.run_cmd(cmd):
             log.error("Failed to set the property.")
             sys.exit(1)
+
+    def _set_property_direct(self, property_name, property_value):
+        """Update a pom property by directly editing the XML file."""
+        pom_path = os.path.join(self.repo_path, "pom.xml")
+
+        with open(pom_path, 'r') as f:
+            content = f.read()
+
+        pattern = r'(<{0}>)[^<]*(</{0}>)'.format(re.escape(property_name))
+        new_content, count = re.subn(
+            pattern,
+            lambda m: m.group(1) + property_value + m.group(2),
+            content
+        )
+
+        if count == 0:
+            log.error("Failed to find property {} in pom.xml".format(property_name))
+            sys.exit(1)
+
+        with open(pom_path, 'w') as f:
+            f.write(new_content)
 
 
 if __name__ == '__main__':
