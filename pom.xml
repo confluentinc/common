@@ -152,6 +152,8 @@
         <docker.test-registry>${docker.upstream-registry}</docker.test-registry>  <!-- Registry for integration test dependencies -->
         <docker.test-tag>${docker.upstream-tag}</docker.test-tag>  <!-- Tag for integration test dependencies -->
         <dockerfile-maven-plugin.version>1.4.13</dockerfile-maven-plugin.version>
+        <!-- Since this property is used by docker-arm, default is arm-->
+        <docker.platforms>linux/arm64</docker.platforms>
         <!-- The name of the docker file to run. -->
         <docker.file>Dockerfile</docker.file>
         <!-- Pull the latest base image or use a local image. -->
@@ -1523,6 +1525,11 @@
                               <name>confluentinc/${project.artifactId}</name>
                               <registry>${docker.registry}</registry>
                               <build>
+                                <buildx>
+                                  <platforms>
+                                    <platform>${docker.platforms}</platform>
+                                  </platforms>
+                                </buildx>
                                 <args>
                                   <ARTIFACT_ID>${project.artifactId}</ARTIFACT_ID>
                                   <BUILD_NUMBER>${BUILD_NUMBER}</BUILD_NUMBER>
@@ -1550,6 +1557,8 @@
                                 <tags>
                                   <tag>${docker.tag}</tag>
                                 </tags>
+
+
                               </build>
                             </image>
                           </images>
