@@ -1391,12 +1391,14 @@
             </build>
         </profile>
         <profile>
-            <id>docker-arm</id>
+            <id>docker-fabric8</id>
 
             <properties>
                 <ALLOW_UNSIGNED>true</ALLOW_UNSIGNED>
                 <CONFLUENT_DEB_VERSION>unknown</CONFLUENT_DEB_VERSION>
                 <CONFLUENT_PLATFORM_LABEL>unknown</CONFLUENT_PLATFORM_LABEL>
+                <CONFLUENT_VERSION>unknown</CONFLUENT_VERSION>
+                <CONFLUENT_PACKAGES_REPO>unknown</CONFLUENT_PACKAGES_REPO>
             </properties>
 
             <build>
@@ -1520,8 +1522,7 @@
                         <configuration>
                           <images>
                             <image>
-                              <name>confluentinc/${project.artifactId}</name>
-                              <registry>${docker.registry}</registry>
+                              <name>${docker.registry}confluentinc/${project.artifactId}</name>
                               <build>
                                 <args>
                                   <ARTIFACT_ID>${project.artifactId}</ARTIFACT_ID>
@@ -1550,6 +1551,9 @@
                                 <tags>
                                   <tag>${docker.tag}</tag>
                                 </tags>
+                                <buildx>
+                                  <platforms>${docker.buildx.platforms}</platforms>
+                                </buildx>
                               </build>
                             </image>
                           </images>
