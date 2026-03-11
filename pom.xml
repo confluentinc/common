@@ -146,6 +146,7 @@
         <docker.skip-build>true</docker.skip-build>
         <docker.skip-test>true</docker.skip-test>
         <docker.registry>placeholder/</docker.registry>  <!-- Registry for this build. Must specify a value, or exec plugin throws NPE :((( -->
+        <docker.image.registry>${docker.registry}</docker.image.registry>  <!-- Custom property for fabric8 image naming. Avoids fabric8's built-in docker.registry pull interference (see docker-fabric8 profile). -->
         <docker.tag>${project.version}</docker.tag>  <!-- Tag for this build -->
         <docker.upstream-registry>${docker.registry}</docker.upstream-registry>  <!-- Registry for base images -->
         <docker.upstream-tag>${docker.tag}</docker.upstream-tag>  <!-- Tag for base images -->
@@ -1391,12 +1392,19 @@
             </build>
         </profile>
         <profile>
-            <id>docker-arm</id>
+            <id>docker-fabric8</id>
 
             <properties>
+                <!-- Override docker.registry to docker.io so fabric8 pulls unqualified base images
+                     (e.g. golang:...) from Docker Hub instead of placeholder/. fabric8 skips prepending
+                     for images that already have a registry (e.g. registry.access.redhat.com/...). -->
+                <docker.registry>docker.io</docker.registry>
+                <docker.image.registry>placeholder/</docker.image.registry>
                 <ALLOW_UNSIGNED>true</ALLOW_UNSIGNED>
                 <CONFLUENT_DEB_VERSION>unknown</CONFLUENT_DEB_VERSION>
                 <CONFLUENT_PLATFORM_LABEL>unknown</CONFLUENT_PLATFORM_LABEL>
+                <CONFLUENT_VERSION>unknown</CONFLUENT_VERSION>
+                <CONFLUENT_PACKAGES_REPO>unknown</CONFLUENT_PACKAGES_REPO>
             </properties>
 
             <build>
@@ -1479,7 +1487,7 @@
                                     <skip>${docker.skip-test}</skip>
                                     <environmentVariables>
                                         <TOX_TESTENV_PASSENV>DOCKER_REGISTRY DOCKER_TAG DOCKER_TEST_REGISTRY DOCKER_TEST_TAG DOCKER_HOST</TOX_TESTENV_PASSENV>
-                                        <DOCKER_REGISTRY>${docker.registry}</DOCKER_REGISTRY>
+                                        <DOCKER_REGISTRY>${docker.image.registry}</DOCKER_REGISTRY>
                                         <DOCKER_TAG>${docker.tag}</DOCKER_TAG>
                                         <DOCKER_TEST_REGISTRY>${docker.test-registry}</DOCKER_TEST_REGISTRY>
                                         <DOCKER_TEST_TAG>${docker.test-tag}</DOCKER_TEST_TAG>
@@ -1520,13 +1528,12 @@
                         <configuration>
                           <images>
                             <image>
-                              <name>confluentinc/${project.artifactId}</name>
-                              <registry>${docker.registry}</registry>
+                              <name>${docker.image.registry}confluentinc/${project.artifactId}</name>
                               <build>
                                 <args>
                                   <ARTIFACT_ID>${project.artifactId}</ARTIFACT_ID>
                                   <BUILD_NUMBER>${BUILD_NUMBER}</BUILD_NUMBER>
-                                  <DOCKER_REGISTRY>${docker.registry}</DOCKER_REGISTRY>
+                                  <DOCKER_REGISTRY>${docker.image.registry}</DOCKER_REGISTRY>
                                   <DOCKER_TAG>${docker.tag}</DOCKER_TAG>
                                   <DOCKER_UPSTREAM_REGISTRY>${docker.upstream-registry}
                                   </DOCKER_UPSTREAM_REGISTRY>
@@ -1550,6 +1557,9 @@
                                 <tags>
                                   <tag>${docker.tag}</tag>
                                 </tags>
+                                <buildx>
+                                  <platforms>${docker.buildx.platforms}</platforms>
+                                </buildx>
                               </build>
                             </image>
                           </images>
