@@ -38,6 +38,7 @@ blocks:
         - name: Test
           commands:
             - ci-sem-pint
+            - uv tool upgrade confluent-devtools
             - echo "=== CI Tools Version ===" && uv tool list | grep -i devtools && echo "==="
             # Temporarily override to test forward fix for 2-segment versions
             - export SEMAPHORE_GIT_REF_TYPE=branch && git fetch --tags -q && ci-tools ci-update-version --direct-pom-edit
