@@ -47,7 +47,7 @@
         <!--jacoco prepare-agent needs argLine defined to set this variable. if we don't have a default set then maven gets angry.-->
         <argLine></argLine>
         <avro.version>1.12.1</avro.version>
-        <classgraph.version>4.8.138</classgraph.version>
+        <classgraph.version>4.8.179</classgraph.version>
         <commons-io.version>2.16.0</commons-io.version>
         <commons-codec.version>1.16.1</commons-codec.version>
         <commons-compress.version>1.26.1</commons-compress.version>
@@ -63,7 +63,7 @@
         <required.maven.version>3.2</required.maven.version>
         <kafka.version>[8.0.4-0-ccs, 8.0.5-0-ccs)</kafka.version>
         <ce.kafka.version>[8.0.4-0-ce, 8.0.5-0-ce)</ce.kafka.version>
-        <easymock.version>5.2.0</easymock.version>
+        <easymock.version>5.6.0</easymock.version>
         <!-- keep exec-maven-plugin on 1.5.0 until https://github.com/mojohaus/exec-maven-plugin/issues/76 is fixed
              running our LicenseFinder plugin in create-licenses-for-docker breaks when upgrading to 1.6.0 -->
         <exec-maven-plugin.version>1.5.0</exec-maven-plugin.version>
@@ -112,7 +112,7 @@
         <slf4j-reload4j.version>1.7.36</slf4j-reload4j.version>
         <logback-core.version>1.5.27</logback-core.version>
         <snakeyaml.version>2.0</snakeyaml.version>
-        <snappy.version>1.1.10.5</snappy.version>
+        <snappy.version>1.1.10.7</snappy.version>
         <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-reload4j/1.7.36 -->
         <reload4j.version>1.2.25</reload4j.version>
         <logredactor.version>1.0.17</logredactor.version>
