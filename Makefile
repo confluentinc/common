@@ -66,7 +66,13 @@ export PREFIX
 export SYSCONFDIR
 export SKIP_TESTS
 
-MVN_SETTINGS=-Dskip.maven.resolver.plugin=true -Dcustom.install.phase=none -Dcustom.deploy.phase=none
+# Multi-arch POC: Add TARGET_ARCH support for building architecture-specific RPMs
+ifndef TARGET_ARCH
+TARGET_ARCH := x86_64
+endif
+export TARGET_ARCH
+
+MVN_SETTINGS=-Dskip.maven.resolver.plugin=true -Dcustom.install.phase=none -Dcustom.deploy.phase=none -Dtarget.arch=$(TARGET_ARCH)
 
 all: install
 
@@ -119,8 +125,8 @@ ifneq ($(RPM_RELEASE_POSTFIX),)
 endif
 
 rpm: RPM_BUILDING/SOURCES/$(PACKAGE_TITLE)-$(RPM_VERSION).tar.gz
-	echo "Building the rpm"
-	rpmbuild --define="_topdir `pwd`/RPM_BUILDING" -tb $<
+	echo "Building the rpm for architecture: $(TARGET_ARCH)"
+	rpmbuild --target $(TARGET_ARCH) --define="_topdir `pwd`/RPM_BUILDING" -tb $<
 	find RPM_BUILDING/{,S}RPMS/ -type f | xargs -n1 -iXXX mv XXX .
 	echo
 	echo "================================================="
