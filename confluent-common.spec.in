@@ -18,6 +18,7 @@ Provides: confluent-common = %{version}-%{release}
 
 Confluent Common provides shared utilities for Java projects.
 
+%define debug_package %{nil}
 %define __jar_repack %{nil}
 
 %pre
