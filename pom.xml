@@ -1556,6 +1556,7 @@
                                   <tag>${docker.tag}</tag>
                                 </tags>
                                 <buildx>
+                                  <builderName>default</builderName>
                                   <platforms>${docker.buildx.platforms}</platforms>
                                 </buildx>
                               </build>
