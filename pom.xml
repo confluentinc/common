@@ -63,7 +63,7 @@
         <required.maven.version>3.2</required.maven.version>
         <kafka.version>[8.3.0-0-ccs, 8.3.1-0-ccs)</kafka.version>
         <ce.kafka.version>[8.3.0-0-ce, 8.3.1-0-ce)</ce.kafka.version>
-        <easymock.version>5.2.0</easymock.version>
+        <easymock.version>5.6.0</easymock.version>
         <!-- keep exec-maven-plugin on 1.5.0 until https://github.com/mojohaus/exec-maven-plugin/issues/76 is fixed
              running our LicenseFinder plugin in create-licenses-for-docker breaks when upgrading to 1.6.0 -->
         <exec-maven-plugin.version>1.5.0</exec-maven-plugin.version>
@@ -117,7 +117,7 @@
         <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-reload4j/1.7.36 -->
         <reload4j.version>1.2.25</reload4j.version>
         <logredactor.version>1.0.17</logredactor.version>
-        <bouncycastle.jdk18.version>1.82</bouncycastle.jdk18.version>
+        <bouncycastle.jdk18.version>1.84</bouncycastle.jdk18.version>
         <!-- before updating bouncycastle.fips.version make sure
         that the library version you're updating to is FIPS certified e.g. 1.0.2.4 -> 1.0.2.5 is not OK -->
         <!-- BC should be upated to version 2.0 in Q1 2025, bcutil-fips is 2.0 only, so no change there -->
