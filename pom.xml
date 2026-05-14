@@ -315,6 +315,7 @@
                 <groupId>org.eclipse.jetty</groupId>
                 <artifactId>jetty-bom</artifactId>
                 <version>${jetty.version}</version>
+                <scope>import</scope>
             </dependency>
             <!-- snappy-java is brought in by kafka-clients and its version is specified
             in ce-kafka -->
