@@ -116,7 +116,7 @@
         <snappy.version>1.1.10.8</snappy.version>
         <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-reload4j/1.7.36 -->
         <reload4j.version>1.2.25</reload4j.version>
-        <logredactor.version>1.0.17</logredactor.version>
+        <logredactor.version>1.0.18</logredactor.version>
         <bouncycastle.jdk18.version>1.84</bouncycastle.jdk18.version>
         <!-- before updating bouncycastle.fips.version make sure
         that the library version you're updating to is FIPS certified e.g. 1.0.2.4 -> 1.0.2.5 is not OK -->
