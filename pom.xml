@@ -52,6 +52,7 @@
         <commons-codec.version>1.16.1</commons-codec.version>
         <commons-compress.version>1.28.0</commons-compress.version>
         <commons-validator.version>1.10.1</commons-validator.version>
+        <confluent-common-bom.version>0.1.0</confluent-common-bom.version>
         <commons-beanutils.version>1.11.0</commons-beanutils.version>
         <commons-lang3.version>3.18.0</commons-lang3.version>
         <aws-java-sdk.version>1.12.746</aws-java-sdk.version>
@@ -231,19 +232,22 @@
 
     <dependencyManagement>
         <dependencies>
+            <!-- confluent-common-bom centrally manages versions for classgraph, commons-codec,
+                 commons-compress, commons-validator, grpc-bom (re-exported), gson, jose4j,
+                 okio, okio-jvm, and snakeyaml. The corresponding version properties above
+                 are kept for downstream CP repos that reference them directly. -->
+            <dependency>
+                <groupId>io.confluent</groupId>
+                <artifactId>confluent-common-bom</artifactId>
+                <version>${confluent-common-bom.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
             <!-- our deps-->
             <dependency>
               <groupId>org.apache.avro</groupId>
               <artifactId>avro</artifactId>
               <version>${avro.version}</version>
-            </dependency>
-            <!-- Pin the classgraph version to match version used in ce-kafka.
-            The outadated version is brought by schema-registry transitive
-            dependency mbknor-jackson -->
-            <dependency>
-                <groupId>io.github.classgraph</groupId>
-                <artifactId>classgraph</artifactId>
-                <version>${classgraph.version}</version>
             </dependency>
             <!-- Unify version of commons-io with ce-kafka, allow downstream repos to unpin -->
             <dependency>
@@ -263,52 +267,11 @@
                 <artifactId>commons-beanutils</artifactId>
                 <version>${commons-beanutils.version}</version>
             </dependency>
-            <dependency>
-                <groupId>commons-codec</groupId>
-                <artifactId>commons-codec</artifactId>
-                <version>${commons-codec.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.commons</groupId>
-                <artifactId>commons-compress</artifactId>
-                <version>${commons-compress.version}</version>
-            </dependency>
-            <!-- Unify version of commons-validator with ce-kafka, allow downstream repos to unpin -->
-            <dependency>
-                <groupId>commons-validator</groupId>
-                <artifactId>commons-validator</artifactId>
-                <version>${commons-validator.version}</version>
-            </dependency>
-            <!-- Unify version of grpc-version with ce-kafka, allow downstream repos to unpin -->
-            <dependency>
-                <groupId>io.grpc</groupId>
-                <artifactId>grpc-bom</artifactId>
-                <version>1.75.0</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            <!-- This is to match to okio version used in ce-flink / ce-kafka 7.8  -->
-            <dependency>
-                <groupId>com.squareup.okio</groupId>
-                <artifactId>okio-jvm</artifactId>
-                <version>${okio.version}</version>
-            </dependency>
             <!-- This is to unify the version of Protocol Buffers across CP -->
             <dependency>
                 <groupId>com.google.protobuf</groupId>
                 <artifactId>protobuf-java</artifactId>
                 <version>${protobuf.version}</version>
-            </dependency>
-            <!-- snakeyaml is brought in by several confluent libraries
-                 as "provided" dependency, thus leading to usage of
-                 outdated versions. This instructs projects using this pom
-                 to use this snakeyaml version, unless otherwise overriden.
-                 After this change, we should remove all the snakeyaml re-definitions
-                 in other Confluent repositories. -->
-            <dependency>
-                <groupId>org.yaml</groupId>
-                <artifactId>snakeyaml</artifactId>
-                <version>${snakeyaml.version}</version>
             </dependency>
             <!-- Jetty BOM for Jetty 12 -->
             <dependency>
@@ -324,13 +287,6 @@
                 <groupId>org.xerial.snappy</groupId>
                 <artifactId>snappy-java</artifactId>
                 <version>${snappy.version}</version>
-            </dependency>
-            <!-- jose4j is used in ce-kafka and its version is specified
-            in ce-kafka, this is for maven projects to use the correct version -->
-            <dependency>
-                <groupId>org.bitbucket.b_c</groupId>
-                <artifactId>jose4j</artifactId>
-                <version>${jose4j.version}</version>
             </dependency>
             <!-- we define guava version above, its version is specified
             in ce-kafka, this is for maven projects to use the correct version -->
@@ -422,12 +378,6 @@
                 <artifactId>bcutil-fips</artifactId>
                 <version>${bouncycastle.bcutil-fips.version}</version>
             </dependency>
-            <dependency>
-                <groupId>com.google.code.gson</groupId>
-                <artifactId>gson</artifactId>
-                <version>${gson.version}</version>
-            </dependency>
-
             <!-- Jackson artifacts with individual versioning -->
             <dependency>
               <groupId>com.fasterxml.jackson</groupId>
