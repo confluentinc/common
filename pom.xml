@@ -485,6 +485,13 @@
                 <artifactId>guava</artifactId>
                 <version>${guava.version}</version>
             </dependency>
+            <!-- ce-kafka brings transitive dependency plexus-utils via maven-artifacts, pin here
+            remove the pin after ce-kafka updates maven-artifacts  -->
+            <dependency>
+                <groupId>org.codehaus.plexus</groupId>
+                <artifactId>plexus-utils</artifactId>
+                <version>4.0.3</version>
+            </dependency>
             <!-- we define aws-java-sdk azure-identity and azure-storage-blob
             versions above, to match the versions in ce-kafka -->
             <dependency>
