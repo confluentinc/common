@@ -16,7 +16,7 @@ fail_fast:
     when: "true"
 
 execution_time_limit:
-  hours: 1
+  minutes: 90
 
 queue:
   - when: "branch != 'master' and branch !~ '[0-9]+\\.[0-9]+\\.x'"
@@ -34,7 +34,7 @@ blocks:
     dependencies: []
     run:
       # don't run the tests on non-functional changes...
-      when: "change_in('/', {exclude: ['/.deployed-versions/', '.github/', 'service.yml', 'README.md'], default_branch: 'master'})"
+      when: "change_in('/', {exclude: ['/.deployed-versions/', '/.github/', '/service.yml', '/README.md'], default_branch: 'master'})"
     task:
       jobs:
         - name: Test
