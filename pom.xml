@@ -52,7 +52,7 @@
         <commons-codec.version>1.16.1</commons-codec.version>
         <commons-compress.version>1.28.0</commons-compress.version>
         <commons-validator.version>1.10.1</commons-validator.version>
-        <confluent-common-bom.version>0.1.0</confluent-common-bom.version>
+        <confluent-common-bom.version>0.1.1</confluent-common-bom.version>
         <commons-beanutils.version>1.11.0</commons-beanutils.version>
         <commons-lang3.version>3.18.0</commons-lang3.version>
         <aws-java-sdk.version>1.12.746</aws-java-sdk.version>
