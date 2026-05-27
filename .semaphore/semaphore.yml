@@ -60,8 +60,8 @@ blocks:
           commands:
             - ci-tools ci-update-version --direct-pom-edit
             - ci-tools ci-push-tag
-            - mvn -Pjenkins -U -Dmaven.wagon.http.retryHandler.count=10 --batch-mode 
-              -DaltDeploymentRepository=confluent-codeartifact-internal::default::https://confluent-519856050701.d.codeartifact.us-west-2.amazonaws.com/maven/maven-snapshots/ 
+            - mvn -Pjenkins -U -Dmaven.wagon.http.retryHandler.count=10 --batch-mode
+              -DaltDeploymentRepository=confluent-codeartifact-internal::default::https://confluent-519856050701.d.codeartifact.us-west-2.amazonaws.com/maven/maven-snapshots/
               -DrepositoryId=confluent-codeartifact-internal deploy -DskipTests
   - name: CP Jar Build CI Gating
     dependencies: []
@@ -115,7 +115,6 @@ after_pipeline:
             if [[ -z "$SEMAPHORE_GIT_PR_BRANCH" ]] && [[ "$SEMAPHORE_PIPELINE_RESULT" == "passed" ]]; then
               sem-trigger -p rest-utils -b $SEMAPHORE_GIT_BRANCH -f .semaphore/semaphore.yml
               sem-trigger -p ksql -b $SEMAPHORE_GIT_BRANCH -f .semaphore/semaphore.yml
-              sem-trigger -p newwave -b $SEMAPHORE_GIT_BRANCH -f .semaphore/semaphore.yml
               sem-trigger -p kafka-connect-replicator -b $SEMAPHORE_GIT_BRANCH -f .semaphore/semaphore.yml
               sem-trigger -p hub-client -b $SEMAPHORE_GIT_BRANCH -f .semaphore/semaphore.yml
             fi
