@@ -576,6 +576,15 @@
                 <version>${spotbugs.version}</version>
                 <scope>provided</scope>
             </dependency>
+            <!-- CPBR-3642: LGPL-2.1 findbugs annotations are compile-time only and pulled
+                 transitively (jackson-datatype-protobuf). Force provided so they are not
+                 bundled into shipped packages. -->
+            <dependency>
+                <groupId>com.google.code.findbugs</groupId>
+                <artifactId>annotations</artifactId>
+                <version>3.0.1</version>
+                <scope>provided</scope>
+            </dependency>
             <dependency>
                 <groupId>org.bouncycastle</groupId>
                 <artifactId>bcpkix-jdk18on</artifactId>
