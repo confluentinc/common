@@ -24,7 +24,7 @@
     <groupId>io.confluent</groupId>
     <artifactId>common-parent</artifactId>
     <packaging>pom</packaging>
-    <version>8.3.1-0</version>
+    <version>8.4.0-0</version>
     <name>common</name>
     <organization>
         <name>Confluent, Inc.</name>
@@ -59,11 +59,11 @@
         <aws-java-sdk-v2.version>2.29.39</aws-java-sdk-v2.version>
         <azure-identity.version>1.17.0</azure-identity.version>
         <azure-storage.version>12.31.2</azure-storage.version>
-        <azure-security-keyvault-keys.version>4.10.3</azure-security-keyvault-keys.version>
+        <azure-security-keyvault-keys.version>4.10.6</azure-security-keyvault-keys.version>
         <httpclient5.version>5.4.4</httpclient5.version>
         <required.maven.version>3.2</required.maven.version>
-        <kafka.version>[8.3.1-0-0-ccs, 8.3.2-0-0-ccs)</kafka.version>
-        <ce.kafka.version>[8.3.1-0-0-ce, 8.3.2-0-0-ce)</ce.kafka.version>
+        <kafka.version>[8.4.0-0-0-ccs, 8.4.1-0-0-ccs)</kafka.version>
+        <ce.kafka.version>[8.4.0-0-0-ce, 8.4.1-0-0-ce)</ce.kafka.version>
         <easymock.version>5.6.0</easymock.version>
         <!-- keep exec-maven-plugin on 1.5.0 until https://github.com/mojohaus/exec-maven-plugin/issues/76 is fixed
              running our LicenseFinder plugin in create-licenses-for-docker breaks when upgrading to 1.6.0 -->
@@ -112,7 +112,7 @@
         <slf4j.version>1.7.36</slf4j.version>
         <log4j2.version>2.25.4</log4j2.version>
         <slf4j-reload4j.version>1.7.36</slf4j-reload4j.version>
-        <logback-core.version>1.5.27</logback-core.version>
+        <logback-core.version>1.5.36</logback-core.version>
         <snakeyaml.version>2.6</snakeyaml.version>
         <snappy.version>1.1.10.8</snappy.version>
         <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-reload4j/1.7.36 -->
@@ -159,7 +159,7 @@
         <docker.pull-image>false</docker.pull-image>
         <docker.imagePullPolicy>IfNotPresent</docker.imagePullPolicy>
         <dependency.check.skip>true</dependency.check.skip>
-        <io.confluent.common.version>8.3.1-0</io.confluent.common.version>
+        <io.confluent.common.version>8.4.0-0</io.confluent.common.version>
         <!-- This is a version of the pom file that we install and deploy because
             the kafka and ce-kafka version ranges are resolved.
         -->
@@ -169,7 +169,7 @@
             resolving the version of ccs and ce kafka. This property should
             never be used any where else.
         -->
-        <confluent.version.range>[8.3.1-0, 8.3.2-0)</confluent.version.range>
+        <confluent.version.range>[8.4.0-0, 8.4.1-0)</confluent.version.range>
         <!-- This is the version range used by resolver-maven-plugin to resolve the
             version of ccs and ce-kafka. This allowed this property to be overridden
             through cmd lines.
@@ -585,6 +585,19 @@
                 <artifactId>kafka-clients</artifactId>
                 <version>${kafka.version}</version>
                 <classifier>test</classifier>
+                <scope>test</scope>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.slf4j</groupId>
+                        <artifactId>slf4j-log4j12</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.kafka</groupId>
+                <artifactId>kafka-clients</artifactId>
+                <version>${kafka.version}</version>
+                <classifier>test-fixtures</classifier>
                 <scope>test</scope>
                 <exclusions>
                     <exclusion>
