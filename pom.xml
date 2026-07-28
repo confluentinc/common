@@ -48,7 +48,7 @@
         <argLine></argLine>
         <avro.version>1.12.1</avro.version>
         <commons-io.version>2.20.0</commons-io.version>
-        <confluent-common-bom.version>0.1.2</confluent-common-bom.version>
+        <confluent-common-bom.version>0.1.4</confluent-common-bom.version>
         <commons-beanutils.version>1.11.0</commons-beanutils.version>
         <commons-lang3.version>3.18.0</commons-lang3.version>
         <aws-java-sdk.version>1.12.746</aws-java-sdk.version>
@@ -103,7 +103,7 @@
         <!-- Potentially used by downstream projects -->
         <slf4j-api.version>${slf4j.version}</slf4j-api.version>
         <slf4j.version>1.7.36</slf4j.version>
-        <log4j2.version>2.25.4</log4j2.version>
+        <log4j2.version>2.25.5</log4j2.version>
         <slf4j-reload4j.version>1.7.36</slf4j-reload4j.version>
         <logback-core.version>1.5.36</logback-core.version>
         <snappy.version>1.1.10.8</snappy.version>
@@ -238,12 +238,6 @@
               <artifactId>avro</artifactId>
               <version>${avro.version}</version>
             </dependency>
-            <!-- Unify version of commons-io with ce-kafka, allow downstream repos to unpin -->
-            <dependency>
-                <groupId>commons-io</groupId>
-                <artifactId>commons-io</artifactId>
-                <version>${commons-io.version}</version>
-            </dependency>
             <!-- Unify version of commons-lang3 with ce-kafka, allow downstream repos to unpin -->
             <dependency>
                 <groupId>org.apache.commons</groupId>
@@ -256,12 +250,6 @@
                 <artifactId>commons-beanutils</artifactId>
                 <version>${commons-beanutils.version}</version>
             </dependency>
-            <!-- This is to unify the version of Protocol Buffers across CP -->
-            <dependency>
-                <groupId>com.google.protobuf</groupId>
-                <artifactId>protobuf-java</artifactId>
-                <version>${protobuf.version}</version>
-            </dependency>
             <!-- Jetty BOM for Jetty 12 -->
             <dependency>
                 <groupId>org.eclipse.jetty</groupId>
@@ -270,26 +258,12 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-            <!-- snappy-java is brought in by kafka-clients and its version is specified
-            in ce-kafka -->
-            <dependency>
-                <groupId>org.xerial.snappy</groupId>
-                <artifactId>snappy-java</artifactId>
-                <version>${snappy.version}</version>
-            </dependency>
             <!-- we define guava version above, its version is specified
             in ce-kafka, this is for maven projects to use the correct version -->
             <dependency>
                 <groupId>com.google.guava</groupId>
                 <artifactId>guava</artifactId>
                 <version>${guava.version}</version>
-            </dependency>
-            <!-- ce-kafka brings transitive dependency plexus-utils via maven-artifacts, pin here
-            remove the pin after ce-kafka updates maven-artifacts  -->
-            <dependency>
-                <groupId>org.codehaus.plexus</groupId>
-                <artifactId>plexus-utils</artifactId>
-                <version>4.0.3</version>
             </dependency>
             <!-- we define aws-java-sdk azure-identity and azure-storage-blob
             versions, to match the versions in ce-kafka -->
@@ -322,12 +296,6 @@
                 <artifactId>azure-security-keyvault-keys</artifactId>
                 <version>${azure-security-keyvault-keys.version}</version>
             </dependency>
-            <!-- specify version of httpclient5 that is used in ce-kafka for compatibility in maven builds -->
-            <dependency>
-                <groupId>org.apache.httpcomponents.client5</groupId>
-                <artifactId>httpclient5</artifactId>
-                <version>${httpclient5.version}</version>
-            </dependency>
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-api</artifactId>
@@ -343,36 +311,6 @@
                 <artifactId>spotbugs-annotations</artifactId>
                 <version>${spotbugs.version}</version>
                 <scope>provided</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.bouncycastle</groupId>
-                <artifactId>bcpkix-jdk18on</artifactId>
-                <version>${bouncycastle.jdk18.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.bouncycastle</groupId>
-                <artifactId>bcprov-jdk18on</artifactId>
-                <version>${bouncycastle.jdk18.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.bouncycastle</groupId>
-                <artifactId>bc-fips</artifactId>
-                <version>${bouncycastle.fips.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.bouncycastle</groupId>
-                <artifactId>bctls-fips</artifactId>
-                <version>${bouncycastle.tls-fips.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.bouncycastle</groupId>
-                <artifactId>bcpkix-fips</artifactId>
-                <version>${bouncycastle.bcpkix-fips.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.bouncycastle</groupId>
-                <artifactId>bcutil-fips</artifactId>
-                <version>${bouncycastle.bcutil-fips.version}</version>
             </dependency>
             <!-- Jackson artifacts with individual versioning -->
             <dependency>
@@ -446,14 +384,6 @@
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-reload4j</artifactId>
                 <version>${slf4j-reload4j.version}</version>
-            </dependency>
-            <!-- add version definition of logback that is
-            a transitive dependency of ce-kafka -> resource manager
-            This is needed as maven brings back dependency excluded in bazel -->
-            <dependency>
-                <groupId>ch.qos.logback</groupId>
-                <artifactId>logback-core</artifactId>
-                <version>${logback-core.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.logging.log4j</groupId>
