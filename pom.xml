@@ -92,12 +92,6 @@
         <maven-project-info-reports-plugin.version>3.1.1</maven-project-info-reports-plugin.version>
         <mbknor-jackson-jsonschema.version>1.0.39</mbknor-jackson-jsonschema.version>
         <buildnumber-plugin.version>1.4</buildnumber-plugin.version>
-        <!-- Deliberately left at 4.6.1, below the 5.23.0 confluent-common-bom manages.
-             Nothing here uses it, but rest-utils, ksql, and kafka-connect-elasticsearch
-             inherit this property and pin mockito against it directly. Moving it to 5.x
-             needs rest-utils and kafka-connect-elasticsearch to drop mockito-inline
-             first: that artifact stops at 5.2.0, since Mockito 5 makes the inline mock
-             maker the default. -->
         <mockito.version>4.6.1</mockito.version>
         <mockito-all.version>1.10.19</mockito-all.version>
         <os-maven-plugin.version>1.7.0</os-maven-plugin.version>
@@ -451,6 +445,13 @@
                 <artifactId>powermock-api-mockito2</artifactId>
                 <version>${powermock.version}</version>
                 <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-bom</artifactId>
+                <version>${mockito.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
             </dependency>
             <dependency>
                 <groupId>org.mockito</groupId>
