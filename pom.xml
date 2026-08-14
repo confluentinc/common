@@ -48,7 +48,7 @@
         <argLine></argLine>
         <avro.version>1.12.1</avro.version>
         <commons-io.version>2.20.0</commons-io.version>
-        <confluent-common-bom.version>0.1.6</confluent-common-bom.version>
+        <confluent-common-bom.version>0.1.7</confluent-common-bom.version>
         <commons-beanutils.version>1.11.0</commons-beanutils.version>
         <commons-lang3.version>3.18.0</commons-lang3.version>
         <aws-java-sdk.version>1.12.746</aws-java-sdk.version>
@@ -92,6 +92,9 @@
         <maven-project-info-reports-plugin.version>3.1.1</maven-project-info-reports-plugin.version>
         <mbknor-jackson-jsonschema.version>1.0.39</mbknor-jackson-jsonschema.version>
         <buildnumber-plugin.version>1.4</buildnumber-plugin.version>
+        <!-- Unused here now that confluent-common-bom manages mockito-core and
+             mockito-junit-jupiter, but inherited by downstream repos (rest-utils,
+             parallel-consumer, ksql) that reference ${mockito.version} directly. -->
         <mockito.version>4.6.1</mockito.version>
         <mockito-all.version>1.10.19</mockito-all.version>
         <os-maven-plugin.version>1.7.0</os-maven-plugin.version>
@@ -445,13 +448,6 @@
                 <artifactId>powermock-api-mockito2</artifactId>
                 <version>${powermock.version}</version>
                 <scope>test</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.mockito</groupId>
-                <artifactId>mockito-bom</artifactId>
-                <version>${mockito.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
             </dependency>
             <dependency>
                 <groupId>org.mockito</groupId>
