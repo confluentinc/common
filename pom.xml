@@ -48,7 +48,7 @@
         <argLine></argLine>
         <avro.version>1.12.1</avro.version>
         <commons-io.version>2.20.0</commons-io.version>
-        <confluent-common-bom.version>0.1.6</confluent-common-bom.version>
+        <confluent-common-bom.version>0.1.7</confluent-common-bom.version>
         <commons-beanutils.version>1.11.0</commons-beanutils.version>
         <commons-lang3.version>3.18.0</commons-lang3.version>
         <aws-java-sdk.version>1.12.746</aws-java-sdk.version>
