@@ -69,6 +69,7 @@
         <java.version>11</java.version>
         <jackson.version>2.22.1</jackson.version>
         <jackson.annotations.version>2.22</jackson.annotations.version>
+        <jackson.tools.jackson.version>3.2.2</jackson.tools.jackson.version>
         <jakarta-websocket-api.version>2.2.0</jakarta-websocket-api.version>
         <jakarta-servlet-api.version>6.1.0</jakarta-servlet-api.version>
         <jetty.version>12.0.37</jetty.version>
@@ -231,6 +232,11 @@
                 <version>${confluent-common-bom.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>tools.jackson.core</groupId>
+                <artifactId>jackson-databind</artifactId>
+                <version>${jackson.tools.jackson.version}</version>
             </dependency>
             <!-- our deps-->
             <dependency>
