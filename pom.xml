@@ -48,7 +48,7 @@
         <argLine></argLine>
         <avro.version>1.12.1</avro.version>
         <commons-io.version>2.20.0</commons-io.version>
-        <confluent-common-bom.version>0.1.8</confluent-common-bom.version>
+        <confluent-common-bom.version>0.1.9</confluent-common-bom.version>
         <commons-beanutils.version>1.11.0</commons-beanutils.version>
         <commons-lang3.version>3.20.0</commons-lang3.version>
         <aws-java-sdk.version>1.12.797</aws-java-sdk.version>
@@ -56,7 +56,7 @@
         <azure-identity.version>1.18.4</azure-identity.version>
         <azure-storage.version>12.35.0</azure-storage.version>
         <azure-security-keyvault-keys.version>4.11.1</azure-security-keyvault-keys.version>
-        <httpclient5.version>5.4.4</httpclient5.version>
+        <httpclient5.version>5.6.4</httpclient5.version>
         <required.maven.version>3.2</required.maven.version>
         <kafka.version>[8.5.0-0-0-ccs, 8.5.1-0-0-ccs)</kafka.version>
         <ce.kafka.version>[8.5.0-0-0-ce, 8.5.1-0-0-ce)</ce.kafka.version>
