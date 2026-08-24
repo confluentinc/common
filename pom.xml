@@ -46,13 +46,13 @@
     <properties>
         <!--jacoco prepare-agent needs argLine defined to set this variable. if we don't have a default set then maven gets angry.-->
         <argLine></argLine>
-        <avro.version>1.12.1</avro.version>
+        <avro.version>1.12.2</avro.version>
         <commons-io.version>2.20.0</commons-io.version>
-        <confluent-common-bom.version>0.1.9</confluent-common-bom.version>
+        <confluent-common-bom.version>0.1.10</confluent-common-bom.version>
         <commons-beanutils.version>1.11.0</commons-beanutils.version>
         <commons-lang3.version>3.20.0</commons-lang3.version>
         <aws-java-sdk.version>1.12.797</aws-java-sdk.version>
-        <aws-java-sdk-v2.version>2.52.1</aws-java-sdk-v2.version>
+        <aws-java-sdk-v2.version>2.53.1</aws-java-sdk-v2.version>
         <azure-identity.version>1.18.4</azure-identity.version>
         <azure-storage.version>12.35.0</azure-storage.version>
         <azure-security-keyvault-keys.version>4.11.1</azure-security-keyvault-keys.version>
