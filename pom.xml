@@ -48,9 +48,8 @@
         <argLine></argLine>
         <avro.version>1.12.1</avro.version>
         <commons-io.version>2.20.0</commons-io.version>
-        <confluent-common-bom.version>0.1.9</confluent-common-bom.version>
+        <confluent-common-bom.version>0.1.10</confluent-common-bom.version>
         <commons-beanutils.version>1.11.0</commons-beanutils.version>
-        <commons-lang3.version>3.18.0</commons-lang3.version>
         <aws-java-sdk.version>1.12.746</aws-java-sdk.version>
         <aws-java-sdk-v2.version>2.29.39</aws-java-sdk-v2.version>
         <azure-identity.version>1.17.0</azure-identity.version>
@@ -243,12 +242,6 @@
               <groupId>org.apache.avro</groupId>
               <artifactId>avro</artifactId>
               <version>${avro.version}</version>
-            </dependency>
-            <!-- Unify version of commons-lang3 with ce-kafka, allow downstream repos to unpin -->
-            <dependency>
-                <groupId>org.apache.commons</groupId>
-                <artifactId>commons-lang3</artifactId>
-                <version>${commons-lang3.version}</version>
             </dependency>
             <!-- Pin version of commons-beanutils as it is used transitively not only by commons-validator -->
             <dependency>
