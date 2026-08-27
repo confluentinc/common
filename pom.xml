@@ -291,6 +291,7 @@
                 <groupId>com.squareup.okio</groupId>
                 <artifactId>okio-jvm</artifactId>
                 <version>${okio.version}</version>
+            </dependency>
             <!-- OpenTelemetry version override -->
             <dependency>
                 <groupId>io.opentelemetry</groupId>
