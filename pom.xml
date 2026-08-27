@@ -48,8 +48,7 @@
         <argLine></argLine>
         <avro.version>1.12.2</avro.version>
         <commons-io.version>2.20.0</commons-io.version>
-        <confluent-common-bom.version>0.1.11</confluent-common-bom.version>
-        <commons-beanutils.version>1.11.0</commons-beanutils.version>
+        <confluent-common-bom.version>0.1.12</confluent-common-bom.version>
         <aws-java-sdk.version>1.12.746</aws-java-sdk.version>
         <aws-java-sdk-v2.version>2.29.39</aws-java-sdk-v2.version>
         <azure-identity.version>1.17.0</azure-identity.version>
@@ -92,7 +91,7 @@
         <maven-project-info-reports-plugin.version>3.1.1</maven-project-info-reports-plugin.version>
         <mbknor-jackson-jsonschema.version>1.0.39</mbknor-jackson-jsonschema.version>
         <buildnumber-plugin.version>1.4</buildnumber-plugin.version>
-        <mockito.version>4.6.1</mockito.version>
+        <mockito.version>5.23.0</mockito.version>
         <mockito-all.version>1.10.19</mockito-all.version>
         <os-maven-plugin.version>1.7.0</os-maven-plugin.version>
         <jaxb.version>2.3.0</jaxb.version>
@@ -247,12 +246,6 @@
                 <scope>import</scope>
             </dependency>
             <!-- our deps-->
-            <!-- Pin version of commons-beanutils as it is used transitively not only by commons-validator -->
-            <dependency>
-                <groupId>commons-beanutils</groupId>
-                <artifactId>commons-beanutils</artifactId>
-                <version>${commons-beanutils.version}</version>
-            </dependency>
             <!-- we define guava version above, its version is specified
             in ce-kafka, this is for maven projects to use the correct version -->
             <dependency>
