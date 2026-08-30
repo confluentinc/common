@@ -79,7 +79,7 @@
         <junit.version>4.13.2</junit.version>
         <junit.jupiter.version>5.14.4</junit.jupiter.version>
         <kafka.scala.version>2.13</kafka.scala.version>
-        <scala.version>2.13.18</scala.version>
+        <scala.version>3.8.4</scala.version>
         <maven-assembly.version>3.8.0</maven-assembly.version>
         <maven-compiler-plugin.version>3.15.0</maven-compiler-plugin.version>
         <maven-dependency-plugin.version>3.11.0</maven-dependency-plugin.version>
