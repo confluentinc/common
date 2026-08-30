@@ -48,23 +48,23 @@
         <argLine></argLine>
         <avro.version>1.12.2</avro.version>
         <commons-io.version>2.20.0</commons-io.version>
-        <confluent-common-bom.version>0.1.10</confluent-common-bom.version>
+        <confluent-common-bom.version>0.1.12</confluent-common-bom.version>
         <commons-beanutils.version>1.11.0</commons-beanutils.version>
         <aws-java-sdk.version>1.12.797</aws-java-sdk.version>
-        <aws-java-sdk-v2.version>2.53.1</aws-java-sdk-v2.version>
+        <aws-java-sdk-v2.version>2.54.1</aws-java-sdk-v2.version>
         <azure-identity.version>1.18.4</azure-identity.version>
-        <azure-storage.version>12.35.0</azure-storage.version>
-        <azure-security-keyvault-keys.version>4.11.1</azure-security-keyvault-keys.version>
+        <azure-storage.version>12.35.1</azure-storage.version>
+        <azure-security-keyvault-keys.version>4.11.2</azure-security-keyvault-keys.version>
         <httpclient5.version>5.6.4</httpclient5.version>
         <required.maven.version>3.2</required.maven.version>
         <kafka.version>[8.5.0-0-0-ccs, 8.5.1-0-0-ccs)</kafka.version>
         <ce.kafka.version>[8.5.0-0-0-ce, 8.5.1-0-0-ce)</ce.kafka.version>
-        <easymock.version>5.6.0</easymock.version>
+        <easymock.version>5.7.0</easymock.version>
         <!-- keep exec-maven-plugin on 1.5.0 until https://github.com/mojohaus/exec-maven-plugin/issues/76 is fixed
              running our LicenseFinder plugin in create-licenses-for-docker breaks when upgrading to 1.6.0 -->
         <exec-maven-plugin.version>1.6.0</exec-maven-plugin.version>
-        <spotbugs.version>4.10.3</spotbugs.version>
-        <spotbugs.maven.plugin.version>4.10.3.0</spotbugs.maven.plugin.version>
+        <spotbugs.version>4.10.4</spotbugs.version>
+        <spotbugs.maven.plugin.version>4.10.4.0</spotbugs.maven.plugin.version>
         <java.version>11</java.version>
         <jackson.version>2.22.1</jackson.version>
         <jackson.annotations.version>2.22</jackson.annotations.version>
