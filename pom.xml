@@ -99,6 +99,7 @@
         <jaxb.version>2.3.0</jaxb.version>
         <netty.version>4.1.137.Final</netty.version>
         <hamcrest.version>1.3</hamcrest.version>
+        <opentelemetry.version>1.65.0</opentelemetry.version>
         <protobuf.version>4.34.0</protobuf.version>
         <powermock.version>2.0.9</powermock.version>
         <!-- Potentially used by downstream projects -->
@@ -230,6 +231,14 @@
                 <groupId>io.confluent</groupId>
                 <artifactId>confluent-common-bom</artifactId>
                 <version>${confluent-common-bom.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <!-- OpenTelemetry version override -->
+            <dependency>
+                <groupId>io.opentelemetry</groupId>
+                <artifactId>opentelemetry-bom</artifactId>
+                <version>${opentelemetry.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
