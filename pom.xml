@@ -119,7 +119,11 @@
         <bouncycastle.bcutil-fips.version>2.1.5</bouncycastle.bcutil-fips.version>
         <bouncycastle.tls-fips.version>2.1.22</bouncycastle.tls-fips.version>
         <bouncycastle.bcpkix-fips.version>2.1.10</bouncycastle.bcpkix-fips.version>
-        <jmx_prometheus_javaagent.version>0.20.0</jmx_prometheus_javaagent.version>
+        <!-- jmx_exporter stopped publishing to Maven Central after 1.0.1 - versions >=1.1.0
+             must be fetched directly from GitHub Releases instead, e.g.:
+             https://github.com/prometheus/jmx_exporter/releases/download/${jmx_prometheus_javaagent.version}/jmx_prometheus_javaagent-${jmx_prometheus_javaagent.version}.jar
+             (see common-docker's base-java/Dockerfile.ubi9 for the curl-fetch + sha256-verify pattern) -->
+        <jmx_prometheus_javaagent.version>1.6.0</jmx_prometheus_javaagent.version>
         <jolokia-jvm.version>1.7.1</jolokia-jvm.version>
         <checkstyle.version>9.3</checkstyle.version>
         <maven-checkstyle-plugin.version>3.1.2</maven-checkstyle-plugin.version>
