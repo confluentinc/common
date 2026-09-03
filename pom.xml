@@ -48,11 +48,11 @@
         <argLine></argLine>
         <avro.version>1.12.2</avro.version>
         <commons-io.version>2.20.0</commons-io.version>
-        <confluent-common-bom.version>0.1.12</confluent-common-bom.version>
+        <confluent-common-bom.version>0.1.13</confluent-common-bom.version>
         <commons-beanutils.version>1.11.0</commons-beanutils.version>
         <aws-java-sdk.version>1.12.797</aws-java-sdk.version>
-        <aws-java-sdk-v2.version>2.54.2</aws-java-sdk-v2.version>
-        <azure-identity.version>1.18.4</azure-identity.version>
+        <aws-java-sdk-v2.version>2.54.5</aws-java-sdk-v2.version>
+        <azure-identity.version>1.18.5</azure-identity.version>
         <azure-storage.version>12.35.1</azure-storage.version>
         <azure-security-keyvault-keys.version>4.11.2</azure-security-keyvault-keys.version>
         <httpclient5.version>5.6.4</httpclient5.version>
