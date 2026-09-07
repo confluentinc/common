@@ -24,7 +24,7 @@
     <groupId>io.confluent</groupId>
     <artifactId>common-parent</artifactId>
     <packaging>pom</packaging>
-    <version>8.3.2-0</version>
+    <version>8.4.0-0</version>
     <name>common</name>
     <organization>
         <name>Confluent, Inc.</name>
@@ -57,8 +57,8 @@
         <azure-security-keyvault-keys.version>4.10.7</azure-security-keyvault-keys.version>
         <httpclient5.version>5.6.4</httpclient5.version>
         <required.maven.version>3.2</required.maven.version>
-        <kafka.version>[8.3.2-0-0-ccs, 8.3.3-0-0-ccs)</kafka.version>
-        <ce.kafka.version>[8.3.2-0-0-ce, 8.3.3-0-0-ce)</ce.kafka.version>
+        <kafka.version>[8.4.0-0-0-ccs, 8.4.1-0-0-ccs)</kafka.version>
+        <ce.kafka.version>[8.4.0-0-0-ce, 8.4.1-0-0-ce)</ce.kafka.version>
         <!-- keep exec-maven-plugin on 1.5.0 until https://github.com/mojohaus/exec-maven-plugin/issues/76 is fixed
              running our LicenseFinder plugin in create-licenses-for-docker breaks when upgrading to 1.6.0 -->
         <exec-maven-plugin.version>1.5.0</exec-maven-plugin.version>
@@ -118,7 +118,10 @@
         <bouncycastle.bcutil-fips.version>2.1.5</bouncycastle.bcutil-fips.version>
         <bouncycastle.tls-fips.version>2.1.22</bouncycastle.tls-fips.version>
         <bouncycastle.bcpkix-fips.version>2.1.10</bouncycastle.bcpkix-fips.version>
-        <jmx_prometheus_javaagent.version>0.20.0</jmx_prometheus_javaagent.version>
+        <!-- jmx_prometheus_javaagent is GitHub Releases-only for >=1.1.0 (Maven Central stopped after 1.0.1).
+             Fetch: github.com/prometheus/jmx_exporter/releases/download/<version>/jmx_prometheus_javaagent-<version>.jar
+             (curl-fetch + sha256-verify pattern: common-docker's base-java/Dockerfile.ubi9). -->
+        <jmx_prometheus_javaagent.version>1.6.0</jmx_prometheus_javaagent.version>
         <jolokia-jvm.version>1.7.1</jolokia-jvm.version>
         <checkstyle.version>9.3</checkstyle.version>
         <maven-checkstyle-plugin.version>3.1.2</maven-checkstyle-plugin.version>
@@ -151,7 +154,7 @@
         <docker.pull-image>false</docker.pull-image>
         <docker.imagePullPolicy>IfNotPresent</docker.imagePullPolicy>
         <dependency.check.skip>true</dependency.check.skip>
-        <io.confluent.common.version>8.3.2-0</io.confluent.common.version>
+        <io.confluent.common.version>8.4.0-0</io.confluent.common.version>
         <!-- This is a version of the pom file that we install and deploy because
             the kafka and ce-kafka version ranges are resolved.
         -->
@@ -161,7 +164,7 @@
             resolving the version of ccs and ce kafka. This property should
             never be used any where else.
         -->
-        <confluent.version.range>[8.3.2-0, 8.3.3-0)</confluent.version.range>
+        <confluent.version.range>[8.4.0-0, 8.4.1-0)</confluent.version.range>
         <!-- This is the version range used by resolver-maven-plugin to resolve the
             version of ccs and ce-kafka. This allowed this property to be overridden
             through cmd lines.
@@ -485,6 +488,19 @@
                 <artifactId>kafka-clients</artifactId>
                 <version>${kafka.version}</version>
                 <classifier>test</classifier>
+                <scope>test</scope>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.slf4j</groupId>
+                        <artifactId>slf4j-log4j12</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.kafka</groupId>
+                <artifactId>kafka-clients</artifactId>
+                <version>${kafka.version}</version>
+                <classifier>test-fixtures</classifier>
                 <scope>test</scope>
                 <exclusions>
                     <exclusion>
