@@ -60,9 +60,10 @@
         <kafka.version>[8.5.0-0-0-ccs, 8.5.1-0-0-ccs)</kafka.version>
         <ce.kafka.version>[8.5.0-0-0-ce, 8.5.1-0-0-ce)</ce.kafka.version>
         <easymock.version>5.7.0</easymock.version>
-        <!-- keep exec-maven-plugin on 1.5.0 until https://github.com/mojohaus/exec-maven-plugin/issues/76 is fixed
-             running our LicenseFinder plugin in create-licenses-for-docker breaks when upgrading to 1.6.0 -->
-        <exec-maven-plugin.version>1.6.0</exec-maven-plugin.version>
+        <!-- https://github.com/mojohaus/exec-maven-plugin/issues/76 (running our LicenseFinder plugin in
+             create-licenses-for-docker breaks under 1.6.0's includePluginDependencies handling) is fixed
+             as of 3.1.0; do not downgrade below that. -->
+        <exec-maven-plugin.version>3.6.3</exec-maven-plugin.version>
         <spotbugs.version>4.10.4</spotbugs.version>
         <spotbugs.maven.plugin.version>4.10.4.0</spotbugs.maven.plugin.version>
         <java.version>11</java.version>
