@@ -51,7 +51,7 @@
         <confluent-common-bom.version>0.1.13</confluent-common-bom.version>
         <commons-beanutils.version>1.11.0</commons-beanutils.version>
         <aws-java-sdk.version>1.12.797</aws-java-sdk.version>
-        <aws-java-sdk-v2.version>2.54.5</aws-java-sdk-v2.version>
+        <aws-java-sdk-v2.version>2.54.9</aws-java-sdk-v2.version>
         <azure-identity.version>1.18.5</azure-identity.version>
         <azure-storage.version>12.35.1</azure-storage.version>
         <azure-security-keyvault-keys.version>4.11.2</azure-security-keyvault-keys.version>
