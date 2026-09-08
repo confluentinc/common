@@ -49,7 +49,6 @@
         <avro.version>1.12.2</avro.version>
         <commons-io.version>2.20.0</commons-io.version>
         <confluent-common-bom.version>0.1.13</confluent-common-bom.version>
-        <commons-beanutils.version>1.11.0</commons-beanutils.version>
         <aws-java-sdk.version>1.12.797</aws-java-sdk.version>
         <aws-java-sdk-v2.version>2.54.5</aws-java-sdk-v2.version>
         <azure-identity.version>1.18.5</azure-identity.version>
@@ -249,17 +248,6 @@
                 <scope>import</scope>
             </dependency>
             <!-- our deps-->
-            <dependency>
-              <groupId>org.apache.avro</groupId>
-              <artifactId>avro</artifactId>
-              <version>${avro.version}</version>
-            </dependency>
-            <!-- Pin version of commons-beanutils as it is used transitively not only by commons-validator -->
-            <dependency>
-                <groupId>commons-beanutils</groupId>
-                <artifactId>commons-beanutils</artifactId>
-                <version>${commons-beanutils.version}</version>
-            </dependency>
             <!-- we define guava version above, its version is specified
             in ce-kafka, this is for maven projects to use the correct version -->
             <dependency>
