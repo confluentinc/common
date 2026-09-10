@@ -70,7 +70,7 @@
         <jakarta-servlet-api.version>6.1.0</jakarta-servlet-api.version>
         <jetty.version>12.0.37</jetty.version>
         <jose4j.version>0.9.6</jose4j.version>
-        <guava.version>32.1.3-jre</guava.version>
+        <guava.version>33.7.1-jre</guava.version>
         <jacoco-maven-plugin.version>0.8.15</jacoco-maven-plugin.version>
         <junit.version>4.13.2</junit.version>
         <junit.jupiter.version>5.14.4</junit.jupiter.version>
