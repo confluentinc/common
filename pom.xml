@@ -293,12 +293,6 @@
                 <artifactId>jaxb-api</artifactId>
                 <version>${jaxb.version}</version>
             </dependency>
-            <dependency>
-                <groupId>com.github.spotbugs</groupId>
-                <artifactId>spotbugs-annotations</artifactId>
-                <version>4.10.4</version>
-                <scope>provided</scope>
-            </dependency>
             <!-- We fix the scala version to prevent downstream projects from bringing in
             different minor versions of Scala via different dependencies -->
             <dependency>
