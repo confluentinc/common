@@ -46,7 +46,6 @@
     <properties>
         <!--jacoco prepare-agent needs argLine defined to set this variable. if we don't have a default set then maven gets angry.-->
         <argLine></argLine>
-        <avro.version>1.12.2</avro.version>
         <commons-io.version>2.20.0</commons-io.version>
         <confluent-common-bom.version>0.1.13</confluent-common-bom.version>
         <aws-java-sdk.version>1.12.797</aws-java-sdk.version>
