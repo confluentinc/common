@@ -5,6 +5,8 @@ codeowners:
   enable: true
 semaphore:
   enable: true
+  execution_time_limit:
+    minutes: 90
   run_pint_merge: true
   pipeline_type: cp
   nano_version: true
