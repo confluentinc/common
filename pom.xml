@@ -261,9 +261,6 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-            <!-- azure-sdk-bom centralizes Azure SDK versions; ce-kafka pins the
-            same set of versions this resolves to (azure-core 1.58.1, azure-identity
-            1.18.4, azure-storage-blob 12.35.0, azure-security-keyvault-keys 4.11.1) -->
             <dependency>
                 <groupId>com.azure</groupId>
                 <artifactId>azure-sdk-bom</artifactId>
