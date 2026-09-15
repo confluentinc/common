@@ -51,9 +51,7 @@
         <confluent-common-bom.version>0.1.13</confluent-common-bom.version>
         <aws-java-sdk.version>1.12.746</aws-java-sdk.version>
         <aws-java-sdk-v2.version>2.29.39</aws-java-sdk-v2.version>
-        <azure-identity.version>1.17.0</azure-identity.version>
-        <azure-storage.version>12.31.2</azure-storage.version>
-        <azure-security-keyvault-keys.version>4.10.7</azure-security-keyvault-keys.version>
+        <azure-sdk-bom.version>1.3.8</azure-sdk-bom.version>
         <required.maven.version>3.2</required.maven.version>
         <kafka.version>[8.0.8-0-ccs, 8.0.9-0-ccs)</kafka.version>
         <ce.kafka.version>[8.0.8-0-ce, 8.0.9-0-ce)</ce.kafka.version>
@@ -249,8 +247,6 @@
                 <artifactId>guava</artifactId>
                 <version>${guava.version}</version>
             </dependency>
-            <!-- we define aws-java-sdk azure-identity and azure-storage-blob
-            versions, to match the versions in ce-kafka -->
             <dependency>
                 <groupId>com.amazonaws</groupId>
                 <artifactId>aws-java-sdk-bom</artifactId>
@@ -267,18 +263,10 @@
             </dependency>
             <dependency>
                 <groupId>com.azure</groupId>
-                <artifactId>azure-identity</artifactId>
-                <version>${azure-identity.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.azure</groupId>
-                <artifactId>azure-storage-blob</artifactId>
-                <version>${azure-storage.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.azure</groupId>
-                <artifactId>azure-security-keyvault-keys</artifactId>
-                <version>${azure-security-keyvault-keys.version}</version>
+                <artifactId>azure-sdk-bom</artifactId>
+                <version>${azure-sdk-bom.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
             </dependency>
             <dependency>
                 <groupId>org.slf4j</groupId>
