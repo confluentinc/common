@@ -48,10 +48,9 @@
         <argLine></argLine>
         <avro.version>1.12.2</avro.version>
         <commons-io.version>2.20.0</commons-io.version>
-        <confluent-common-bom.version>0.1.13</confluent-common-bom.version>
+        <confluent-common-bom.version>0.3.0</confluent-common-bom.version>
         <aws-java-sdk.version>1.12.746</aws-java-sdk.version>
         <aws-java-sdk-v2.version>2.29.39</aws-java-sdk-v2.version>
-        <azure-sdk-bom.version>1.3.8</azure-sdk-bom.version>
         <required.maven.version>3.2</required.maven.version>
         <kafka.version>[8.0.8-0-ccs, 8.0.9-0-ccs)</kafka.version>
         <ce.kafka.version>[8.0.8-0-ce, 8.0.9-0-ce)</ce.kafka.version>
@@ -258,13 +257,6 @@
                 <groupId>software.amazon.awssdk</groupId>
                 <artifactId>bom</artifactId>
                 <version>${aws-java-sdk-v2.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            <dependency>
-                <groupId>com.azure</groupId>
-                <artifactId>azure-sdk-bom</artifactId>
-                <version>${azure-sdk-bom.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
