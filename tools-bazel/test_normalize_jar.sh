@@ -17,7 +17,6 @@ printf 'Created-By: Bazel\nManifest-Version: 1.0\nBuild-Jdk: 17.0.9\n'        > 
 printf 'junk\n' > "$TMP/a/META-INF/maven/io.confluent/common-utils/pom.xml"
 
 ( cd "$TMP/a" && zip -q -X -D -r "$TMP/a.jar" . )
-sleep 2   # ensure zip timestamps differ
 ( cd "$TMP/b" && zip -q -X -D -r "$TMP/b.jar" . )
 
 HA="$("$NORM" "$TMP/a.jar")"; HB="$("$NORM" "$TMP/b.jar")"

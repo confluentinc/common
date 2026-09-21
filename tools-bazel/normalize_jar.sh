@@ -9,6 +9,16 @@
 set -euo pipefail
 JAR="$1"
 WORK="$(mktemp -d)"; trap 'rm -rf "$WORK"' EXIT
+
+# Portable sha256: GNU coreutils `sha256sum` (Linux/CI) or `shasum -a 256`
+# (a stock macOS ships shasum, not sha256sum). Both print "<hash>  <name>".
+_sha256() {
+  if command -v sha256sum >/dev/null 2>&1; then
+    sha256sum "$@"
+  else
+    shasum -a 256 "$@"
+  fi
+}
 unzip -q -o "$JAR" -d "$WORK"
 
 # Drop Maven-injected metadata.
@@ -24,5 +34,5 @@ fi
 
 # Digest: "relpath  sha256(content)" for every file, sorted, then hash the list.
 ( cd "$WORK" && find . -type f | LC_ALL=C sort | while read -r f; do
-    printf '%s  %s\n' "${f#./}" "$(sha256sum "$f" | cut -d' ' -f1)"
-  done ) | sha256sum | cut -d' ' -f1
+    printf '%s  %s\n' "${f#./}" "$(_sha256 "$f" | cut -d' ' -f1)"
+  done ) | _sha256 | cut -d' ' -f1
