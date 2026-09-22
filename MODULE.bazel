@@ -9,6 +9,7 @@ bazel_dep(name = "aspect_bazel_lib", version = "2.22.2")
 bazel_dep(name = "contrib_rules_jvm", version = "0.31.1")  # java_junit5_test + java_export
 bazel_dep(name = "buildifier_prebuilt", version = "8.2.1.2")
 bazel_dep(name = "aspect_rules_lint", version = "2.3.0")  # format_multirun / lint (Phase 6)
+bazel_dep(name = "rules_shell", version = "0.6.1")  # sh_test for the parity-harness self-test
 
 # rules_jvm_external: use Confluent's FORK — upstream lacks POM <exclusion> support
 # that CP poms need (DP-14496/97). Commit pinned to the one a live CP repo

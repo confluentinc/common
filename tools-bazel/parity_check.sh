@@ -16,7 +16,10 @@
 # sign); real signature/provenance parity is verified in CI.
 #
 # Prints exactly one final line: `RESULT: PASS|FAIL|BASELINE-UNAVAILABLE <coords>`
-# (exit 0 for PASS/BASELINE-UNAVAILABLE, non-zero for FAIL).
+# (exit 0 for PASS/BASELINE-UNAVAILABLE, non-zero for FAIL). Exception: a CLI
+# usage error (unknown/missing argument) exits 2 with NO RESULT line — it fails
+# before any parity work, so there are no <coords> to report; callers must treat
+# exit 2 as "bad invocation", distinct from a parity FAIL.
 #
 # Usage:
 #   parity_check.sh --coordinates io.confluent:rest-utils:8.5.0-0 \
@@ -163,6 +166,20 @@ echo "-- POM coordinate + dependency diff (Maven < > Bazel) --"
 extract_coords "$MVN_POM" > "$WORK/mvn.pom" || { echo "RESULT: FAIL $COORDS"; exit 1; }
 extract_coords "$BZL_POM" > "$WORK/bzl.pom" || { echo "RESULT: FAIL $COORDS"; exit 1; }
 echo "   expected coordinates: $COORDS"
+
+# Assert BOTH POMs actually publish the requested G:A:V. Diffing the two POMs
+# against each other is not enough: they could agree on the same WRONG artifactId
+# or version and still "match". $COORDS is G:A:V; extract_coords emits a
+# "coords: <groupId> <artifactId> <version>" line.
+EXPECT_COORDS_LINE="coords: $(echo "$COORDS" | awk -F: '{print $1, $2, $3}')"
+for side in mvn bzl; do
+  if ! grep -Fxq "$EXPECT_COORDS_LINE" "$WORK/$side.pom"; then
+    echo "!! $side POM coordinates do not match requested $COORDS" >&2
+    echo "   expected: $EXPECT_COORDS_LINE" >&2
+    echo "   got:      $(grep '^coords:' "$WORK/$side.pom" || echo '<none>')" >&2
+    echo "RESULT: FAIL $COORDS"; exit 1
+  fi
+done
 
 # Allowlisted, non-failing POM deltas (documented in the spec):
 #  1) java_export emits <scope>runtime</scope> where Maven emits compile —

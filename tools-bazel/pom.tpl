@@ -15,8 +15,8 @@
     <url>https://www.confluent.io/</url>
     <licenses>
         <license>
-            <name>Confluent Community License</name>
-            <url>https://www.confluent.io/confluent-community-license</url>
+            <name>Apache License 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
             <distribution>repo</distribution>
         </license>
     </licenses>

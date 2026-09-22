@@ -27,7 +27,7 @@ rm -rf "$WORK/META-INF/maven"
 # Normalize the manifest: strip volatile lines, sort the remainder.
 MF="$WORK/META-INF/MANIFEST.MF"
 if [ -f "$MF" ]; then
-  grep -avE '^(Build-Jdk|Build-Jdk-Spec|Created-By|Built-By|Bnd-LastModified|Tool|Archiver-Version):' "$MF" \
+  grep -avE '^(Build-Jdk|Build-Jdk-Spec|Created-By|Built-By|Bnd-LastModified|Tool|Archiver-Version|Commit-ID):' "$MF" \
     | sed '/^[[:space:]]*$/d' | LC_ALL=C sort > "$MF.norm"
   mv "$MF.norm" "$MF"
 fi
