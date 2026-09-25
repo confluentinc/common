@@ -48,7 +48,7 @@
         <argLine></argLine>
         <avro.version>1.12.2</avro.version>
         <commons-io.version>2.20.0</commons-io.version>
-        <confluent-common-bom.version>0.1.13</confluent-common-bom.version>
+        <confluent-common-bom.version>1.1.0</confluent-common-bom.version>
         <aws-java-sdk.version>1.12.797</aws-java-sdk.version>
         <aws-java-sdk-v2.version>2.54.11</aws-java-sdk-v2.version>
         <azure-identity.version>1.18.6</azure-identity.version>
