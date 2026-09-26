@@ -118,13 +118,13 @@
         <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-reload4j/1.7.36 -->
         <reload4j.version>1.2.25</reload4j.version>
         <logredactor.version>1.0.17</logredactor.version>
-        <bouncycastle.jdk18.version>1.84</bouncycastle.jdk18.version>
+        <bouncycastle.jdk18.version>1.86</bouncycastle.jdk18.version>
         <!-- before updating bouncycastle.fips.version make sure
         that the library version you're updating to is FIPS certified e.g. 1.0.2.4 -> 1.0.2.5 is not OK -->
-        <bouncycastle.fips.version>2.1.2</bouncycastle.fips.version>
-        <bouncycastle.bcutil-fips.version>2.1.6</bouncycastle.bcutil-fips.version>
-        <bouncycastle.tls-fips.version>2.1.23</bouncycastle.tls-fips.version>
-        <bouncycastle.bcpkix-fips.version>2.1.11</bouncycastle.bcpkix-fips.version>
+        <bouncycastle.fips.version>2.1.3</bouncycastle.fips.version>
+        <bouncycastle.bcutil-fips.version>2.1.7</bouncycastle.bcutil-fips.version>
+        <bouncycastle.tls-fips.version>2.1.24</bouncycastle.tls-fips.version>
+        <bouncycastle.bcpkix-fips.version>2.1.12</bouncycastle.bcpkix-fips.version>
         <jmx_prometheus_javaagent.version>0.20.0</jmx_prometheus_javaagent.version>
         <jolokia-jvm.version>1.7.1</jolokia-jvm.version>
         <checkstyle.version>9.3</checkstyle.version>
