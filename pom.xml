@@ -70,7 +70,7 @@
         <spotbugs.version>4.9.3</spotbugs.version>
         <spotbugs.maven.plugin.version>4.9.3.0</spotbugs.maven.plugin.version>
         <java.version>11</java.version>
-        <jackson.version>2.18.10</jackson.version>
+        <jackson.version>2.18.11</jackson.version>
         <jackson.tools.jackson.version>3.2.2</jackson.tools.jackson.version>
         <jakarta-websocket-api.version>2.2.0</jakarta-websocket-api.version>
         <jakarta-servlet-api.version>6.1.0</jakarta-servlet-api.version>
