@@ -1,0 +1,43 @@
+# try-import (NOT hard import) so a fresh checkout / not-yet-generated preset
+# file doesn't FATAL before `bazel run //:update_bazelrc` generates it. The
+# generator keeps these lines idempotently.
+try-import %workspace%/.bazel/bazelrc/common.bazelrc
+try-import %workspace%/.bazel/bazelrc/java.bazelrc
+try-import %workspace%/.bazel/bazelrc/ci.bazelrc
+
+common --enable_bzlmod
+common --define maven_version=0.0.0  # local placeholder; .bazelrc.release-version / CI --define overrides it (Phase 5)
+
+# Match the repo's Maven bytecode target (Phase-0 audit: java.version=11). The
+# java preset ships java11/java17/java21 groups; select java11.
+# Output bytecode stays Java 11 (downstream consumers depend on the level), but
+# tests/tools RUN on JDK 17: the kafka connect-* deps (8.5.0-*-ccs) are compiled
+# to Java 17 bytecode, so a JDK 11 runtime throws UnsupportedClassVersionError
+# loading them. --java_language_version pins the -release target; the runtime
+# JDK does not change the emitted bytecode version.
+build --java_language_version=11
+build --java_runtime_version=remotejdk_17
+build --tool_java_language_version=11
+build --tool_java_runtime_version=remotejdk_17
+
+# Error Prone was never enabled under the Maven build; the default Bazel Java
+# toolchain runs its checks as ERROR. Demote to warnings so the Bazel build
+# matches Maven's behavior without changing source during the migration. Does
+# NOT relax Bazel's strict-deps checking. (Latent findings like
+# [StringBuilderInitWithChar] in metrics Histogram are flagged for follow-up in
+# the PR, not fixed here — a migration must preserve behavior.)
+build --javacopt=-XepAllErrorsAsWarnings
+
+# Default read-only remote cache (writes happen only from trusted CI). The
+# --noremote_upload_local_results line ENFORCES read-only client-side.
+common --remote_cache=https://bazel-external.dp.confluent.io:443
+common --noremote_upload_local_results
+
+# Stamped release builds (metadata). See Phase 5 for the maven_version wiring —
+# the maven coordinate version comes from .bazelrc.release-version, NOT stamp.sh.
+build:release -c opt --stamp --workspace_status_command=tools-bazel/stamp.sh
+
+try-import %workspace%/user.bazelrc
+### START SERVICE BOT MANAGED FOOTER ###
+try-import ".bazelrc.release-version"
+### END SERVICE BOT MANAGED FOOTER ###
