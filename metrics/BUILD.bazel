@@ -1,0 +1,28 @@
+load("//tools-bazel:library_wrappers.bzl", "java_export", "jvm_junit_test_suite")
+
+java_export(
+    name = "metrics",
+    srcs = glob(["src/main/java/**/*.java"]),
+    maven_coordinates = "io.confluent:common-metrics:$(maven_version)",
+    visibility = ["//visibility:public"],
+    deps = [
+        "//utils",
+        "@maven//:org_slf4j_slf4j_api",
+    ],
+)
+
+jvm_junit_test_suite(
+    name = "metrics-tests",
+    srcs = glob(["src/test/java/**/*.java"]),
+    runtime_deps = [
+        "@maven//:org_junit_jupiter_junit_jupiter_engine",
+        "@maven//:org_junit_platform_junit_platform_launcher",
+        "@maven//:org_junit_platform_junit_platform_reporting",
+        "@maven//:org_junit_vintage_junit_vintage_engine",
+    ],
+    deps = [
+        ":metrics",
+        "//utils",
+        "@maven//:junit_junit",
+    ],
+)

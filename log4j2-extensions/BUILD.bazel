@@ -1,0 +1,48 @@
+load("@rules_java//java:defs.bzl", "java_plugin")
+load("//tools-bazel:library_wrappers.bzl", "java_export", "jvm_junit_test_suite")
+
+# StructuredJsonLayoutPlugin is a Log4j2 @Plugin. Maven's javac auto-discovers
+# Log4j's PluginProcessor on the classpath and emits Log4j2Plugins.dat; Bazel
+# does NOT run annotation processors from deps unless declared here, so without
+# this the published jar would omit the plugin descriptor and Log4j2 would not
+# discover the layout at runtime. Register the processor explicitly.
+java_plugin(
+    name = "log4j2_plugin_processor",
+    processor_class = "org.apache.logging.log4j.core.config.plugins.processor.PluginProcessor",
+    deps = ["@maven//:org_apache_logging_log4j_log4j_core"],
+)
+
+java_export(
+    name = "log4j2-extensions",
+    srcs = glob(["src/main/java/**/*.java"]),
+    maven_coordinates = "io.confluent:confluent-log4j2-extensions:$(maven_version)",
+    plugins = [":log4j2_plugin_processor"],
+    visibility = ["//visibility:public"],
+    deps = [
+        "//logging",
+        "@maven//:org_apache_kafka_connect_api",
+        "@maven//:org_apache_kafka_connect_json",
+        "@maven//:org_apache_logging_log4j_log4j_core",
+    ],
+)
+
+jvm_junit_test_suite(
+    name = "log4j2-extensions-tests",
+    srcs = glob(["src/test/java/**/*.java"]),
+    runtime_deps = [
+        "@maven//:org_junit_jupiter_junit_jupiter_engine",
+        "@maven//:org_junit_platform_junit_platform_launcher",
+        "@maven//:org_junit_platform_junit_platform_reporting",
+        "@maven//:org_junit_vintage_junit_vintage_engine",
+    ],
+    deps = [
+        ":log4j2-extensions",
+        "//logging",
+        "@maven//:junit_junit",
+        "@maven//:org_apache_kafka_connect_api",
+        "@maven//:org_apache_logging_log4j_log4j_api",
+        "@maven//:org_apache_logging_log4j_log4j_core",
+        "@maven//:org_hamcrest_hamcrest_all",
+        "@maven//:org_mockito_mockito_core",
+    ],
+)
