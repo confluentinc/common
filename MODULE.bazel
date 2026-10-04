@@ -17,7 +17,7 @@ bazel_dep(name = "rules_shell", version = "0.6.1")  # sh_test for the parity-har
 bazel_dep(name = "rules_jvm_external", version = "6.10")
 git_override(
     module_name = "rules_jvm_external",
-    commit = "7a12319762452416b294eca3909cda09eb9c3cbf",  # 6.10 with Bazel 9 support
+    commit = "5f0300b1f6a83440adc5c07c6c7355a1caca9b2a",  # 6.10 with Bazel 9 support
     remote = "https://github.com/confluentinc/rules_jvm_external.git",
 )
 
