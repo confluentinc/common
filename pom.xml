@@ -62,7 +62,7 @@
         <exec-maven-plugin.version>1.6.0</exec-maven-plugin.version>
         <spotbugs.maven.plugin.version>4.10.4.0</spotbugs.maven.plugin.version>
         <java.version>11</java.version>
-        <jackson.version>2.22.1</jackson.version>
+        <jackson.version>2.22.3</jackson.version>
         <jackson.annotations.version>2.22</jackson.annotations.version>
         <jackson.tools.jackson.version>3.2.2</jackson.tools.jackson.version>
         <jakarta-websocket-api.version>2.2.0</jakarta-websocket-api.version>
@@ -102,7 +102,7 @@
         <log4j2.version>2.26.1</log4j2.version>
         <slf4j-reload4j.version>1.7.36</slf4j-reload4j.version>
         <logback-core.version>1.5.36</logback-core.version>
-        <snappy.version>1.1.10.8</snappy.version>
+        <snappy.version>1.1.10.11</snappy.version>
         <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-reload4j/1.7.36 -->
         <reload4j.version>1.2.26</reload4j.version>
         <logredactor.version>1.0.18</logredactor.version>
