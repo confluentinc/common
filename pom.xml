@@ -68,11 +68,12 @@
         <spotbugs.maven.plugin.version>4.7.1.0</spotbugs.maven.plugin.version>
         <java.version>8</java.version>
         <jackson.version>2.18.11</jackson.version>
-        <!-- A range rather than a pin. 9.4.59 and later are Webtide patches that
-             only internal CodeArtifact carries, so a build without access to it
-             resolves the newest Jetty 9.4 release on Maven Central instead of
-             failing. The upper bound is what holds internal builds on the patched
-             version, so moving to a newer patch means moving the bound with it. -->
+        <!-- A range rather than a pin. 9.4.59 and later are patched releases
+             that only internal CodeArtifact carries, so a build without access
+             to it resolves the newest Jetty 9.4 release on Maven Central instead
+             of failing. The upper bound is what holds internal builds on the
+             patched version, so moving to a newer patch means moving the bound
+             with it. -->
         <jetty.version>[9.4.58.v20250814,9.4.66)</jetty.version>
         <jose4j.version>0.9.6</jose4j.version>
         <grpc.version>1.75.0</grpc.version>
