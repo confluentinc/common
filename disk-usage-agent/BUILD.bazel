@@ -1,0 +1,32 @@
+load("//tools-bazel:library_wrappers.bzl", "java_export", "jvm_junit_test_suite")
+
+java_export(
+    name = "disk-usage-agent",
+    srcs = glob(["src/main/java/**/*.java"]),
+    # This module is a JVM agent; Maven sets Premain-Class in the jar manifest
+    # (disk-usage-agent/pom.xml). Preserve it so the published Bazel jar is a
+    # valid agent and matches Maven's non-volatile manifest content.
+    manifest_entries = {"Premain-Class": "io.confluent.agent.monitoring.DiskUsage"},
+    maven_coordinates = "io.confluent:disk-usage-agent:$(maven_version)",
+    visibility = ["//visibility:public"],
+    deps = [
+        "@maven//:io_confluent_logredactor",
+        "@maven//:org_slf4j_slf4j_api",
+        "@maven//:org_slf4j_slf4j_reload4j",
+    ],
+)
+
+jvm_junit_test_suite(
+    name = "disk-usage-agent-tests",
+    srcs = glob(["src/test/java/**/*.java"]),
+    runtime_deps = [
+        "@maven//:org_junit_jupiter_junit_jupiter_engine",
+        "@maven//:org_junit_platform_junit_platform_launcher",
+        "@maven//:org_junit_platform_junit_platform_reporting",
+        "@maven//:org_junit_vintage_junit_vintage_engine",
+    ],
+    deps = [
+        ":disk-usage-agent",
+        "@maven//:junit_junit",
+    ],
+)
