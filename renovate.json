@@ -1,0 +1,36 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "baseBranchPatterns": ["master", "8.0.x"],
+  "packageRules": [
+    {
+      "description": "8.0.x: nothing but confluent-common-bom. pint merges its update up to 8.1.x-8.4.x, so the other 8.x branches need no Renovate PRs. The BOM is excluded here rather than re-enabled below: this disable applies per dependency, before update types are known, so a later rule with matchUpdateTypes cannot turn it back on.",
+      "matchBaseBranches": ["8.0.x"],
+      "matchPackageNames": ["!io.confluent:confluent-common-bom"],
+      "enabled": false
+    },
+    {
+      "description": "confluent-common-bom on master: major, minor and patch updates.",
+      "matchBaseBranches": ["master"],
+      "matchPackageNames": ["io.confluent:confluent-common-bom"],
+      "matchUpdateTypes": ["major", "minor", "patch"]
+    },
+    {
+      "description": "confluent-common-bom on 8.0.x: split patch from minor. By default Renovate merges them into one update to the newest minor, which the rule below disables, so a newer minor would hide every patch.",
+      "matchBaseBranches": ["8.0.x"],
+      "matchPackageNames": ["io.confluent:confluent-common-bom"],
+      "separateMinorPatch": true
+    },
+    {
+      "description": "confluent-common-bom on 8.0.x: no major or minor updates, so the 8.x branches stay on the BOM line for CP 8.x (1.0.x) and never jump to master's line.",
+      "matchBaseBranches": ["8.0.x"],
+      "matchPackageNames": ["io.confluent:confluent-common-bom"],
+      "matchUpdateTypes": ["major", "minor"],
+      "enabled": false
+    },
+    {
+      "description": "confluent-common-bom on every base branch: its own group, so it gets a separate PR instead of joining the global \"minor+patch dependencies\" group.",
+      "matchPackageNames": ["io.confluent:confluent-common-bom"],
+      "groupName": "confluent-common-bom"
+    }
+  ]
+}
