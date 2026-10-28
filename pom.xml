@@ -50,21 +50,21 @@
         <commons-io.version>2.20.0</commons-io.version>
         <confluent-common-bom.version>1.1.9</confluent-common-bom.version>
         <aws-java-sdk.version>1.12.797</aws-java-sdk.version>
-        <aws-java-sdk-v2.version>2.54.11</aws-java-sdk-v2.version>
-        <azure-identity.version>1.18.6</azure-identity.version>
-        <azure-storage.version>12.35.1</azure-storage.version>
-        <azure-security-keyvault-keys.version>4.11.2</azure-security-keyvault-keys.version>
+        <aws-java-sdk-v2.version>2.57.2</aws-java-sdk-v2.version>
+        <azure-identity.version>1.18.7</azure-identity.version>
+        <azure-storage.version>12.36.0</azure-storage.version>
+        <azure-security-keyvault-keys.version>4.11.3</azure-security-keyvault-keys.version>
         <required.maven.version>3.2</required.maven.version>
         <kafka.version>[8.5.0-0-0-ccs, 8.5.1-0-0-ccs)</kafka.version>
         <ce.kafka.version>[8.5.0-0-0-ce, 8.5.1-0-0-ce)</ce.kafka.version>
         <!-- keep exec-maven-plugin on 1.5.0 until https://github.com/mojohaus/exec-maven-plugin/issues/76 is fixed
              running our LicenseFinder plugin in create-licenses-for-docker breaks when upgrading to 1.6.0 -->
         <exec-maven-plugin.version>1.6.0</exec-maven-plugin.version>
-        <spotbugs.maven.plugin.version>4.10.4.0</spotbugs.maven.plugin.version>
+        <spotbugs.maven.plugin.version>4.10.5.0</spotbugs.maven.plugin.version>
         <java.version>11</java.version>
         <jackson.version>2.22.3</jackson.version>
         <jackson.annotations.version>2.22</jackson.annotations.version>
-        <jackson.tools.jackson.version>3.2.3</jackson.tools.jackson.version>
+        <jackson.tools.jackson.version>3.2.4</jackson.tools.jackson.version>
         <jakarta-websocket-api.version>2.2.0</jakarta-websocket-api.version>
         <jakarta-servlet-api.version>6.1.0</jakarta-servlet-api.version>
         <jetty.version>12.0.39</jetty.version>
@@ -82,7 +82,7 @@
         <maven-enforcer-plugin.version>3.6.3</maven-enforcer-plugin.version>
         <maven-jar-plugin.version>3.5.1</maven-jar-plugin.version>
         <maven-source-plugin.version>3.4.0</maven-source-plugin.version>
-        <maven-surefire-plugin.version>3.5.6</maven-surefire-plugin.version>
+        <maven-surefire-plugin.version>3.6.0</maven-surefire-plugin.version>
         <maven-site-plugin.version>3.22.0</maven-site-plugin.version>
         <maven-project-info-reports-plugin.version>3.9.0</maven-project-info-reports-plugin.version>
         <mbknor-jackson-jsonschema.version>1.0.39</mbknor-jackson-jsonschema.version>
@@ -92,7 +92,7 @@
         <os-maven-plugin.version>1.7.1</os-maven-plugin.version>
         <jaxb.version>2.3.1</jaxb.version>
         <hamcrest.version>1.3</hamcrest.version>
-        <opentelemetry.version>1.65.0</opentelemetry.version>
+        <opentelemetry.version>1.67.0</opentelemetry.version>
         <protobuf.version>4.34.0</protobuf.version>
         <powermock.version>2.0.9</powermock.version>
         <!-- Potentially used by downstream projects -->
@@ -103,7 +103,7 @@
         <logback-core.version>1.5.36</logback-core.version>
         <snappy.version>1.1.10.11</snappy.version>
         <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-reload4j/1.7.36 -->
-        <reload4j.version>1.2.26</reload4j.version>
+        <reload4j.version>1.2.27</reload4j.version>
         <logredactor.version>1.0.18</logredactor.version>
         <bouncycastle.jdk18.version>1.86</bouncycastle.jdk18.version>
         <!-- before updating bouncycastle.fips.version make sure
@@ -631,7 +631,7 @@
                       <dependency>
                         <groupId>com.github.spotbugs</groupId>
                         <artifactId>spotbugs</artifactId>
-                        <version>4.10.4</version>
+                        <version>4.10.5</version>
                       </dependency>
                     </dependencies>
                 </plugin>
