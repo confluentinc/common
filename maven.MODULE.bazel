@@ -19,7 +19,7 @@ maven.install(
         "ch.qos.reload4j:reload4j:1.2.26",
         "io.confluent:logredactor:1.0.18",
         "org.apache.logging.log4j:log4j-core:2.26.1",
-        "com.google.guava:guava:32.1.3-jre",
+        "com.google.guava:guava:33.7.2-jre",
         # Kafka connect-* come from the Maven property `kafka.version`, a RANGE
         # [8.5.0-0-0-ccs, 8.5.1-0-0-ccs). Pinned to the concrete latest-in-range
         # (8.5.0-102-ccs) so the lockfile is deterministic; Renovate/repin bumps
