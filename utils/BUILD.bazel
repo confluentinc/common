@@ -1,0 +1,11 @@
+load("//tools-bazel:library_wrappers.bzl", "java_export")
+
+java_export(
+    name = "utils",
+    srcs = glob(["src/main/java/**/*.java"]),
+    maven_coordinates = "io.confluent:common-utils:$(maven_version)",
+    visibility = ["//visibility:public"],
+    deps = [
+        "@maven//:org_slf4j_slf4j_api",
+    ],
+)
