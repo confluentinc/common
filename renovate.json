@@ -28,9 +28,10 @@
       "enabled": false
     },
     {
-      "description": "confluent-common-bom on every base branch: its own group, so it gets a separate PR instead of joining the global \"minor+patch dependencies\" group.",
+      "description": "confluent-common-bom on every base branch: its own group, so it gets a separate PR instead of joining the global \"minor+patch dependencies\" group. prConcurrentLimit 0 (no limit) exempts it from the global limit of 5 open PRs: Renovate checks that limit per upgrade, and without this the BOM branch is created but its PR is skipped whenever common already has 5 open Renovate PRs.",
       "matchPackageNames": ["io.confluent:confluent-common-bom"],
-      "groupName": "confluent-common-bom"
+      "groupName": "confluent-common-bom",
+      "prConcurrentLimit": 0
     }
   ]
 }
