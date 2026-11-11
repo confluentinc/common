@@ -47,7 +47,7 @@
         <!--jacoco prepare-agent needs argLine defined to set this variable. if we don't have a default set then maven gets angry.-->
         <argLine></argLine>
         <avro.version>1.12.2</avro.version>
-        <confluent-common-bom.version>1.0.10</confluent-common-bom.version>
+        <confluent-common-bom.version>1.0.11</confluent-common-bom.version>
         <aws-java-sdk.version>1.12.746</aws-java-sdk.version>
         <aws-java-sdk-v2.version>2.29.39</aws-java-sdk-v2.version>
         <required.maven.version>3.2</required.maven.version>
@@ -106,9 +106,9 @@
         that the library version you're updating to is FIPS certified e.g. 1.0.2.4 -> 1.0.2.5 is not OK -->
         <!-- BC should be upated to version 2.0 in Q1 2025, bcutil-fips is 2.0 only, so no change there -->
         <bouncycastle.fips.version>2.1.3</bouncycastle.fips.version>
-        <bouncycastle.bcutil-fips.version>2.1.7</bouncycastle.bcutil-fips.version>
+        <bouncycastle.bcutil-fips.version>2.1.8</bouncycastle.bcutil-fips.version>
         <bouncycastle.tls-fips.version>2.1.24</bouncycastle.tls-fips.version>
-        <bouncycastle.bcpkix-fips.version>2.1.12</bouncycastle.bcpkix-fips.version>
+        <bouncycastle.bcpkix-fips.version>2.1.13</bouncycastle.bcpkix-fips.version>
         <jmx_prometheus_javaagent.version>0.20.0</jmx_prometheus_javaagent.version>
         <jolokia-jvm.version>1.7.1</jolokia-jvm.version>
         <checkstyle.version>9.3</checkstyle.version>
