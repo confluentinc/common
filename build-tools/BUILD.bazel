@@ -1,0 +1,9 @@
+load("//tools-bazel:library_wrappers.bzl", "java_export")
+
+java_export(
+    name = "build-tools",
+    maven_coordinates = "io.confluent:build-tools:$(maven_version)",
+    resource_strip_prefix = "build-tools/src/main/resources",
+    resources = glob(["src/main/resources/**"]),
+    visibility = ["//visibility:public"],
+)

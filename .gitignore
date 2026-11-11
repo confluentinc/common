@@ -7,3 +7,10 @@ target/
 .ipr
 
 installed_pom.xml
+
+# Bazel
+/bazel-*
+.bazel/bazelrc/ci.bazelrc
+bazel-credential-helper.py
+MODULE.bazel.lock
+user.bazelrc

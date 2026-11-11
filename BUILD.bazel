@@ -1,0 +1,46 @@
+load("@confluent_rules//bazelrc:bazel_helpers.bzl", "write_bazel_helpers")
+load("@confluent_rules//bazelrc:bazelrc_presets.bzl", "write_bazelrc_presets")
+
+alias(
+    name = "format",
+    actual = "//tools/format",
+)
+
+alias(
+    name = "format.check",
+    actual = "//tools/format:format.check",
+)
+
+write_bazelrc_presets(
+    name = "update_bazelrc",
+    presets = [
+        "common",
+        "java",
+    ],
+)
+
+# macOS: the generated diff_test's source file isn't staged into the sandbox.
+write_bazel_helpers(
+    name = "update_bazel_credential_helper",
+    tags = ["no-sandbox"],
+)
+
+# CI-only preset (RBE/cache/BES); CI runs `bazel run //:update_bazelrc_ci`.
+write_bazelrc_presets(
+    name = "update_bazelrc_ci",
+    presets = ["ci"],
+    tags = ["manual"],
+)
+
+# ConfigDefTest.testClassLoading points a child-first PluginClassLoader at the
+# cwd-relative Maven path "target/classes/" and asserts ConfigUtils loads from
+# there in isolation. Under Bazel the test cwd is the runfiles root, so stage
+# ConfigUtils.class at the workspace-root-relative target/classes/ path (added
+# to the test's `data`). No source change — this preserves the test's behavior.
+genrule(
+    name = "configutils_at_target_classes",
+    srcs = ["//config:libconfig-lib.jar"],
+    outs = ["target/classes/io/confluent/common/config/ConfigUtils.class"],
+    cmd = "mkdir -p $(@D) && unzip -o -p $(location //config:libconfig-lib.jar) io/confluent/common/config/ConfigUtils.class > $@",
+    visibility = ["//config:__pkg__"],
+)
