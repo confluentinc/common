@@ -47,7 +47,7 @@
         <!--jacoco prepare-agent needs argLine defined to set this variable. if we don't have a default set then maven gets angry.-->
         <argLine></argLine>
         <avro.version>1.12.2</avro.version>
-        <confluent-common-bom.version>1.0.12</confluent-common-bom.version>
+        <confluent-common-bom.version>1.0.13</confluent-common-bom.version>
         <aws-java-sdk.version>1.12.746</aws-java-sdk.version>
         <aws-java-sdk-v2.version>2.29.39</aws-java-sdk-v2.version>
         <required.maven.version>3.2</required.maven.version>
@@ -63,7 +63,7 @@
         <jackson.tools.jackson.version>3.2.3</jackson.tools.jackson.version>
         <jakarta-websocket-api.version>2.2.0</jakarta-websocket-api.version>
         <jakarta-servlet-api.version>6.1.0</jakarta-servlet-api.version>
-        <jetty.version>12.0.39</jetty.version>
+        <jetty.version>12.0.41</jetty.version>
         <jose4j.version>0.9.6</jose4j.version>
         <guava.version>33.7.2-jre</guava.version>
         <jacoco-maven-plugin.version>0.8.13</jacoco-maven-plugin.version>
@@ -86,7 +86,7 @@
         <mockito-all.version>1.10.19</mockito-all.version>
         <os-maven-plugin.version>1.7.0</os-maven-plugin.version>
         <jaxb.version>2.3.0</jaxb.version>
-        <netty.version>4.1.139.Final</netty.version>
+        <netty.version>4.1.141.Final</netty.version>
         <hamcrest.version>1.3</hamcrest.version>
         <opentelemetry.version>1.65.0</opentelemetry.version>
         <protobuf.version>4.34.0</protobuf.version>
