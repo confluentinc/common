@@ -47,7 +47,7 @@
         <!--jacoco prepare-agent needs argLine defined to set this variable. if we don't have a default set then maven gets angry.-->
         <argLine></argLine>
         <avro.version>1.12.2</avro.version>
-        <confluent-common-bom.version>1.3.1</confluent-common-bom.version>
+        <confluent-common-bom.version>1.5.3</confluent-common-bom.version>
         <aws-java-sdk.version>1.12.797</aws-java-sdk.version>
         <aws-java-sdk-v2.version>2.54.11</aws-java-sdk-v2.version>
         <azure-identity.version>1.18.6</azure-identity.version>
@@ -61,12 +61,12 @@
         <exec-maven-plugin.version>1.6.0</exec-maven-plugin.version>
         <spotbugs.maven.plugin.version>4.10.4.0</spotbugs.maven.plugin.version>
         <java.version>11</java.version>
-        <jackson.version>2.22.3</jackson.version>
+        <jackson.version>2.22.4</jackson.version>
         <jackson.annotations.version>2.22</jackson.annotations.version>
         <jackson.tools.jackson.version>3.2.3</jackson.tools.jackson.version>
         <jakarta-websocket-api.version>2.2.0</jakarta-websocket-api.version>
         <jakarta-servlet-api.version>6.1.0</jakarta-servlet-api.version>
-        <jetty.version>12.0.39</jetty.version>
+        <jetty.version>12.0.41</jetty.version>
         <jose4j.version>0.9.6</jose4j.version>
         <guava.version>32.1.3-jre</guava.version>
         <jacoco-maven-plugin.version>0.8.15</jacoco-maven-plugin.version>
@@ -87,7 +87,7 @@
         <mbknor-jackson-jsonschema.version>1.0.39</mbknor-jackson-jsonschema.version>
         <buildnumber-plugin.version>1.4</buildnumber-plugin.version>
         <mockito-all.version>1.10.19</mockito-all.version>
-        <netty.version>4.1.139.Final</netty.version>
+        <netty.version>4.1.141.Final</netty.version>
         <os-maven-plugin.version>1.7.1</os-maven-plugin.version>
         <jaxb.version>2.3.1</jaxb.version>
         <hamcrest.version>1.3</hamcrest.version>
