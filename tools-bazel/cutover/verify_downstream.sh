@@ -8,11 +8,16 @@
 #
 # In bazel mode the script then proves the build really used V: if any of the
 # repo's artifacts resolved at another version (an exact pin, or a range that
-# excludes V), the result is NOT-INJECTED, not PASS.
+# excludes V), the result is NOT-INJECTED, not PASS. "Resolved" means on a
+# classpath, a file a plugin used (jar, zip, tarball), or a POM in the consumer's
+# own parent chain. Other-version POMs that only parent a dependency's POM are
+# listed, not counted: the consumer's own dependency management decides versions.
 #
 # Usage:
 #   bash verify_downstream.sh --consumer org/repo --mode bazel|maven --version V \
-#     --artifacts-repo DIR --group io.confluent [--branch B] [--cmd "mvn ..."] [--work DIR]
+#     --artifacts-repo DIR --group io.confluent [--branch B] [--cmd "mvn ..."] [--work DIR] [--label L]
+#   --label: name for result files and the RESULT line (default: the mode), e.g.
+#            "mixed" for a bazel-mode run against a mixed repository
 #   --artifacts-repo: file:// repository holding the Bazel-built artifacts at V
 #                     (dual_publish.sh's m2-bazel, or the CI publish step's output)
 #   --expect: every artifactId the cut-over repo publishes (comma-separated), so an
@@ -22,10 +27,10 @@
 #   --cmd: default is the consumer's cp CI build: mvn <service.yml extra_build_args>
 #          -U -B -ntp clean verify. Use e.g. "mvn -B -ntp clean install -DskipTests"
 #          for a compile-only tier.
-# Prints one line: RESULT: PASS|FAIL|NOT-INJECTED|NOT-CONSUMED <repo> <mode> rc=<n> <seconds>s
+# Prints one line: RESULT: PASS|FAIL|NOT-INJECTED|NOT-CONSUMED <repo> <label> rc=<n> <seconds>s
 set -uo pipefail
 
-CONSUMER="" MODE="" VERSION="" ART_REPO="" GROUP="" BRANCH="" CMD="" EXPECT="" WORK="${PWD}/downstream-work"
+CONSUMER="" MODE="" VERSION="" ART_REPO="" GROUP="" BRANCH="" CMD="" EXPECT="" LABEL="" WORK="${PWD}/downstream-work"
 while [ $# -gt 0 ]; do
   case "$1" in
     --consumer) CONSUMER="$2"; shift 2;;
@@ -37,6 +42,7 @@ while [ $# -gt 0 ]; do
     --cmd) CMD="$2"; shift 2;;
     --expect) EXPECT="$2"; shift 2;;
     --work) WORK="$2"; shift 2;;
+    --label) LABEL="$2"; shift 2;;
     *) echo "unknown arg: $1" >&2; exit 2;;
   esac
 done
@@ -44,9 +50,9 @@ done
   echo "usage: verify_downstream.sh --consumer org/repo --mode bazel|maven --version V --artifacts-repo DIR --group G [--branch B] [--cmd ...]" >&2; exit 2; }
 case "$MODE" in bazel|maven) ;; *) echo "--mode must be bazel or maven" >&2; exit 2;; esac
 
-NAME="${CONSUMER##*/}"
+NAME="${CONSUMER##*/}"; LABEL="${LABEL:-$MODE}"
 mkdir -p "$WORK/results"; WORK="$(cd "$WORK" && pwd)"; ART_REPO="$(cd "$ART_REPO" && pwd)"
-SRC="$WORK/src/$NAME-$MODE" LR="$WORK/lr/$NAME-$MODE" LOG="$WORK/results/$NAME-$MODE.log"
+SRC="$WORK/src/$NAME-$LABEL" LR="$WORK/lr/$NAME-$LABEL" LOG="$WORK/results/$NAME-$LABEL.log"
 rm -rf "$SRC" "$LR"; mkdir -p "$LR" "$(dirname "$SRC")"; : > "$LOG"
 GROUP_PATH="$(echo "$GROUP" | tr . /)"
 # Artifacts the cut-over repo publishes = what the file:// repository holds at V.
@@ -56,7 +62,7 @@ CHECK="$( (echo "$ARTIFACTS"; echo "$EXPECT" | tr ',' '\n') | grep -v '^$' | sor
 TAILARG=""; [ -n "${MAVEN_TAIL:-}" ] && TAILARG="-Dmaven.repo.local.tail=$MAVEN_TAIL"
 
 git clone -q --depth 1 ${BRANCH:+-b "$BRANCH"} "https://github.com/$CONSUMER.git" "$SRC" \
-  || { echo "RESULT: FAIL $CONSUMER $MODE rc=clone 0s"; exit 1; }
+  || { echo "RESULT: FAIL $CONSUMER $LABEL rc=clone 0s"; exit 1; }
 
 install_file() {  # quiet install:install-file into $LR
   mvn -B -q -ntp org.apache.maven.plugins:maven-install-plugin:3.1.4:install-file \
@@ -92,20 +98,38 @@ echo "\$ $CMD -Dmaven.repo.local=$LR $TAILARG" >> "$LOG"
 RC=$?
 SECS=$(( $(date +%s) - START ))
 
+# The consumer's own parent chain as Maven resolved it (groupId:artifactId:pom:version).
+LINEAGE="" EXPR=project.parent
+for _ in 1 2 3 4 5 6; do
+  id="$(cd "$SRC" && mvn -B -q -N org.apache.maven.plugins:maven-help-plugin:3.5.1:evaluate \
+    -Dexpression="$EXPR.id" -DforceStdout -Dmaven.repo.local="$LR" $TAILARG 2>>"$LOG")"
+  echo "$id" | grep -qE '^[A-Za-z0-9_.-]+:[A-Za-z0-9_.-]+:[A-Za-z0-9_-]+:[^ :]+$' || break
+  LINEAGE="$LINEAGE $id"; EXPR="$EXPR.parent"
+done
+
 # Which versions of our artifacts did the build actually resolve? A version other
-# than V in the local repository was downloaded from a remote: injection failed.
+# than V in the local repository was downloaded from a remote. It counts against
+# injection if it holds more than a POM (a jar, zip or tarball was used) or is in
+# the consumer's own parent chain. Other POM-only versions parent a dependency's
+# POM; they are listed but don't decide this build's versions.
 # What was used at V comes from the consumer's own dependency list (same local
 # repository, so the same resolution), since install-file put every V artifact there.
-OTHER=""
+OTHER="" POMONLY=""
 for a in $CHECK; do
   [ -d "$LR/$GROUP_PATH/$a" ] || continue
   for vd in "$LR/$GROUP_PATH/$a"/*/; do
     v="$(basename "$vd")"
     [ "$v" = "$VERSION" ] && continue
-    ls "$vd" 2>/dev/null | grep -qE '\.(pom|jar)$' && OTHER="$OTHER $a:$v"
+    files="$(ls "$vd" 2>/dev/null | grep -vE '\.(sha1|sha256|sha512|md5|asc|lastUpdated)$|^_remote\.repositories$|^resolver-status\.properties$')"
+    [ -n "$files" ] || continue
+    if echo "$files" | grep -qvE '\.pom$' || echo "$LINEAGE" | tr ' ' '\n' | grep -qx "$GROUP:$a:pom:$v"; then
+      OTHER="$OTHER $a:$v"
+    else
+      POMONLY="$POMONLY $a:$v"
+    fi
   done
 done
-DEPS="$WORK/results/$NAME-$MODE.deps"; rm -f "$DEPS"
+DEPS="$WORK/results/$NAME-$LABEL.deps"; rm -f "$DEPS"
 (cd "$SRC" && mvn -B -q org.apache.maven.plugins:maven-dependency-plugin:3.8.1:list -DoutputFile="$DEPS" \
   -DappendOutput=true -Dmaven.repo.local="$LR" $TAILARG) >> "$LOG" 2>&1
 USED="$(grep -hoE "$GROUP:[^:]+:[^ ]*$VERSION" "$DEPS" 2>/dev/null | cut -d: -f2 | sort -u | tr '\n' ' ')"
@@ -119,15 +143,17 @@ OTHER="$(echo "$OTHER" | tr ' ' '\n' | grep -v '^$' | sort -u | tr '\n' ' ')"
 {
   echo "resolved at $VERSION:${USED:- none}"
   echo "resolved at other versions:${OTHER:- none}"
+  echo "own parent chain:${LINEAGE:- none}"
+  echo "POMs of dependencies' parents at other versions (not counted):${POMONLY:- none}"
   echo "failing test classes:"
   find "$SRC" \( -path '*/target/surefire-reports/TEST-*.xml' -o -path '*/target/failsafe-reports/TEST-*.xml' \) \
     -exec grep -lE '<(failure|error)[ >]' {} + 2>/dev/null \
     | sed 's|.*/TEST-||; s|\.xml$||' | sort -u | sed 's/^/  /'
-} > "$WORK/results/$NAME-$MODE.summary"
+} > "$WORK/results/$NAME-$LABEL.summary"
 
 if [ "$MODE" = bazel ] && [ -n "$OTHER" ]; then STATUS=NOT-INJECTED
 elif [ "$MODE" = bazel ] && [ -z "$USED" ] && [ "$RC" -eq 0 ]; then STATUS=NOT-CONSUMED
 elif [ "$RC" -eq 0 ]; then STATUS=PASS
 else STATUS=FAIL; fi
-echo "RESULT: $STATUS $CONSUMER $MODE rc=$RC ${SECS}s" | tee -a "$WORK/results/$NAME-$MODE.summary"
+echo "RESULT: $STATUS $CONSUMER $LABEL rc=$RC ${SECS}s" | tee -a "$WORK/results/$NAME-$LABEL.summary"
 [ "$STATUS" = PASS ]

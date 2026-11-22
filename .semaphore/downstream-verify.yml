@@ -80,7 +80,7 @@ blocks:
             - case "$MODE" in mixed) M=bazel; R="$HOME/m2-mixed";; *) M="$MODE"; R="$HOME/m2-bazel";; esac
             - >-
               bash tools-bazel/cutover/verify_downstream.sh --consumer "confluentinc/$CONSUMER" --mode "$M"
-              --version "$V" --artifacts-repo "$R" --group "$GROUP" --expect "$EXPECT" --work "$HOME/dv"
+              --version "$V" --artifacts-repo "$R" --group "$GROUP" --expect "$EXPECT" --label "$MODE" --work "$HOME/dv"
       epilogue:
         always:
           commands:
