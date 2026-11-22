@@ -1,0 +1,95 @@
+# Downstream verification for the cp-bazel cutover (DP-21295), not a merge candidate.
+# Builds each consumer, unchanged, three ways:
+#   bazel  common's Bazel-built artifacts at V
+#   mixed  Bazel's artifacts, plus Maven-built copies of the ones Bazel doesn't publish yet
+#          (common-parent, common, common-package, assembly-plugin-boilerplate)
+#   maven  what CodeArtifact has today (the control)
+# Nothing is published: both builds write to file:// / local repositories that are
+# handed to the consumer jobs as workflow artifacts.
+version: v1.0
+name: downstream verification (Bazel-built artifacts)
+agent:
+  machine:
+    type: s1-prod-ubuntu24-04-amd64-2
+execution_time_limit:
+  hours: 6
+global_job_config:
+  env_vars:
+    - name: GROUP
+      value: io.confluent
+    - name: EXPECT
+      value: assembly-plugin-boilerplate,build-tools,common,common-config,common-logging,common-metrics,common-package,common-parent,common-utils,confluent-log4j-extensions,confluent-log4j2-extensions,disk-usage-agent
+  prologue:
+    commands:
+      - checkout
+      - . set-cp-java-version
+      - GROUP_PATH="$(echo "$GROUP" | tr . /)"
+      # The root pom's own version (8.5.0-0) with nano 99NNNN: above every published
+      # build, inside every consumer's [8.5.0-0, 8.5.1-0) range.
+      - BASE="$(python3 -c 'import re; t=open("pom.xml").read(); t=re.sub(r"<parent>.*?</parent>","",t,flags=re.S); t=re.sub(r"<(dependencies|dependencyManagement|build|profiles)>.*?</\1>","",t,flags=re.S); print(re.search(r"<version>([^<]+)</version>",t).group(1))')"
+      - V="$(echo "$BASE" | sed -E "s/^([0-9]+\.[0-9]+\.[0-9]+)-[0-9]+/\1-99$(printf %04d $((SEMAPHORE_WORKFLOW_NUMBER % 10000)))/")"
+      - echo "V=$V"
+blocks:
+  - name: Artifacts at V
+    dependencies: []
+    task:
+      jobs:
+        - name: Bazel publish to file://
+          commands:
+            - mkdir -p "$HOME/m2-bazel"
+            - bazel query 'kind(maven_publish, //...)' | xargs -n 1 -I{} bazel run {} --define maven_version="$V" --define maven_repo="file://$HOME/m2-bazel"
+            - tar -C "$HOME" -czf m2-bazel.tgz m2-bazel
+            - artifact push workflow m2-bazel.tgz
+        - name: Maven install at V
+          commands:
+            # The pom edits ci-tools ci-update-version --direct-pom-edit makes, at V,
+            # then common's ci.py hook (kafka / ce-kafka ranges -> newest builds).
+            - git ls-files -z '*pom.xml' | xargs -0 perl -pi -e "s|<version>\\Q$BASE\\E</version>|<version>$V</version>|g; s|<(io\\.confluent\\.common\\.version)>[^<]*</\\1>|<\$1>$V</\$1>|g"
+            - python3 -c 'import sys; sys.path.insert(0, "."); from ci import CI; CI(sys.argv[1], ".", direct_pom_edit=True).run_update()' "$V"
+            - git diff --stat
+            - mvn -Pjenkins -U -B -ntp -DskipTests -Dcheckstyle.skip -Dspotbugs.skip -Dmaven.repo.local="$HOME/m2-lr" install
+            - mkdir -p "$HOME/m2-maven"
+            - (cd "$HOME/m2-lr" && find "$GROUP_PATH" -mindepth 2 -maxdepth 2 -type d -name "$V" -exec cp -R --parents {} "$HOME/m2-maven/" \;)
+            - find "$HOME/m2-maven" -type f | sed "s|$HOME/m2-maven/||" | sort
+            - tar -C "$HOME" -czf m2-maven.tgz m2-maven
+            - artifact push workflow m2-maven.tgz
+  - name: Consumers
+    dependencies: ["Artifacts at V"]
+    task:
+      agent:
+        machine:
+          type: s1-prod-ubuntu24-04-amd64-4
+      prologue:
+        commands:
+          - artifact pull workflow m2-bazel.tgz && tar -C "$HOME" -xzf m2-bazel.tgz
+          - artifact pull workflow m2-maven.tgz && tar -C "$HOME" -xzf m2-maven.tgz
+          # mixed = Bazel's repository + whole Maven version directories (with
+          # attachments) of every artifact Bazel doesn't publish.
+          - cp -R "$HOME/m2-bazel" "$HOME/m2-mixed"
+          - for d in "$HOME/m2-maven/$GROUP_PATH"/*/"$V"; do a="$(basename "$(dirname "$d")")"; [ -d "$HOME/m2-bazel/$GROUP_PATH/$a/$V" ] || { mkdir -p "$HOME/m2-mixed/$GROUP_PATH/$a"; cp -R "$d" "$HOME/m2-mixed/$GROUP_PATH/$a/"; echo "mixed gets $a from Maven"; }; done
+      jobs:
+        - name: verify
+          matrix:
+            # common's service.yml downstream_projects on the 8.5 line (newwave is on 8.1),
+            # plus public repos that inherit common directly.
+            - env_var: CONSUMER
+              values: ["rest-utils", "ksql", "kafka-connect-replicator", "hub-client", "common-docker", "control-center-next-gen-images"]
+            - env_var: MODE
+              values: ["bazel", "mixed", "maven"]
+          commands:
+            - case "$MODE" in mixed) M=bazel; R="$HOME/m2-mixed";; *) M="$MODE"; R="$HOME/m2-bazel";; esac
+            - >-
+              bash tools-bazel/cutover/verify_downstream.sh --consumer "confluentinc/$CONSUMER" --mode "$M"
+              --version "$V" --artifacts-repo "$R" --group "$GROUP" --expect "$EXPECT" --work "$HOME/dv"
+      epilogue:
+        always:
+          commands:
+            - artifact push workflow "$HOME/dv/results" --destination "results/$CONSUMER-$MODE" || true
+            - test-results publish "$HOME/dv/src" --name "$CONSUMER-$MODE" || true
+after_pipeline:
+  task:
+    jobs:
+      - name: Summary
+        commands:
+          - artifact pull workflow results || true
+          - for f in results/*/*.summary; do echo "== $(basename "$(dirname "$f")")"; grep -h '^RESULT:\|^resolved' "$f"; done || true
